@@ -1,0 +1,9 @@
+# List of source files containing translatable strings.
+# Please keep this file sorted alphabetically.
+chmsee.glade
+chmsee.desktop.in
+src/chmsee.c
+src/chmfile.c
+src/bookmarks.c
+src/html.c
+src/setup.c

@@ -1,0 +1,227 @@
+# Simplified Chinese translation of ChmSee
+# Copyright (C) 2002-2006 Free Software Foundation, Inc.
+# Ji YongGang <jungle@soforge-studio.com>, 2008.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: ChmSee 1.0.2\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2008-05-16 17:56+0800\n"
+"PO-Revision-Date: 2008-12-03 16:47+0800\n"
+"Last-Translator: Ji YongGang <jungle@soforge-studio.com>\n"
+"Language-Team: szlug <szlug@googlegroups.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../chmsee.glade.h:1
+msgid "<b>Cache</b>"
+msgstr "<b>缓冲区</b>"
+
+#: ../chmsee.glade.h:2
+msgid "<b>Charset</b>"
+msgstr "<b>字符集</b>"
+
+#: ../chmsee.glade.h:3
+msgid "<b>Font</b>"
+msgstr "<b>字体</b>"
+
+#: ../chmsee.glade.h:4
+msgid "About"
+msgstr "关于"
+
+#: ../chmsee.glade.h:5
+msgid "About..."
+msgstr "关于..."
+
+#: ../chmsee.glade.h:6
+msgid "Auto-Detect:"
+msgstr "自动检测："
+
+#: ../chmsee.glade.h:7
+msgid "Back"
+msgstr "后退"
+
+#: ../chmsee.glade.h:8
+msgid ""
+"CHM files extracted in this cache folder, you can press Clear button to free "
+"disk space.\n"
+"\n"
+"NOTE: If you are viewing a CHM file, you need reopen it after cleaning."
+msgstr ""
+"CHM 解压后放在此目录，您可以清空该目录释放磁盘空间。\n"
+"\n"
+"注意：假如您正在浏览 CHM 文件，清空后需要重新打开该文件。"
+
+#: ../chmsee.glade.h:11 ../chmsee.desktop.in.h:1
+msgid "ChmSee"
+msgstr "ChmSee"
+
+#: ../chmsee.glade.h:12
+msgid "Fixed Width:"
+msgstr "固定宽度："
+
+#: ../chmsee.glade.h:13
+msgid "Forward"
+msgstr "前进"
+
+#: ../chmsee.glade.h:14
+msgid "Home"
+msgstr "首页"
+
+#: ../chmsee.glade.h:15
+msgid "Normal"
+msgstr "原始大小"
+
+#: ../chmsee.glade.h:16
+msgid "Open File"
+msgstr "打开文件"
+
+#: ../chmsee.glade.h:17
+msgid "Open Link in New _Tab"
+msgstr "在新标签页(_T)打开"
+
+#: ../chmsee.glade.h:18
+msgid "Panel"
+msgstr "导航栏"
+
+#: ../chmsee.glade.h:19
+msgid "Select _All"
+msgstr "全部(_A)选择"
+
+#: ../chmsee.glade.h:20
+msgid "Setup"
+msgstr "设置"
+
+#: ../chmsee.glade.h:21
+msgid "Show/Hide Panel"
+msgstr "显示/隐藏导航栏"
+
+#: ../chmsee.glade.h:22
+msgid "The HTML Help(CHM) viewer for Unix/Linux"
+msgstr "Unix/Linux 下的 HTML Help(CHM) 阅读工具"
+
+#: ../chmsee.glade.h:23
+msgid ""
+"Universal\n"
+"Simplified Chinese\n"
+"Tradtional Chinese\n"
+"Japanese\n"
+"Korean\n"
+"Russian\n"
+"Ukrainain"
+msgstr ""
+"自动选择\n"
+"简体中文\n"
+"繁体中文\n"
+"日语\n"
+"朝鲜语\n"
+"俄语\n"
+"乌克兰语"
+
+#: ../chmsee.glade.h:30
+msgid "Variable Width:"
+msgstr "可变宽度："
+
+#: ../chmsee.glade.h:31
+msgid "Zoom In"
+msgstr "放大"
+
+#: ../chmsee.glade.h:32
+msgid "Zoom Out"
+msgstr "缩小"
+
+#: ../chmsee.glade.h:33
+msgid "_Back"
+msgstr "后退(_B)"
+
+#: ../chmsee.glade.h:34
+msgid "_Close Tab"
+msgstr "关闭(_C) Tab"
+
+#: ../chmsee.glade.h:35
+msgid "_Copy"
+msgstr "复制(_C)"
+
+#: ../chmsee.glade.h:36
+msgid "_Copy Link Location"
+msgstr "复制(_C)链接地址"
+
+#: ../chmsee.glade.h:37
+msgid "_Edit"
+msgstr "编辑(_E)"
+
+#: ../chmsee.glade.h:38
+msgid "_File"
+msgstr "文件(_F)"
+
+#: ../chmsee.glade.h:39
+msgid "_Forward"
+msgstr "前进(_F)"
+
+#: ../chmsee.glade.h:40
+msgid "_Help"
+msgstr "帮助(_H)"
+
+#: ../chmsee.glade.h:41
+msgid "_Home"
+msgstr "首页(_H)"
+
+#: ../chmsee.glade.h:42
+msgid "_New Tab"
+msgstr "新建(_N)标签页"
+
+#: ../chmsee.glade.h:43
+msgid "_Setup"
+msgstr "设置(_S)"
+
+#: ../chmsee.glade.h:44
+msgid "_View"
+msgstr "查看(_V)"
+
+#: ../chmsee.glade.h:45
+msgid "http://chmsee.gro.clinux.org"
+msgstr "http://chmsee.gro.clinux.org"
+
+#. TRANSLATORS: Replace this string with your names, one name per line.
+#: ../chmsee.glade.h:47
+msgid "translator-credits"
+msgstr "翻译人员"
+
+#: ../chmsee.desktop.in.h:2
+msgid "HTML Help(CHM) viewer"
+msgstr "HTML Help(CHM) 文件阅读工具"
+
+#: ../src/chmsee.c:475
+msgid "CHM Files"
+msgstr "CHM 文件"
+
+#: ../src/chmsee.c:480
+msgid "All Files"
+msgstr "所有文件"
+
+#: ../src/chmsee.c:993
+msgid "Ready!"
+msgstr "就绪！"
+
+#: ../src/chmsee.c:1045
+msgid "Topics"
+msgstr "目录"
+
+#: ../src/chmsee.c:1062
+msgid "Bookmarks"
+msgstr "书签"
+
+#. Custom label widget, with a close button
+#: ../src/chmsee.c:1208 ../src/chmsee.c:1375
+msgid "No Title"
+msgstr "无标题"
+
+#: ../src/chmsee.c:1477
+#, c-format
+msgid "Error loading file '%s'"
+msgstr "打开文件错误 '%s'"
+
+#: ../src/bookmarks.c:312
+msgid "Bookmark"
+msgstr "书签"

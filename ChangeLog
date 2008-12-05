@@ -1,0 +1,320 @@
+Sat May 17 16:36:24 HKT 2008  Ji YongGang <jungle@soforge-studio.com>
+  * Fix m4/chmlib.m4 bug.
+
+Sat May 17 16:20:59 HKT 2008  Ji YongGang <jungle@soforge-studio.com>
+  * Add default-prefs-firefox.js
+
+Sat May 17 16:17:02 HKT 2008  Ji YongGang <jungle@soforge-studio.com>
+  * Update ChangeLog
+
+Sat May 17 15:55:59 HKT 2008  Ji YongGang <jungle@soforge-studio.com>
+  * Add chmlib default lib path.
+
+Fri May 16 18:10:24 HKT 2008  jungle@soforge-studio.com
+  * Release ChmSee 1.0.1
+
+Fri May 16 17:41:12 HKT 2008  jungle@soforge-studio.com
+  * Add xulrunner1.9 support.
+
+Mon Aug  6 13:56:57 HKT 2007  Ji YongGang <jungle@soforge.com>
+  * Add cs2w.1 to cs2w/Makefile.am
+  Keywords: 
+  
+  
+  (jungle@gro.clinux.org--2006/chmsee--main--0--patch-28)
+
+Mon Aug  6 13:40:45 HKT 2007  Ji YongGang <jungle@soforge.com>
+  * Add cs2w man page, written by Li Daobing.
+  Keywords: 
+  
+  
+  (jungle@gro.clinux.org--2006/chmsee--main--0--patch-27)
+
+Fri Jul 27 14:09:35 HKT 2007  Ji YongGang <jungle@soforge.com>
+  * Release 1.0.0
+  Keywords: 
+  
+  
+  (jungle@gro.clinux.org--2006/chmsee--main--0--patch-26)
+
+Thu Jul 12 09:56:14 HKT 2007  Ji YongGang <jungle@soforge.com>
+  * Add cs2w python script.
+  Keywords: 
+  
+  
+  (jungle@gro.clinux.org--2006/chmsee--main--0--patch-25)
+
+Tue May  8 18:34:52 HKT 2007  Ji YongGang <jungle@soforge.com>
+  * Support more LCID code, thanks crquan.
+  Keywords: 
+  
+  
+  (jungle@gro.clinux.org--2006/chmsee--main--0--patch-24)
+
+Sat Apr  7 09:53:05 HKT 2007  Ji YongGang <jungle@soforge.com>
+  * Release ChmSee 1.0.0 beta2.
+  Keywords: 
+  
+  
+  (jungle@gro.clinux.org--2006/chmsee--main--0--patch-23)
+
+Fri Apr  6 22:38:45 HKT 2007  Ji YongGang <jungle@soforge.com>
+  * Import chmsee man(1), which is provided by Li Daobing.
+  Keywords: 
+  
+  
+  (jungle@gro.clinux.org--2006/chmsee--main--0--patch-22)
+
+Fri Apr  6 18:29:26 HKT 2007  Ji YongGang <jungle@soforge.com>
+  * Add %f to Exec=chmsee in chmsee.desktop.in, thanks Li Daobing.
+  Keywords: 
+  
+  
+  (jungle@gro.clinux.org--2006/chmsee--main--0--patch-21)
+
+Thu Apr  5 22:28:38 HKT 2007  Ji YongGang <jungle@soforge.com>
+  * If no hhc file found in chm, do not show toc notebook page. 
+  Keywords: 
+  
+  
+  (jungle@gro.clinux.org--2006/chmsee--main--0--patch-20)
+
+Thu Apr  5 09:57:55 HKT 2007  Ji YongGang <jungle@soforge.com>
+  * Update title to html tab label. 
+  Keywords: 
+  
+  
+  (jungle@gro.clinux.org--2006/chmsee--main--0--patch-19)
+
+Tue Apr  3 13:27:47 HKT 2007  Ji YongGang <jungle@soforge.com>
+  * make chmsee.desktop and chmsee.keys intltoolize, thanks Li Daobing.
+  Keywords: 
+  
+  
+  (jungle@gro.clinux.org--2006/chmsee--main--0--patch-18)
+
+Mon Apr  2 15:56:22 HKT 2007  Ji YongGang <jungle@soforge.com>
+  * Fix bookmarks link select signal memory leak.
+  Keywords: 
+  
+  
+  (jungle@gro.clinux.org--2006/chmsee--main--0--patch-17)
+
+Sun Apr  1 15:52:22 HKT 2007  Ji YongGang <jungle@soforge.com>
+  * Fix bookmarks current link and some memory leak bugs.
+  Keywords: 
+  
+  
+  (jungle@gro.clinux.org--2006/chmsee--main--0--patch-16)
+
+Sun Mar 25 12:16:08 HKT 2007  Ji YongGang <jungle@soforge.com>
+  * Popup a message dialog when failed loading chmfile.
+  Keywords: 
+  
+  
+  (jungle@gro.clinux.org--2006/chmsee--main--0--patch-15)
+
+Fri Mar 23 17:16:29 HKT 2007  Ji YongGang <jungle@soforge.com>
+  * Increase and decrease html font size.
+  Keywords: 
+  
+  
+  (jungle@gro.clinux.org--2006/chmsee--main--0--patch-14)
+
+Fri Mar 23 13:24:51 HKT 2007  Ji YongGang <jungle@soforge.com>
+  * Fix bookmarks add & remove bug.
+  Keywords: 
+  
+  
+  (jungle@gro.clinux.org--2006/chmsee--main--0--patch-13)
+
+Thu Mar 22 17:41:28 HKT 2007  Ji YongGang <jungle@soforge.com>
+  * Popup html context menu.
+  Keywords: 
+  
+  
+  (jungle@gro.clinux.org--2006/chmsee--main--0--patch-12)
+
+Tue Mar 20 15:03:44 HKT 2007  Ji YongGang <jungle@soforge.com>
+  * Add Auto-Detect Lang in setup dialog.
+  Keywords: 
+  
+  
+  (jungle@gro.clinux.org--2006/chmsee--main--0--patch-11)
+
+Mon Mar 19 18:31:56 HKT 2007  Ji YongGang <jungle@soforge.com>
+  * Using pkg-config checking gecko support library
+  Keywords: 
+  
+  
+  (jungle@gro.clinux.org--2006/chmsee--main--0--patch-10)
+
+Thu Mar 15 15:16:53 HKT 2007  Ji YongGang <jungle@soforge.com>
+  * Show link message on status bar.
+  Keywords: 
+  
+  
+  (jungle@gro.clinux.org--2006/chmsee--main--0--patch-9)
+
+Thu Mar  1 20:41:29 HKT 2007  Ji YongGang <jungle@soforge.com>
+  * remove search.c from po/POFILES.in 
+  Keywords: 
+  
+  
+  (jungle@gro.clinux.org--2006/chmsee--main--0--patch-8)
+
+Mon Feb  5 11:00:47 HKT 2007  Ji YongGang <jungle@soforge.com>
+  * Update ChmSee to 1.0.0 beta
+  Keywords: 
+  
+  
+  
+  Patches applied:
+  
+   * jungle@server--2006/chmsee--local--1.0.0--base-0
+     tag of jungle@gro.clinux.org--2006/chmsee--main--0--patch-6
+  
+   * jungle@server--2006/chmsee--local--1.0.0--patch-1
+     detect chmsee_no_link in booktree link callback. 
+  
+   * jungle@server--2006/chmsee--local--1.0.0--patch-2
+     fix empty title bug 
+  
+   * jungle@server--2006/chmsee--local--1.0.0--patch-3
+     update to 1.0.0 beta 
+  
+   * jungle@server--2006/chmsee--local--1.0.0--patch-4
+     remove search.h search.c 
+  
+  
+  (jungle@gro.clinux.org--2006/chmsee--main--0--patch-7)
+
+Wed Sep 20 15:57:11 HKT 2006  Ji YongGang <jungle@soforge.com>
+  * rewrite code with Gtk2+ OOP and using gecko engine.
+  Keywords: 
+  
+  
+  
+  Patches applied:
+  
+   * jungle@server--2006/chmsee--local--0.9.8--base-0
+     tag of jungle@gro.clinux.org--2006/chmsee--main--0--patch-5
+  
+   * jungle@server--2006/chmsee--local--0.9.8--patch-1
+     rewrite ChmSee with gtk+ OOP
+  
+   * jungle@server--2006/chmsee--local--0.9.8--patch-2
+     using gecko utils. 
+  
+   * jungle@server--2006/chmsee--local--0.9.8--patch-3
+     font setting in setup window. 
+  
+   * jungle@server--2006/chmsee--local--0.9.8--patch-4
+     close current tab
+  
+  
+  (jungle@gro.clinux.org--2006/chmsee--main--0--patch-6)
+
+Thu Jul  6 14:46:21 HKT 2006  Ji YongGang <jungle@soforge.com>
+  * clean up 0.9.7
+  Keywords: 
+  
+  
+  (jungle@gro.clinux.org--2006/chmsee--main--0--patch-5)
+
+Wed Jun 21 16:28:15 HKT 2006  Ji YongGang <jungle@soforge.com>
+  * version 0.9.7-alpha
+  Keywords: 
+  
+  version 0.9.7-alpha
+  
+  Patches applied:
+  
+   * jungle@server--2006/chmsee--jungle--0.9.7--patch-5
+     add context popup menu 
+  
+   * jungle@server--2006/chmsee--jungle--0.9.7--patch-6
+     BookInfo struct 
+  
+   * jungle@server--2006/chmsee--jungle--0.9.7--patch-7
+     test file case insensitive 
+  
+   * jungle@server--2006/chmsee--jungle--0.9.7--patch-8
+     version 0.9.7-alpha
+  
+  
+  (jungle@gro.clinux.org--2006/chmsee--main--0--patch-4)
+
+Fri Jun 16 11:46:04 HKT 2006  Ji YongGang <jungle@soforge.com>
+  * change id tagging method 
+  Keywords: 
+  
+  
+  
+  Patches applied:
+  
+   * jungle@server--2006/chmsee--jungle--0.9.7--patch-4
+     change id-tagging method to tagline
+  
+  
+  (jungle@gro.clinux.org--2006/chmsee--main--0--patch-3)
+
+Wed Jun 14 18:06:48 HKT 2006  Ji YongGang <jungle@soforge.com>
+  * merge with local dev-branch 
+  Keywords: 
+  
+  
+  
+  Patches applied:
+  
+   * jungle@server--2006/chmsee--jungle--0.9.7--patch-2
+     modify ChmSee glade gui
+  
+   * jungle@server--2006/chmsee--jungle--0.9.7--patch-3
+     using getopt parse command line options.
+  
+  
+  (jungle@gro.clinux.org--2006/chmsee--main--0--patch-2)
+
+Mon Jun 12 21:05:02 HKT 2006  Ji YongGang <jungle@soforge.com>
+  * merge local archive to gro public server 
+  Keywords: 
+  
+  
+  
+  Patches applied:
+  
+   * jungle@server--2006/chmsee--jungle--0.9.7--base-0
+     tag of jungle@gro.clinux.org--2006/chmsee--main--0--base-0
+  
+   * jungle@server--2006/chmsee--jungle--0.9.7--patch-1
+     developing 0.9.7
+  
+  
+  (jungle@gro.clinux.org--2006/chmsee--main--0--patch-1)
+
+Sun Jun 11 20:33:18 HKT 2006  Ji YongGang <jungle@soforge.com>
+  * import ChmSee 0.9.6
+  Keywords: 
+  New-files: AUTHORS COPYING ChangeLog ChangeLog-0.9.5 INSTALL
+      Makefile.am Makefile.in NEWS README README-0.9.5 TODO
+      aclocal.m4 autogen.sh chmsee-splash.png chmsee.desktop
+      chmsee.glade chmsee.gladep chmsee.html chmsee.keys
+      chmsee.mime chmsee.png chmsee.spec chmsee.spec.in compile
+      config.guess config.h.in config.sub configure configure.ac
+      depcomp install-sh intltool-extract.in intltool-merge.in
+      intltool-update.in ltmain.sh m4/chmlib.m4 m4/openssl.m4
+      missing mkinstalldirs po/ChangeLog po/Makefile.in.in
+      po/POTFILES.in po/zh_CN.po src/Makefile.am
+      src/Makefile.in src/bookmarks.c src/bookmarks.h
+      src/charset.c src/charset.h src/chmfile.c src/chmfile.h
+      src/chmsee.c src/chmsee.h src/chmsee_config.c
+      src/chmsee_config.h src/exchm.c src/exchm.h src/html.c
+      src/html.h src/main.c src/menu_popup.c src/menu_popup.h
+      src/parse_hh.c src/parse_hh.h src/search.c src/search.h
+      src/setup.c src/setup.h src/startup.c src/startup.h
+      src/topuri.c src/topuri.h src/utils.c src/utils.h
+  New-patches: jungle@gro.clinux.org--2006/chmsee--main--0--base-0
+  
+  
+  (jungle@gro.clinux.org--2006/chmsee--main--0--base-0)

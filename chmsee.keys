@@ -1,0 +1,10 @@
+application/x-chm
+	default_application_id=chmsee
+        description=HTML Help
+        category=Documents
+	default_component_iid=
+        icon_filename=chmsee-icon.png
+	default_action_type=application
+	short_list_application_ids_for_novice_user_level=chmsee
+	short_list_application_ids_for_intermediate_user_level=chmsee
+	short_list_application_ids_for_advanced_user_level=chmsee

@@ -1,0 +1,219 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2008-12-03 20:38+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../chmsee.glade.h:1
+msgid "<b>Cache</b>"
+msgstr ""
+
+#: ../chmsee.glade.h:2
+msgid "<b>Charset</b>"
+msgstr ""
+
+#: ../chmsee.glade.h:3
+msgid "<b>Font</b>"
+msgstr ""
+
+#: ../chmsee.glade.h:4
+msgid "About"
+msgstr ""
+
+#: ../chmsee.glade.h:5
+msgid "About..."
+msgstr ""
+
+#: ../chmsee.glade.h:6
+msgid "Auto-Detect:"
+msgstr ""
+
+#: ../chmsee.glade.h:7
+msgid "Back"
+msgstr ""
+
+#: ../chmsee.glade.h:8
+msgid ""
+"CHM files extracted in this cache folder, you can press Clear button to free "
+"disk space.\n"
+"\n"
+"NOTE: If you are viewing a CHM file, you need reopen it after cleaning."
+msgstr ""
+
+#: ../chmsee.glade.h:11 ../chmsee.desktop.in.h:1
+msgid "ChmSee"
+msgstr ""
+
+#: ../chmsee.glade.h:12
+msgid "Fixed Width:"
+msgstr ""
+
+#: ../chmsee.glade.h:13
+msgid "Forward"
+msgstr ""
+
+#: ../chmsee.glade.h:14
+msgid "Home"
+msgstr ""
+
+#: ../chmsee.glade.h:15
+msgid "Normal"
+msgstr ""
+
+#: ../chmsee.glade.h:16
+msgid "Open File"
+msgstr ""
+
+#: ../chmsee.glade.h:17
+msgid "Open Link in New _Tab"
+msgstr ""
+
+#: ../chmsee.glade.h:18
+msgid "Panel"
+msgstr ""
+
+#: ../chmsee.glade.h:19
+msgid "Select _All"
+msgstr ""
+
+#: ../chmsee.glade.h:20
+msgid "Setup"
+msgstr ""
+
+#: ../chmsee.glade.h:21
+msgid "Show/Hide Panel"
+msgstr ""
+
+#: ../chmsee.glade.h:22
+msgid "The HTML Help(CHM) viewer for Unix/Linux"
+msgstr ""
+
+#: ../chmsee.glade.h:23
+msgid ""
+"Universal\n"
+"Simplified Chinese\n"
+"Tradtional Chinese\n"
+"Japanese\n"
+"Korean\n"
+"Russian\n"
+"Ukrainain"
+msgstr ""
+
+#: ../chmsee.glade.h:30
+msgid "Variable Width:"
+msgstr ""
+
+#: ../chmsee.glade.h:31
+msgid "Zoom In"
+msgstr ""
+
+#: ../chmsee.glade.h:32
+msgid "Zoom Out"
+msgstr ""
+
+#: ../chmsee.glade.h:33
+msgid "_Back"
+msgstr ""
+
+#: ../chmsee.glade.h:34
+msgid "_Close Tab"
+msgstr ""
+
+#: ../chmsee.glade.h:35
+msgid "_Copy"
+msgstr ""
+
+#: ../chmsee.glade.h:36
+msgid "_Copy Link Location"
+msgstr ""
+
+#: ../chmsee.glade.h:37
+msgid "_Edit"
+msgstr ""
+
+#: ../chmsee.glade.h:38
+msgid "_File"
+msgstr ""
+
+#: ../chmsee.glade.h:39
+msgid "_Forward"
+msgstr ""
+
+#: ../chmsee.glade.h:40
+msgid "_Help"
+msgstr ""
+
+#: ../chmsee.glade.h:41
+msgid "_Home"
+msgstr ""
+
+#: ../chmsee.glade.h:42
+msgid "_New Tab"
+msgstr ""
+
+#: ../chmsee.glade.h:43
+msgid "_Setup"
+msgstr ""
+
+#: ../chmsee.glade.h:44
+msgid "_View"
+msgstr ""
+
+#: ../chmsee.glade.h:45
+msgid "http://chmsee.gro.clinux.org"
+msgstr ""
+
+#. TRANSLATORS: Replace this string with your names, one name per line.
+#: ../chmsee.glade.h:47
+msgid "translator-credits"
+msgstr ""
+
+#: ../chmsee.desktop.in.h:2
+msgid "HTML Help(CHM) viewer"
+msgstr ""
+
+#: ../src/chmsee.c:475
+msgid "CHM Files"
+msgstr ""
+
+#: ../src/chmsee.c:480
+msgid "All Files"
+msgstr ""
+
+#: ../src/chmsee.c:993
+msgid "Ready!"
+msgstr ""
+
+#: ../src/chmsee.c:1045
+msgid "Topics"
+msgstr ""
+
+#: ../src/chmsee.c:1062
+msgid "Bookmarks"
+msgstr ""
+
+#. Custom label widget, with a close button
+#: ../src/chmsee.c:1208 ../src/chmsee.c:1375
+msgid "No Title"
+msgstr ""
+
+#: ../src/chmsee.c:1477
+#, c-format
+msgid "Error loading file '%s'"
+msgstr ""
+
+#: ../src/bookmarks.c:312
+msgid "Bookmark"
+msgstr ""
