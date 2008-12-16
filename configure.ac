@@ -36,9 +36,9 @@ AC_SUBST(GLADE_CFLAGS)
 # Check for Gecko
 
 AC_ARG_WITH(gecko,
-    AS_HELP_STRING([--with-gecko=ARG],[specify which Gecko provider to use ("mozilla", "firefox", "seamonkey", "xulrunner" or "libxul"), default is firefox]),
+    AS_HELP_STRING([--with-gecko=ARG],[specify which Gecko provider to use ("mozilla", "firefox", "seamonkey", "xulrunner" or "libxul"), default is "libxul"]),
     ,
-    [with_gecko=firefox])
+    [with_gecko=libxul])
 
 # Package maintainer should change this to proper value           
 if test "x$with_gecko" = "xlibxul"; then
