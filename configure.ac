@@ -2,10 +2,11 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ(2.61)
-AC_INIT(chmsee, 1.0.2, jungle@soforge-studio.com)
+AC_INIT([chmsee],[1.0.2],[http://code.google.com/p/chmsee/issues/entry])
 AM_MAINTAINER_MODE
 AC_CANONICAL_TARGET
 AM_INIT_AUTOMAKE
+AM_MAINTAINER_MODE
 
 AC_CONFIG_SRCDIR([src/chmsee.c])
 AC_CONFIG_HEADER([config.h])
@@ -92,15 +93,15 @@ AM_PATH_CHMLIB(, AC_MSG_ERROR([Can't find/use chmlib. Please install CHMLIB firs
 # Check md5 implement
 case $target in 
 	*linux*) 
-                 AM_PATH_LIBGCRYPT
-                 MD5_LIBS="$LIBGCRYPT_LIBS" 
-                 ;;
+		AM_PATH_LIBGCRYPT(,,AC_MSG_ERROR([Can't find/use libgcrypt. Please install libgcrypt first.]))
+		MD5_LIBS="$LIBGCRYPT_LIBS" 
+		;;
 	*freebsd*) 
-                 MD5_LIBS="-lmd" 
-                 ;;
+		MD5_LIBS="-lmd" 
+		;;
          *)
-                 MD5_LIBS=
-                 ;;
+		MD5_LIBS=
+		;;
 esac
 AC_SUBST(MD5_LIBS)        
 

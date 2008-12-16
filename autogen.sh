@@ -22,7 +22,6 @@
 set -x
 aclocal -I m4
 autoheader
-libtoolize -c --automake 
 automake --add-missing --copy --foreign
 autoconf
 ## @end 1
