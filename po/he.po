@@ -1,0 +1,226 @@
+# Hebrew translation for chmsee
+# Copyright (c) 2008 Rosetta Contributors and Canonical Ltd 2008
+# This file is distributed under the same license as the chmsee package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2008.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: chmsee\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2008-05-17 16:44+0800\n"
+"PO-Revision-Date: 2008-12-04 23:23+0000\n"
+"Last-Translator: Yaron <sh.yaron@gmail.com>\n"
+"Language-Team: Hebrew <he@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2008-12-21 03:36+0000\n"
+"X-Generator: Launchpad (build Unknown)\n"
+
+#: ../chmsee.glade.h:1
+msgid "<b>Cache</b>"
+msgstr "<b>מטמון</b>"
+
+#: ../chmsee.glade.h:2
+msgid "<b>Charset</b>"
+msgstr "<b>ערכת תווים</b>"
+
+#: ../chmsee.glade.h:3
+msgid "<b>Font</b>"
+msgstr "<b>גופן</b>"
+
+#: ../chmsee.glade.h:4
+msgid "About"
+msgstr "אודות"
+
+#: ../chmsee.glade.h:5
+msgid "About..."
+msgstr ""
+
+#: ../chmsee.glade.h:6
+msgid "Auto-Detect:"
+msgstr "זיהוי־אוטומטי"
+
+#: ../chmsee.glade.h:7
+msgid "Back"
+msgstr "הקודם"
+
+#: ../chmsee.glade.h:8
+msgid ""
+"CHM files extracted in this cache folder, you can press Clear button to free "
+"disk space.\n"
+"\n"
+"NOTE: If you are viewing a CHM file, you need reopen it after cleaning."
+msgstr ""
+"קבצי ה־CHM מחולצים לתיקיית מטמון זו, תוכל ללחוץ על הלחצן \"רוקן\" כדי לפנות "
+"שטח בכונן.\n"
+"\n"
+"הערה: אם הינך צופה בקובץ CHM, תאלץ לפתוח אותו מחדש לאחר שתרוקן."
+
+#: ../chmsee.glade.h:11 ../chmsee.desktop.in.h:1
+msgid "ChmSee"
+msgstr "מציג ה־CHM‏ (ChmSee)"
+
+#: ../chmsee.glade.h:12
+msgid "Fixed Width:"
+msgstr "רוחב קבוע"
+
+#: ../chmsee.glade.h:13
+msgid "Forward"
+msgstr "התקדם"
+
+#: ../chmsee.glade.h:14
+msgid "Home"
+msgstr "בית"
+
+#: ../chmsee.glade.h:15
+msgid "Normal"
+msgstr "רגיל"
+
+#: ../chmsee.glade.h:16
+msgid "Open File"
+msgstr "פתח קובץ"
+
+#: ../chmsee.glade.h:17
+msgid "Open Link in New _Tab"
+msgstr "פתח קישור ב_לשונית חדשה"
+
+#: ../chmsee.glade.h:18
+msgid "Panel"
+msgstr "חלונית"
+
+#: ../chmsee.glade.h:19
+msgid "Select _All"
+msgstr "בחר ה_כל"
+
+#: ../chmsee.glade.h:20
+msgid "Setup"
+msgstr "הגדרות"
+
+#: ../chmsee.glade.h:21
+msgid "Show/Hide Panel"
+msgstr "הצג/הסתר חלונית"
+
+#: ../chmsee.glade.h:22
+msgid "The HTML Help(CHM) viewer for Unix/Linux"
+msgstr "תוכנה המציגה קבצי עזרה ב־HTML דחוסים (CHM) עבור יוניקס/לינוקס"
+
+#: ../chmsee.glade.h:23
+msgid ""
+"Universal\n"
+"Simplified Chinese\n"
+"Tradtional Chinese\n"
+"Japanese\n"
+"Korean\n"
+"Russian\n"
+"Ukrainain"
+msgstr ""
+
+#: ../chmsee.glade.h:30
+msgid "Variable Width:"
+msgstr "רוחב משתנה:"
+
+#: ../chmsee.glade.h:31
+msgid "Zoom In"
+msgstr "התקרבות"
+
+#: ../chmsee.glade.h:32
+msgid "Zoom Out"
+msgstr "התרחקות"
+
+#: ../chmsee.glade.h:33
+msgid "_Back"
+msgstr "_חזור"
+
+#: ../chmsee.glade.h:34
+msgid "_Close Tab"
+msgstr "סגור _לשונית"
+
+#: ../chmsee.glade.h:35
+msgid "_Copy"
+msgstr "ה_עתק"
+
+#: ../chmsee.glade.h:36
+msgid "_Copy Link Location"
+msgstr "העתק את _מיקום הקישור"
+
+#: ../chmsee.glade.h:37
+msgid "_Edit"
+msgstr "ע_ריכה"
+
+#: ../chmsee.glade.h:38
+msgid "_File"
+msgstr "_קובץ"
+
+#: ../chmsee.glade.h:39
+msgid "_Forward"
+msgstr "ה_תקדם"
+
+#: ../chmsee.glade.h:40
+msgid "_Help"
+msgstr "ע_זרה"
+
+#: ../chmsee.glade.h:41
+msgid "_Home"
+msgstr "_בית"
+
+#: ../chmsee.glade.h:42
+msgid "_New Tab"
+msgstr "לשונית _חדשה"
+
+#: ../chmsee.glade.h:43
+msgid "_Setup"
+msgstr "ה_גדרות"
+
+#: ../chmsee.glade.h:44
+msgid "_View"
+msgstr "_תצוגה"
+
+#: ../chmsee.glade.h:45
+msgid "http://chmsee.gro.clinux.org"
+msgstr "http://chmsee.gro.clinux.org"
+
+#. TRANSLATORS: Replace this string with your names, one name per line.
+#: ../chmsee.glade.h:47
+msgid "translator-credits"
+msgstr ""
+"Launchpad Contributions:\n"
+"  Yaron https://launchpad.net/~sh-yaron"
+
+#: ../chmsee.desktop.in.h:2
+msgid "HTML Help(CHM) viewer"
+msgstr "מציג קבצי עזרה ב־HTML דחוסים (CHM)"
+
+#: ../src/chmsee.c:475
+msgid "CHM Files"
+msgstr "קבצי CHM"
+
+#: ../src/chmsee.c:480
+msgid "All Files"
+msgstr "כל הקבצים"
+
+#: ../src/chmsee.c:993
+msgid "Ready!"
+msgstr "מוכן!"
+
+#: ../src/chmsee.c:1045
+msgid "Topics"
+msgstr "נושאים"
+
+#: ../src/chmsee.c:1062
+msgid "Bookmarks"
+msgstr "סימניות"
+
+#. Custom label widget, with a close button
+#: ../src/chmsee.c:1208 ../src/chmsee.c:1375
+msgid "No Title"
+msgstr "אין כותרת"
+
+#: ../src/chmsee.c:1477
+#, c-format
+msgid "Error loading file '%s'"
+msgstr "שגיאה בטעינת הקובץ '%s'"
+
+#: ../src/bookmarks.c:312
+msgid "Bookmark"
+msgstr "סימנייה"
