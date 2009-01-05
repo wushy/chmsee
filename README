@@ -3,7 +3,7 @@ and use Gtk2+ as frontend toolkit. Because of using gecko as HTML
 rendering engine, ChmSee can support rich features of modern HTML
 page, such as CSS and JavaScript.
 
-Homepage: http://chmsee.gro.clinux.org
+Homepage: http://code.google.com/p/chmsee
 
 
 Dependencies

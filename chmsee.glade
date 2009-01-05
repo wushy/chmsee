@@ -624,8 +624,8 @@ Ukrainain</property>
     <property name="window_position">GTK_WIN_POS_CENTER</property>
     <property name="type_hint">GDK_WINDOW_TYPE_HINT_NORMAL</property>
     <property name="comments" translatable="yes">The HTML Help(CHM) viewer for Unix/Linux</property>
-    <property name="website">http://chmsee.gro.clinux.org</property>
-    <property name="website_label" translatable="yes">http://chmsee.gro.clinux.org</property>
+    <property name="website">http://code.google.com/p/chmsee</property>
+    <property name="website_label" translatable="yes">http://code.google.com/p/chmsee</property>
     <property name="authors">zhong &lt;iam_zhong@yahoo.com.cn&gt;
 Ji YongGang &lt;jungle@soforge-studio.com&gt;
 LI Daobing &lt;lidaobing@gmail.com&gt;
