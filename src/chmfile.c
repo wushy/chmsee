@@ -214,7 +214,10 @@ _extract_callback(struct chmFile *h, struct chmUnitInfo *ui, void *context)
                 while (remain != 0) {
                         len = chm_retrieve_object(h, ui, (unsigned char *)buffer, offset, 32768);
                         if (len > 0) {
-                                fwrite(buffer, 1, (size_t)len, fout);
+                                if(fwrite(buffer, 1, (size_t)len, fout) != len) {
+                                        perror("fwrite failed");   
+                                        abort();
+                                }
                                 offset += len;
                                 remain -= len;
                         } else {

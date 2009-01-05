@@ -175,7 +175,7 @@ save_option(FILE *file, const gchar *id, const gchar *value)
         gchar *p;
 
         p = g_strdup_printf("%s=%s\n", id, value);
-        fprintf(file, p);
+        fputs(p, file);
 
         g_free(p);
 }
