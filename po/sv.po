@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: chmsee\n"
-"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2008-05-17 16:44+0800\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-01-05 20:43+0800\n"
 "PO-Revision-Date: 2008-12-01 13:14+0000\n"
 "Last-Translator: Daniel Nylander <yeager@ubuntu.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
@@ -184,8 +184,8 @@ msgid "_View"
 msgstr "_Visa"
 
 #: ../chmsee.glade.h:45
-msgid "http://chmsee.gro.clinux.org"
-msgstr "http://chmsee.gro.clinux.org"
+msgid "http://code.google.com/p/chmsee"
+msgstr ""
 
 #. TRANSLATORS: Replace this string with your names, one name per line.
 #: ../chmsee.glade.h:47
@@ -231,3 +231,6 @@ msgstr "Fel vid inläsning av filen \"%s\""
 #: ../src/bookmarks.c:312
 msgid "Bookmark"
 msgstr "Bokmärke"
+
+#~ msgid "http://chmsee.gro.clinux.org"
+#~ msgstr "http://chmsee.gro.clinux.org"

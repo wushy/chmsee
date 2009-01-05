@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ChmSee 1.0.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-05-16 17:56+0800\n"
+"POT-Creation-Date: 2009-01-05 20:43+0800\n"
 "PO-Revision-Date: 2008-12-03 16:47+0800\n"
 "Last-Translator: Ji YongGang <jungle@soforge-studio.com>\n"
 "Language-Team: szlug <szlug@googlegroups.com>\n"
@@ -180,8 +180,8 @@ msgid "_View"
 msgstr "查看(_V)"
 
 #: ../chmsee.glade.h:45
-msgid "http://chmsee.gro.clinux.org"
-msgstr "http://chmsee.gro.clinux.org"
+msgid "http://code.google.com/p/chmsee"
+msgstr ""
 
 #. TRANSLATORS: Replace this string with your names, one name per line.
 #: ../chmsee.glade.h:47
@@ -225,3 +225,6 @@ msgstr "打开文件错误 '%s'"
 #: ../src/bookmarks.c:312
 msgid "Bookmark"
 msgstr "书签"
+
+#~ msgid "http://chmsee.gro.clinux.org"
+#~ msgstr "http://chmsee.gro.clinux.org"

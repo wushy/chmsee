@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: chmsee\n"
-"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2008-05-17 16:44+0800\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-01-05 20:43+0800\n"
 "PO-Revision-Date: 2008-12-01 16:29+0000\n"
 "Last-Translator: Luca Livraghi <luca.91@hotmail.it>\n"
 "Language-Team: Italian <it@li.org>\n"
@@ -185,8 +185,8 @@ msgid "_View"
 msgstr "_Visualizza"
 
 #: ../chmsee.glade.h:45
-msgid "http://chmsee.gro.clinux.org"
-msgstr "http://chmsee.gro.clinux.org"
+msgid "http://code.google.com/p/chmsee"
+msgstr ""
 
 #. TRANSLATORS: Replace this string with your names, one name per line.
 #: ../chmsee.glade.h:47
@@ -232,3 +232,6 @@ msgstr "Errore durante il caricamento del file '%s'"
 #: ../src/bookmarks.c:312
 msgid "Bookmark"
 msgstr "Segnalibro"
+
+#~ msgid "http://chmsee.gro.clinux.org"
+#~ msgstr "http://chmsee.gro.clinux.org"

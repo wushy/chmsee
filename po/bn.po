@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: chmsee\n"
-"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2008-05-17 16:44+0800\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-01-05 20:43+0800\n"
 "PO-Revision-Date: 2008-12-30 20:03+0000\n"
 "Last-Translator: faisal <Unknown>\n"
 "Language-Team: Bengali <bn@li.org>\n"
@@ -52,11 +52,11 @@ msgid ""
 "\n"
 "NOTE: If you are viewing a CHM file, you need reopen it after cleaning."
 msgstr ""
-"CHM ফাইলগুলো এই ক্যাশ ফোল্ডারে খোলা হয়েছে, ডিস্কের জায়গা খালি করতে চাইলে "
-"আপনি ক্লিয়ার বাটনে চাপ দিতে পারেন। \n"
+"CHM ফাইলগুলো এই ক্যাশ ফোল্ডারে খোলা হয়েছে, ডিস্কের জায়গা খালি করতে চাইলে আপনি "
+"ক্লিয়ার বাটনে চাপ দিতে পারেন। \n"
 "\n"
-"লক্ষ্য করুন: আপনি যদি একটি CHM ফাইল দেখতে থাকেন, তবে পরিস্কার করার পরে "
-"আপনাকে সেটি আবার খুলে দেখতে হবে।"
+"লক্ষ্য করুন: আপনি যদি একটি CHM ফাইল দেখতে থাকেন, তবে পরিস্কার করার পরে আপনাকে "
+"সেটি আবার খুলে দেখতে হবে।"
 
 #: ../chmsee.glade.h:11 ../chmsee.desktop.in.h:1
 msgid "ChmSee"
@@ -185,8 +185,8 @@ msgid "_View"
 msgstr ""
 
 #: ../chmsee.glade.h:45
-msgid "http://chmsee.gro.clinux.org"
-msgstr "http://chmsee.gro.clinux.org"
+msgid "http://code.google.com/p/chmsee"
+msgstr ""
 
 #. TRANSLATORS: Replace this string with your names, one name per line.
 #: ../chmsee.glade.h:47
@@ -232,3 +232,6 @@ msgstr "ত্রুটিপূর্নভাবে চালু হওয়া 
 #: ../src/bookmarks.c:312
 msgid "Bookmark"
 msgstr "বুকমার্ক"
+
+#~ msgid "http://chmsee.gro.clinux.org"
+#~ msgstr "http://chmsee.gro.clinux.org"
