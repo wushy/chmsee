@@ -17,10 +17,11 @@
  *  Boston, MA 02110-1301, USA.
  */
 
+#include "parser.h"
+
 #include <libxml/parser.h>
 #include <libxml/HTMLparser.h>
 
-#include "parser.h"
 #include "link.h"
 #include "utils.h"
 

@@ -27,9 +27,10 @@
  *   (at your option) any later version.				   *
  ***************************************************************************/
 
+#include "setup.h"
+
 #include <glade/glade.h>
 
-#include "setup.h"
 #include "utils.h"
 #include "gecko_utils.h"
 

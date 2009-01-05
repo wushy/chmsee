@@ -27,9 +27,9 @@
  *   (at your option) any later version.                                   *
  ***************************************************************************/
 
+#include "startup.h"
 #include <gtk/gtk.h>
 
-#include "startup.h"
 
 static void
 startup_popup_cb(gpointer data)

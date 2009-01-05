@@ -38,7 +38,8 @@
  *
  */
 
-#include <config.h>
+#include "config.h"
+#include "gecko_utils.h"
 #include <stdlib.h>
 
 #ifdef XPCOM_GLUE
@@ -67,7 +68,6 @@
 #include <nsILocaleService.h>
 #include <nsStringAPI.h>
 
-#include "gecko_utils.h"
 #include "utils.h"
 
 #define LANG_TYPES_NUM 	7

@@ -17,9 +17,10 @@
  *  Boston, MA 02110-1301, USA.
  */
 
+#include "html.h"
+
 #include <string.h>
 
-#include "html.h"
 #include "marshal.h"
 #include "utils.h"
 #include "gecko_utils.h"

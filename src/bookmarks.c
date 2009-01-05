@@ -17,10 +17,11 @@
  *  Boston, MA 02110-1301, USA.
  */
  
+#include "bookmarks.h"
+
 #include <stdio.h>
 #include <string.h>
 
-#include "bookmarks.h"
 #include "utils.h"
 
 static void bookmarks_init(Bookmarks *);

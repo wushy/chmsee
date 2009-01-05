@@ -27,6 +27,8 @@
  *   (at your option) any later version.                                   *
  ***************************************************************************/
 
+#include "chmsee.h"
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -41,7 +43,6 @@
 #include "link.h"
 #include "utils.h"
 #include "gecko_utils.h"
-#include "chmsee.h"
 
 static void chmsee_class_init(ChmSeeClass *);
 static void chmsee_init(ChmSee *);

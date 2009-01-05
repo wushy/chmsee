@@ -21,7 +21,7 @@ chmsee_SOURCES = \
 	parser.c parser.h \
 	setup.c	setup.h	\
 	startup.c startup.h \
-	gecko_utils.cpp	gecko_utils.h \
+	gecko_utils.cpp gecko_utils.h \
 	utils.c utils.h
 
 chmsee_CFLAGS = \
