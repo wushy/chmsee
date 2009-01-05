@@ -22,6 +22,8 @@
 
 #include <glib.h>
 #include <glib-object.h>
+#include <gtk/gtktypeutils.h>
+
 #include <chm_lib.h>
 
 typedef struct _ChmFile       ChmFile;
@@ -66,4 +68,4 @@ struct _ChmFileClass
 GtkType chmfile_get_type(void);
 ChmFile *chmfile_new(const gchar *);
 
-#endif /* !__CHMFILE_H__ */ 
+#endif /* !__CHMFILE_H__ */

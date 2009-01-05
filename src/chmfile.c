@@ -17,6 +17,8 @@
  *  Boston, MA 02110-1301, USA.
  */
 
+#include "chmfile.h"
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -33,7 +35,6 @@
 
 #include "chmsee.h"
 #include "utils.h"
-#include "chmfile.h"
 #include "parser.h"
 
 #define UINT16ARRAY(x) ((unsigned char)(x)[0] | ((u_int16_t)(x)[1] << 8))
