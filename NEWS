@@ -1,5 +1,14 @@
 ChmSee 1.0.X XXXX-XX-XX
 ------------------------
+
+interface
+~~~~~~~~~
+
+* Add "Copy Page Location" to the context menu.
+
+l10n
+~~~~
+
 * Add Hebrew translation, thanks to Yaron.
 * Add Swahili translation, thanks to Emanuel Feruzi.
 * Add Bengali translation, thanks to faisal.

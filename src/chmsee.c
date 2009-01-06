@@ -1,5 +1,6 @@
 /*
- *  Copyright (c) 2006           Ji YongGang <jungle@soforge-studio.com>
+ *  Copyright (C) 2006 Ji YongGang <jungle@soforge-studio.com>
+ *  Copyright (C) 2009 LI Daobing <lidaobing@gmail.com>
  *
  *  ChmSee is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -71,6 +72,7 @@ static void on_open(GtkWidget *, ChmSee *);
 static void on_close_tab(GtkWidget *, ChmSee *);
 static void on_setup(GtkWidget *, ChmSee *);
 static void on_copy(GtkWidget *, ChmSee *);
+static void on_copy_page_location(GtkWidget*, ChmSee*);
 static void on_select_all(GtkWidget *, ChmSee *);
 static void on_back(GtkWidget *, ChmSee *);
 static void on_forward(GtkWidget *, ChmSee *);
@@ -398,6 +400,11 @@ html_context_normal_cb(Html *html, ChmSee *chmsee)
                          G_CALLBACK (on_select_all),
                          chmsee);
 
+        g_signal_connect(G_OBJECT(glade_xml_get_widget(glade, "menu_copy_page_location")),
+                         "activate",
+                         G_CALLBACK(on_copy_page_location),
+                         chmsee);
+
         gtk_menu_popup(GTK_MENU(menu), NULL, NULL, NULL, NULL, 0, GDK_CURRENT_TIME);
 
 	g_object_unref(glade);
@@ -541,6 +548,22 @@ on_copy(GtkWidget *widget, ChmSee *chmsee)
 
         html = get_active_html(chmsee);
         html_copy_selection(html);
+}
+
+static void
+on_copy_page_location(GtkWidget* widget, ChmSee* chmsee) {
+  Html* html = get_active_html(chmsee);
+  gchar* location = html_get_location(html);
+  if(!location) return;
+  
+  gtk_clipboard_set_text(
+    gtk_clipboard_get(GDK_SELECTION_PRIMARY),
+    location,
+    -1);
+  gtk_clipboard_set_text(
+    gtk_clipboard_get(GDK_SELECTION_CLIPBOARD),
+    location,
+    -1);
 }
 
 static void
