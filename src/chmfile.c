@@ -689,10 +689,14 @@ chmfile_new(const gchar *filename)
         gchar *bookmark_file;
         gchar *md5;
 
-        chmfile = g_object_new(TYPE_CHMFILE, NULL);
-
         /* Use chmfile MD5 as book folder name */
         md5 = MD5File(filename, NULL);
+        if(!md5) {
+          return NULL;
+        }
+
+        chmfile = g_object_new(TYPE_CHMFILE, NULL);
+
 
         chmfile->dir = g_build_filename(g_getenv("HOME"), 
                                         ".chmsee",
