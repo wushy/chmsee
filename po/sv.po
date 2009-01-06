@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: chmsee\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-01-05 20:43+0800\n"
+"POT-Creation-Date: 2009-01-06 23:40+0800\n"
 "PO-Revision-Date: 2008-12-01 13:14+0000\n"
 "Last-Translator: Daniel Nylander <yeager@ubuntu.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
@@ -62,50 +62,55 @@ msgid "ChmSee"
 msgstr "ChmSee"
 
 #: ../chmsee.glade.h:12
+#, fuzzy
+msgid "Copy Page _Location"
+msgstr "_Kopiera länkadress"
+
+#: ../chmsee.glade.h:13
 msgid "Fixed Width:"
 msgstr "Fast bredd:"
 
-#: ../chmsee.glade.h:13
+#: ../chmsee.glade.h:14
 msgid "Forward"
 msgstr "Framåt"
 
-#: ../chmsee.glade.h:14
+#: ../chmsee.glade.h:15
 msgid "Home"
 msgstr "Hem"
 
-#: ../chmsee.glade.h:15
+#: ../chmsee.glade.h:16
 msgid "Normal"
 msgstr "Normal"
 
-#: ../chmsee.glade.h:16
+#: ../chmsee.glade.h:17
 msgid "Open File"
 msgstr "Öppna fil"
 
-#: ../chmsee.glade.h:17
+#: ../chmsee.glade.h:18
 msgid "Open Link in New _Tab"
 msgstr "Öppna länk i ny _flik"
 
-#: ../chmsee.glade.h:18
+#: ../chmsee.glade.h:19
 msgid "Panel"
 msgstr "Panel"
 
-#: ../chmsee.glade.h:19
+#: ../chmsee.glade.h:20
 msgid "Select _All"
 msgstr "Markera _allt"
 
-#: ../chmsee.glade.h:20
+#: ../chmsee.glade.h:21
 msgid "Setup"
 msgstr "Inställningar"
 
-#: ../chmsee.glade.h:21
+#: ../chmsee.glade.h:22
 msgid "Show/Hide Panel"
 msgstr "Visa/dölj panel"
 
-#: ../chmsee.glade.h:22
+#: ../chmsee.glade.h:23
 msgid "The HTML Help(CHM) viewer for Unix/Linux"
 msgstr "HTML-hjälpvisare (CHM) för Unix/Linux"
 
-#: ../chmsee.glade.h:23
+#: ../chmsee.glade.h:24
 msgid ""
 "Universal\n"
 "Simplified Chinese\n"
@@ -123,72 +128,64 @@ msgstr ""
 "Ryska\n"
 "Ukrainska"
 
-#: ../chmsee.glade.h:30
+#: ../chmsee.glade.h:31
 msgid "Variable Width:"
 msgstr "Variabel bredd:"
 
-#: ../chmsee.glade.h:31
+#: ../chmsee.glade.h:32
 msgid "Zoom In"
 msgstr "Zooma in"
 
-#: ../chmsee.glade.h:32
+#: ../chmsee.glade.h:33
 msgid "Zoom Out"
 msgstr "Zooma ut"
 
-#: ../chmsee.glade.h:33
+#: ../chmsee.glade.h:34
 msgid "_Back"
 msgstr "_Bakåt"
 
-#: ../chmsee.glade.h:34
+#: ../chmsee.glade.h:35
 msgid "_Close Tab"
 msgstr "S_täng flik"
 
-#: ../chmsee.glade.h:35
+#: ../chmsee.glade.h:36
 msgid "_Copy"
 msgstr "_Kopiera"
 
-#: ../chmsee.glade.h:36
+#: ../chmsee.glade.h:37
 msgid "_Copy Link Location"
 msgstr "_Kopiera länkadress"
 
-#: ../chmsee.glade.h:37
+#: ../chmsee.glade.h:38
 msgid "_Edit"
 msgstr "R_edigera"
 
-#: ../chmsee.glade.h:38
+#: ../chmsee.glade.h:39
 msgid "_File"
 msgstr "_Arkiv"
 
-#: ../chmsee.glade.h:39
+#: ../chmsee.glade.h:40
 msgid "_Forward"
 msgstr "_Framåt"
 
-#: ../chmsee.glade.h:40
+#: ../chmsee.glade.h:41
 msgid "_Help"
 msgstr "_Hjälp"
-
-#: ../chmsee.glade.h:41
-msgid "_Home"
-msgstr "_Hem"
 
 #: ../chmsee.glade.h:42
 msgid "_New Tab"
 msgstr "_Ny flik"
 
 #: ../chmsee.glade.h:43
-msgid "_Setup"
-msgstr "_Inställningar"
-
-#: ../chmsee.glade.h:44
 msgid "_View"
 msgstr "_Visa"
 
-#: ../chmsee.glade.h:45
+#: ../chmsee.glade.h:44
 msgid "http://code.google.com/p/chmsee"
 msgstr ""
 
 #. TRANSLATORS: Replace this string with your names, one name per line.
-#: ../chmsee.glade.h:47
+#: ../chmsee.glade.h:46
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
@@ -198,39 +195,60 @@ msgstr ""
 msgid "HTML Help(CHM) viewer"
 msgstr "HTML-hjälpvisare (CHM)"
 
-#: ../src/chmsee.c:475
+#: ../src/chmsee.c:483
 msgid "CHM Files"
 msgstr "CHM-filer"
 
-#: ../src/chmsee.c:480
+#: ../src/chmsee.c:488
 msgid "All Files"
 msgstr "Alla filer"
 
-#: ../src/chmsee.c:993
+#: ../src/chmsee.c:1017
 msgid "Ready!"
 msgstr "Redo!"
 
-#: ../src/chmsee.c:1045
+#: ../src/chmsee.c:1069
 msgid "Topics"
 msgstr "Ämnen"
 
-#: ../src/chmsee.c:1062
+#: ../src/chmsee.c:1086
 msgid "Bookmarks"
 msgstr "Bokmärken"
 
 #. Custom label widget, with a close button
-#: ../src/chmsee.c:1208 ../src/chmsee.c:1375
+#: ../src/chmsee.c:1232 ../src/chmsee.c:1399
 msgid "No Title"
 msgstr "Ingen titel"
 
-#: ../src/chmsee.c:1477
+#: ../src/chmsee.c:1501
 #, c-format
 msgid "Error loading file '%s'"
 msgstr "Fel vid inläsning av filen \"%s\""
 
-#: ../src/bookmarks.c:312
+#: ../src/chmfile.c:250
+#, c-format
+msgid "cannot open chmfile: %s"
+msgstr ""
+
+#: ../src/chmfile.c:257
+#, c-format
+msgid "Extract chmfile failed: %s"
+msgstr ""
+
+#: ../src/chmfile.c:283
+#, c-format
+msgid "open \"%s\" failed: %s"
+msgstr ""
+
+#: ../src/bookmarks.c:313
 msgid "Bookmark"
 msgstr "Bokmärke"
+
+#~ msgid "_Home"
+#~ msgstr "_Hem"
+
+#~ msgid "_Setup"
+#~ msgstr "_Inställningar"
 
 #~ msgid "http://chmsee.gro.clinux.org"
 #~ msgstr "http://chmsee.gro.clinux.org"
