@@ -22,6 +22,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <errno.h>
 #include <unistd.h>
 #include <sys/stat.h>
 #include <sys/types.h>
@@ -279,8 +280,10 @@ MD5File(const char *filename, char *buf)
 
         gcry_md_open(&hd, GCRY_MD_MD5, 0);
         f = open(filename, O_RDONLY);
-        if (f < 0)
-                return NULL;
+        if (f < 0) {
+          g_message(_("open \"%s\" failed: %s"), filename, strerror(errno));
+          return NULL;
+        }
 
         while ((i = read(f, buffer, sizeof(buffer))) > 0)
                 gcry_md_write(hd, buffer, i);
