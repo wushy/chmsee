@@ -128,7 +128,6 @@ chmfile_finalize(GObject *object)
         g_free(chmfile->hhk);
         g_free(chmfile->home);
         g_free(chmfile->title);
-        g_free(chmfile->encoding);
         g_free(chmfile->variable_font);
         g_free(chmfile->fixed_font);
 
@@ -217,8 +216,8 @@ _extract_callback(struct chmFile *h, struct chmUnitInfo *ui, void *context)
                         len = chm_retrieve_object(h, ui, (unsigned char *)buffer, offset, 32768);
                         if (len > 0) {
                                 if(fwrite(buffer, 1, (size_t)len, fout) != len) {
-                                        perror("fwrite failed");   
-                                        abort();
+                                  d(g_message("CHM_ENUMERATOR_FAILURE fwrite"));
+                                  return CHM_ENUMERATOR_FAILURE;
                                 }
                                 offset += len;
                                 remain -= len;
@@ -248,15 +247,15 @@ extract_chm(const gchar *filename, ChmFile *chmfile)
         handle = chm_open(filename);
 
         if (handle == NULL) {
-                d(g_debug("cannot open chmfile: %s", filename));
-                return FALSE;
+          g_message(_("cannot open chmfile: %s"), filename);
+          return FALSE;
         }
 
         ec.base_path = (const char *)chmfile->dir;
 
         if (!chm_enumerate(handle, CHM_ENUMERATE_NORMAL, _extract_callback, (void *)&ec)) {
-                g_print("Extract chmfile failed: %s", filename);
-                return FALSE;
+          g_print(_("Extract chmfile failed: %s"), filename);
+          return FALSE;
         }
 
         chm_close(handle);
@@ -323,10 +322,10 @@ get_dword(const unsigned char *buf)
         return result;
 }
 
-static char *
+static const char *
 get_encoding(u_int32_t lcid)
 {
-        char * encoding = "UTF-8";
+        const char * encoding = "UTF-8";
 
         switch(lcid) {
         case 0x0436:
@@ -393,8 +392,8 @@ get_encoding(u_int32_t lcid)
         case 0x0441:
         case 0x041d:
         case 0x081d:
-                encoding = g_strdup("iso8859_1");
-                break;
+          return "iso8859_1";
+          break;
         case 0x041c:
         case 0x041a:
         case 0x0405:
@@ -403,8 +402,8 @@ get_encoding(u_int32_t lcid)
         case 0x081a:
         case 0x041b:
         case 0x0424:
-                encoding = g_strdup("iso8859_2");
-                break;
+          return "iso8859_2";
+          break;
         case 0x0401:
         case 0x0801:
         case 0x0c01:
@@ -423,42 +422,42 @@ get_encoding(u_int32_t lcid)
         case 0x4001:
         case 0x0429:
         case 0x0420:
-                encoding = g_strdup("iso8859_6");
-                break;
+          return "iso8859_6";
+          break;
         case 0x0408:
-                encoding = g_strdup("iso8859_7");
-                break;
+          return "iso8859_7";
+          break;
         case 0x040d:
-                encoding = g_strdup("iso8859_8");
-                break;
+          return "iso8859_8";
+          break;
         case 0x042c:
         case 0x041f:
         case 0x0443:
-                encoding = g_strdup("iso8859_9");
-                break;
+          return "iso8859_9";          
+          break;
         case 0x041e:
-                encoding = g_strdup("iso8859_11");
-                break;
+          return "iso8859_11";
+          break;
         case 0x0425:
         case 0x0426:
         case 0x0427:
-                encoding = g_strdup("iso8859_13");
-                break;
+          return "iso8859_13";
+          break;
         case 0x0411:
-                encoding = g_strdup("cp932");
-                break;
+          return "cp932";
+          break;
         case 0x0804:
         case 0x1004:
-                encoding = g_strdup("cp936");
-                break;
+          return "cp936";
+          break;
         case 0x0412:
-                encoding = g_strdup("cp949");
-                break;
+          return "cp949";
+          break;
         case 0x0404:
         case 0x0c04:
         case 0x1404:
-                encoding = g_strdup("cp950");
-                break;
+          return "cp950";
+          break;
         case 0x082c:
         case 0x0423:
         case 0x0402:
@@ -469,14 +468,12 @@ get_encoding(u_int32_t lcid)
         case 0x0444:
         case 0x0422:
         case 0x0843:
-                encoding = g_strdup("cp1251");
-                break;
+          return "cp1251";
+          break;
         default:
-                encoding = g_strdup("");
-                break;
+          return "";
+          break;
         }
-
-        return encoding;
 }
 
 static void

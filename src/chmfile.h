@@ -52,7 +52,7 @@ struct _ChmFile
         gchar          *hhc;
         gchar          *hhk;
         gchar          *title;
-        gchar          *encoding;
+        const gchar    *encoding;
         gchar          *variable_font;
         gchar          *fixed_font;
 
