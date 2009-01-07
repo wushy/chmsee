@@ -68,7 +68,7 @@ default_prefs_in_FILES = \
 	default-prefs-libxul.js
 
 default-prefs.js: $(default_prefs_files)
-	cat default-prefs-common.js default-prefs-@GECKO_FLAVOUR@.js > $@
+	cat $(srcdir)/default-prefs-common.js $(srcdir)/default-prefs-@GECKO_FLAVOUR@.js > $@
 
 default_prefsdir = $(pkgdatadir)
 default_prefs_DATA = default-prefs.js
