@@ -764,9 +764,10 @@ chmsee_quit(ChmSee *chmsee)
         g_free(chmsee->cache_dir);
         g_free(chmsee->last_dir);
         g_free(context_menu_link);
-
 	gecko_utils_shutdown();
+
         gtk_main_quit();
+        exit(0);
 
         d(g_message("chmsee quit"));
 }
