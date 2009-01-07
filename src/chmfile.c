@@ -34,6 +34,8 @@
 #include <md5.h>
 #endif
 
+#include <chm_lib.h>
+
 #include "chmsee.h"
 #include "utils.h"
 #include "parser.h"

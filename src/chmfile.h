@@ -24,8 +24,6 @@
 #include <glib-object.h>
 #include <gtk/gtktypeutils.h>
 
-#include <chm_lib.h>
-
 typedef struct _ChmFile       ChmFile;
 typedef struct _ChmFileClass  ChmFileClass;
 
