@@ -34,88 +34,52 @@
 #include "chmsee.h"
 #include "startup.h"
 #include "chmfile.h"
-
-static int show_help;
-static int show_version;
-
-/* Short options */
-static char const short_options[] = "hV";
-
-/* Long options */
-static struct option long_options[] =
-{
-        {"help",     no_argument,        &show_help,     1},
-        {"version",  no_argument,        &show_version,  1},
-        {0,          0,                  0,              0}
-};
-
-static void
-display_version(int exitflag)
-{
-        printf("ChmSee %s\n\n", PACKAGE_VERSION);
-        printf("Copyright (C) 2006  Ji YongGang <jungle@soforge-studio.com>\n");
-        printf("This is free software; see the source for copying conditions. There is NO\n");
-        printf("warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n");
-
-        if (exitflag)
-                exit(exitflag - 1);
-}
-
-static void 
-display_usage(int exitflag)
-{
-        printf("Gtk2+ based CHM file viewer\n\n");
-        printf("Usage: chmsee [OPTION] [chmfile]\n");
-        printf("Example: chmsee FreeBSD_Handbook.chm\n");
-        printf("\nOptions:\n");
-        printf("  -h, --help                display this help and exit\n");
-        printf("  -V, --version             print version information and exit\n");
-        printf("\nReport bugs to jungle@soforge-studio.com\n");
-
-        if (exitflag)
-                exit(exitflag - 1); 
-}
+#include "utils.h"
 
 int
-main(int argc, char *argv[])
+main(int argc, char** argv)
 {
         extern char *optarg;
         extern int optind;
 
         ChmSee *chmsee;
-        gchar **filename;
+        const gchar* filename = NULL;
         int opt;
+        GError* error = NULL;
+        gboolean option_version = FALSE;
 
         if (!g_thread_supported()) 
                 g_thread_init(NULL);
 
-        gtk_init(&argc, &argv);
-
-        /* Parse command line */
-        while ((opt = getopt_long(argc, argv, short_options, long_options, NULL)) != -1) {
-                switch (opt) {
-                case 'h':
-                        display_usage(1);
-                        break;
-                case 'V':
-                        display_version(1);
-                        break;
-                case 0:
-                        /* Long options */
-                        break;
-                default:
-                        display_usage(2);
-                        break;
-                }
+        GOptionEntry options[] = {
+          { "version", 'v',
+            0, G_OPTION_ARG_NONE, &option_version,
+            _("Display the version and exit"),
+            NULL
+          }
+        };
+        if(!gtk_init_with_args(&argc, &argv,
+                               "[chmfile]\n"
+                               "\n"
+                               "GTK+ based CHM file viewer\n"
+                               "Example: chmsee FreeBSD_Handbook.chm"
+                               ,
+                               options, GETTEXT_PACKAGE, &error)) {
+          g_printerr("%s\n", error->message);
+          return 1;
+        }
+        if(option_version) {
+          g_print("%s\n", PACKAGE_STRING);
+          return 0;
         }
 
-        if (show_help)
-                display_usage(1);
-
-        if (show_version)
-                display_version(1);
-
-        filename = argv + optind;
+        if(argc == 0) {
+        } else if(argc == 1) {
+          filename = *argv;
+        } else {
+          g_printerr(_("more than 1 argument\n"));
+          return 1;
+        }
 
         /* i18n */
         bindtextdomain(GETTEXT_PACKAGE, PACKAGE_LOCALE_DIR);
@@ -128,8 +92,9 @@ main(int argc, char *argv[])
         /* Create main window */
         chmsee = chmsee_new();
 
-        if (*filename)
-                chmsee_open_file(chmsee, (const gchar *)*filename);
+        if (filename) {
+          chmsee_open_file(chmsee, filename);
+        }
 
         gtk_widget_show(GTK_WIDGET (chmsee));
 
