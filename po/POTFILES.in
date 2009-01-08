@@ -7,3 +7,4 @@ src/chmfile.c
 src/bookmarks.c
 src/html.c
 src/setup.c
+src/main.c

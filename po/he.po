@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: chmsee\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-01-06 23:40+0800\n"
+"POT-Creation-Date: 2009-01-08 21:40+0800\n"
 "PO-Revision-Date: 2008-12-04 23:23+0000\n"
 "Last-Translator: Yaron <sh.yaron@gmail.com>\n"
 "Language-Team: Hebrew <he@li.org>\n"
@@ -166,19 +166,27 @@ msgid "_Help"
 msgstr "ע_זרה"
 
 #: ../chmsee.glade.h:42
+msgid "_Home"
+msgstr "_בית"
+
+#: ../chmsee.glade.h:43
 msgid "_New Tab"
 msgstr "לשונית _חדשה"
 
-#: ../chmsee.glade.h:43
+#: ../chmsee.glade.h:44
+msgid "_Setup"
+msgstr "ה_גדרות"
+
+#: ../chmsee.glade.h:45
 msgid "_View"
 msgstr "_תצוגה"
 
-#: ../chmsee.glade.h:44
+#: ../chmsee.glade.h:46
 msgid "http://code.google.com/p/chmsee"
 msgstr ""
 
 #. TRANSLATORS: Replace this string with your names, one name per line.
-#: ../chmsee.glade.h:46
+#: ../chmsee.glade.h:48
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
@@ -196,39 +204,39 @@ msgstr "קבצי CHM"
 msgid "All Files"
 msgstr "כל הקבצים"
 
-#: ../src/chmsee.c:1017
+#: ../src/chmsee.c:1018
 msgid "Ready!"
 msgstr "מוכן!"
 
-#: ../src/chmsee.c:1069
+#: ../src/chmsee.c:1070
 msgid "Topics"
 msgstr "נושאים"
 
-#: ../src/chmsee.c:1086
+#: ../src/chmsee.c:1087
 msgid "Bookmarks"
 msgstr "סימניות"
 
 #. Custom label widget, with a close button
-#: ../src/chmsee.c:1232 ../src/chmsee.c:1399
+#: ../src/chmsee.c:1233 ../src/chmsee.c:1400
 msgid "No Title"
 msgstr "אין כותרת"
 
-#: ../src/chmsee.c:1501
+#: ../src/chmsee.c:1502
 #, c-format
 msgid "Error loading file '%s'"
 msgstr "שגיאה בטעינת הקובץ '%s'"
 
-#: ../src/chmfile.c:250
+#: ../src/chmfile.c:252
 #, c-format
 msgid "cannot open chmfile: %s"
 msgstr ""
 
-#: ../src/chmfile.c:257
+#: ../src/chmfile.c:259
 #, c-format
 msgid "Extract chmfile failed: %s"
 msgstr ""
 
-#: ../src/chmfile.c:283
+#: ../src/chmfile.c:285
 #, c-format
 msgid "open \"%s\" failed: %s"
 msgstr ""
@@ -237,11 +245,14 @@ msgstr ""
 msgid "Bookmark"
 msgstr "סימנייה"
 
-#~ msgid "_Home"
-#~ msgstr "_בית"
+#: ../src/main.c:57
+msgid "Display the version and exit"
+msgstr ""
 
-#~ msgid "_Setup"
-#~ msgstr "ה_גדרות"
+#: ../src/main.c:80
+#, c-format
+msgid "more than 1 argument\n"
+msgstr ""
 
 #~ msgid "http://chmsee.gro.clinux.org"
 #~ msgstr "http://chmsee.gro.clinux.org"

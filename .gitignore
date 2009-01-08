@@ -19,7 +19,6 @@ missing
 *.gmo
 gmon.out
 intltool-*
-INSTALL
 *.m4
 Makefile
 Makefile.in
