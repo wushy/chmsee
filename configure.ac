@@ -129,6 +129,7 @@ AC_SUBST([AM_CXXFLAGS])
 
 AC_CONFIG_FILES([
         Makefile
+	data/Makefile
         src/Makefile
         cs2w/Makefile
         cs2w/template/Makefile
