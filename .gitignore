@@ -18,3 +18,5 @@ src/marshal.h
 src/marshal.c
 src/default-prefs.js
 po/.intltool-merge-cache
+tags
+gmon.out
