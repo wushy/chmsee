@@ -33,5 +33,5 @@ $ make install-strip
 Bug 报告
 ========
 
-如果你在使用中发现 bug 和对 ChmSee 有什么建议，请发邮件到
-jungle@soforge-studio.com，并在标题中注明 ChmSee，谢谢！
+如果你在使用中发现 bug 和对 ChmSee 有什么建议，请到
+http://code.google.com/p/chmsee/issues/entry 提交 bug, 多谢。

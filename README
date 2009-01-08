@@ -29,5 +29,5 @@ can specify with --with-chmlib=/path/to/chmlib, or skip testing with
 Report bug
 ==========
 
-If you find any problem, please send a mail to jungle@soforge-studio.com and
-include "ChmSee" string on the object line, thanks!
+If you find any problem, please file this bug in
+http://code.google.com/p/chmsee/issues/entry, thanks.
