@@ -5,7 +5,7 @@ AC_PREREQ(2.61)
 AC_INIT([chmsee],[1.0.2],[http://code.google.com/p/chmsee/issues/entry])
 AM_MAINTAINER_MODE
 AC_CANONICAL_TARGET
-AM_INIT_AUTOMAKE
+AM_INIT_AUTOMAKE([foreign])
 AM_MAINTAINER_MODE
 
 AC_CONFIG_SRCDIR([src/chmsee.c])
@@ -13,6 +13,7 @@ AC_CONFIG_HEADER([config.h])
 
 # Checks for programs.
 AC_PROG_CC
+AM_PROG_CC_C_O
 AC_PROG_CXX
 AC_ISC_POSIX
 AC_HEADER_STDC
