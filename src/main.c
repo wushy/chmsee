@@ -73,9 +73,9 @@ main(int argc, char** argv)
           return 0;
         }
 
-        if(argc == 0) {
-        } else if(argc == 1) {
-          filename = *argv;
+        if(argc == 1) {
+        } else if(argc == 2) {
+          filename = argv[1];
         } else {
           g_printerr(_("more than 1 argument\n"));
           return 1;
