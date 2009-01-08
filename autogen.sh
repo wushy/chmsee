@@ -2,3 +2,4 @@
 
 set -x
 autoreconf -vif
+intltoolize --automake -c

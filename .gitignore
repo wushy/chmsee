@@ -2,6 +2,7 @@
 ABOUT-NLS
 aclocal.m4
 *.cache
+compile
 config.guess
 config.h
 config.h.in
@@ -17,6 +18,7 @@ missing
 *.desktop
 *.gmo
 gmon.out
+intltool-*
 INSTALL
 *.m4
 Makefile
