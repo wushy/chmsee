@@ -1,11 +1,11 @@
 [Desktop Entry]
-Version=1.0.2
+Version=1.0
 _Name=ChmSee
 _Comment=HTML Help(CHM) viewer
 Exec=chmsee %f
 Terminal=false
 Type=Application
-Icon=chmsee-icon.png
+Icon=chmsee-icon
 StartupNotify=true
 Categories=Utility;
 MimeType=application/x-chm;
