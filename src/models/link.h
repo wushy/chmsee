@@ -45,7 +45,7 @@ void link_free(Link *);
 
 gint link_compare(gconstpointer, gconstpointer);
 void link_change_type(Link *, LinkType);
-Link *ink_ref(Link *);
+Link* link_ref(Link *);
 void link_unref(Link *);
 
 #endif /* __LINK_H__ */
