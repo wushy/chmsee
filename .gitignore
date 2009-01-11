@@ -24,7 +24,6 @@ Makefile
 Makefile.in
 *.o
 po/*.header
-po/Makefile.in.in
 po/.intltool-merge-cache
 po/Makevars.template
 po/Rules-quot
