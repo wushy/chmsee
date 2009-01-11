@@ -17,7 +17,7 @@
  *  Boston, MA 02110-1301, USA.
  */
  
-#include "bookmarks.h"
+#include "ui_bookmarks.h"
 
 #include <stdio.h>
 #include <string.h>

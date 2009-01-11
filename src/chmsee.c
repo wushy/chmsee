@@ -40,7 +40,7 @@
 
 #include "html.h"
 #include "booktree.h"
-#include "bookmarks.h"
+#include "ui_bookmarks.h"
 #include "setup.h"
 #include "link.h"
 #include "utils.h"

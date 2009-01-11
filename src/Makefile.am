@@ -14,7 +14,7 @@ bin_PROGRAMS = chmsee
 chmsee_SOURCES = \
 	main.c \
 	marshal_main.c \
-	bookmarks.c bookmarks.h \
+	ui_bookmarks.c ui_bookmarks.h \
 	booktree.c booktree.h \
 	chmfile.c chmfile.h \
 	chmsee.c chmsee.h \
@@ -41,7 +41,7 @@ chmsee_CPPFLAGS = \
 
 chmsee_LDADD = \
 	utils/libchmsee-utils.a \
-	utils/libchmsee-models.a \
+	models/libchmsee-models.a \
 	@GLADE_LIBS@ \
 	@CHMLIB_LIBS@ \
 	@MD5_LIBS@ \
