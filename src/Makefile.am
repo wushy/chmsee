@@ -1,4 +1,4 @@
-SUBDIRS = utils
+SUBDIRS = utils models
 
 CHMSEE_DEFINES = \
 	-DPACKAGE_DATA_DIR=\""$(datadir)"\" \
@@ -19,7 +19,6 @@ chmsee_SOURCES = \
 	chmfile.c chmfile.h \
 	chmsee.c chmsee.h \
 	html.c html.h \
-	link.c link.h \
 	parser.c parser.h \
 	setup.c	setup.h	\
 	startup.c startup.h \
@@ -42,6 +41,7 @@ chmsee_CPPFLAGS = \
 
 chmsee_LDADD = \
 	utils/libchmsee-utils.a \
+	utils/libchmsee-models.a \
 	@GLADE_LIBS@ \
 	@CHMLIB_LIBS@ \
 	@MD5_LIBS@ \

@@ -22,7 +22,7 @@
 #include <libxml/parser.h>
 #include <libxml/HTMLparser.h>
 
-#include "link.h"
+#include "models/link.h"
 #include "utils.h"
 
 static gint depth = -1;

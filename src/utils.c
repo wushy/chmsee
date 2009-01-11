@@ -29,7 +29,7 @@
 #include <sys/stat.h>
 #include <unistd.h>             /* R_OK */
 
-#include "link.h"
+#include "models/link.h"
 
 static gint parse_config_line(gchar *, gchar *, gchar *);
 static gchar *strip_string(gchar *);

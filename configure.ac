@@ -133,6 +133,7 @@ AC_CONFIG_FILES([
 	data/Makefile
         src/Makefile
         src/utils/Makefile
+        src/models/Makefile
         cs2w/Makefile
         cs2w/template/Makefile
         cs2w/template/cs2w_icons/Makefile

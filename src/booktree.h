@@ -23,7 +23,7 @@
 #include <glib.h>
 #include <gtk/gtk.h>
 
-#include "link.h"
+#include "models/link.h"
 
 #define TYPE_BOOKTREE \
         (booktree_get_type())

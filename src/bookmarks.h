@@ -23,7 +23,7 @@
 #include <glib-object.h>
 #include <gtk/gtk.h>
 
-#include "link.h"
+#include "models/link.h"
 
 #define TYPE_BOOKMARKS \
         (bookmarks_get_type())
