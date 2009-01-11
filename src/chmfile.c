@@ -67,7 +67,7 @@ static int rmkdir(char *);
 static int _extract_callback(struct chmFile *, struct chmUnitInfo *, void *);
 static gboolean extract_chm(const gchar *, ChmFile *);
 
-GtkType
+GType
 chmfile_get_type(void)
 {
         static GType type = 0;

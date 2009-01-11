@@ -1,5 +1,6 @@
 /*
- *  Copyright (c) 2006           Ji YongGang <jungle@soforge-studio.com>
+ *  Copyright (C) 2006 Ji YongGang <jungle@soforge-studio.com>
+ *  Copyright (C) 2009 LI Daobing <lidaobing@gmail.com>
  *
  *  ChmSee is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -22,7 +23,6 @@
 
 #include <glib.h>
 #include <glib-object.h>
-#include <gtk/gtktypeutils.h>
 
 typedef struct _ChmFile       ChmFile;
 typedef struct _ChmFileClass  ChmFileClass;
@@ -63,7 +63,7 @@ struct _ChmFileClass
 	GObjectClass parent_class;
 };
 
-GtkType chmfile_get_type(void);
+GType chmfile_get_type(void);
 ChmFile *chmfile_new(const gchar *);
 
 #endif /* !__CHMFILE_H__ */
