@@ -277,41 +277,41 @@ control_switch_page_cb(GtkNotebook *notebook, GtkNotebookPage *page, guint new_p
 static void
 html_switch_page_cb(GtkNotebook *notebook, GtkNotebookPage *page, guint new_page_num, ChmSee *chmsee)
 {
-        GtkWidget *new_page;
+  GtkWidget *new_page;
 
-        new_page = gtk_notebook_get_nth_page(notebook, new_page_num);
+  new_page = gtk_notebook_get_nth_page(notebook, new_page_num);
 
-        if (new_page) {
-                Html *new_html;
-                gchar *title, *location;
+  if (new_page) {
+    Html *new_html;
+    gchar *title, *location;
 
-                new_html = g_object_get_data(G_OBJECT (new_page), "html");
+    new_html = g_object_get_data(G_OBJECT (new_page), "html");
 
-                update_tab_title(chmsee, new_html);
+    update_tab_title(chmsee, new_html);
 
-                title = html_get_title(new_html);
-                location = html_get_location(new_html);
+    title = html_get_title(new_html);
+    location = html_get_location(new_html);
 
-                if (location != NULL && strlen(location)) {
-                        if (strlen(title))
-                                bookmarks_set_current_link(BOOKMARKS (chmsee->bookmark_tree), title, location);
-                        else {
-                                const gchar *book_title;
+    if (location != NULL && strlen(location)) {
+      if (strlen(title)) {
+        ui_bookmarks_set_current_link(UIBOOKMARKS (chmsee->bookmark_tree), title, location);
+      } else {
+        const gchar *book_title;
                         
-                                book_title = booktree_get_selected_book_title(BOOKTREE (chmsee->booktree));
-                                bookmarks_set_current_link(BOOKMARKS (chmsee->bookmark_tree), book_title, location);
-                        }
+        book_title = booktree_get_selected_book_title(BOOKTREE (chmsee->booktree));
+        ui_bookmarks_set_current_link(UIBOOKMARKS (chmsee->bookmark_tree), book_title, location);
+      }
 
-                        /* Sync the book tree. */
-                        if (chmsee->has_toc)
-                                booktree_select_uri(BOOKTREE (chmsee->booktree), location);
-                }
+      /* Sync the book tree. */
+      if (chmsee->has_toc)
+        booktree_select_uri(BOOKTREE (chmsee->booktree), location);
+    }
 
-                check_history(chmsee, new_html);
-        } else {
-                gtk_window_set_title(GTK_WINDOW (chmsee), "ChmSee");
-                check_history(chmsee, NULL);
-        }
+    check_history(chmsee, new_html);
+  } else {
+    gtk_window_set_title(GTK_WINDOW (chmsee), "ChmSee");
+    check_history(chmsee, NULL);
+  }
 }
 
 static void
@@ -362,12 +362,12 @@ html_title_changed_cb(Html *html, const gchar *title, ChmSee *chmsee)
 
         if (location != NULL && strlen(location)) {
                 if (strlen(title))
-                        bookmarks_set_current_link(BOOKMARKS (chmsee->bookmark_tree), title, location);
+                        ui_bookmarks_set_current_link(UIBOOKMARKS (chmsee->bookmark_tree), title, location);
                 else {
                         const gchar *book_title;
                         
                         book_title = booktree_get_selected_book_title(BOOKTREE (chmsee->booktree));
-                        bookmarks_set_current_link(BOOKMARKS (chmsee->bookmark_tree), book_title, location);
+                        ui_bookmarks_set_current_link(UIBOOKMARKS (chmsee->bookmark_tree), book_title, location);
                 }
         }
 }
@@ -769,7 +769,7 @@ chmsee_quit(ChmSee *chmsee)
 {
         if (chmsee->book) {
                 save_bookmarks(chmsee->book->dir, 
-                               bookmarks_get_list(BOOKMARKS (chmsee->bookmark_tree)));
+                               ui_bookmarks_get_list(UIBOOKMARKS (chmsee->bookmark_tree)));
                 save_fileinfo(chmsee->book);
                 g_object_unref(chmsee->book);
         }
@@ -1096,7 +1096,7 @@ display_book(ChmSee *chmsee, ChmFile *book)
 
         /* Bookmarks */
         bookmarks_list = chmsee->book->bookmarks_list;
-        chmsee->bookmark_tree = GTK_WIDGET (bookmarks_new(bookmarks_list));
+        chmsee->bookmark_tree = GTK_WIDGET (ui_bookmarks_new(bookmarks_list));
 
         gtk_notebook_append_page(GTK_NOTEBOOK (chmsee->control_notebook),
                                  chmsee->bookmark_tree,
@@ -1176,7 +1176,7 @@ display_book(ChmSee *chmsee, ChmFile *book)
 static void
 close_current_book(ChmSee *chmsee)
 {
-        save_bookmarks(chmsee->book->dir, bookmarks_get_list(BOOKMARKS (chmsee->bookmark_tree)));
+        save_bookmarks(chmsee->book->dir, ui_bookmarks_get_list(UIBOOKMARKS (chmsee->bookmark_tree)));
         g_object_unref(chmsee->book);
         gtk_widget_destroy(GTK_WIDGET (chmsee->control_notebook));
         gtk_widget_destroy(GTK_WIDGET (chmsee->html_notebook));

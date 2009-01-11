@@ -17,29 +17,29 @@
  *  Boston, MA 02110-1301, USA.
  */
 
-#ifndef __BOOKMARKS_H__
-#define __BOOKMARKS_H__
+#ifndef __UI_BOOKMARKS_H__
+#define __UI_BOOKMARKS_H__
 
 #include <glib-object.h>
 #include <gtk/gtk.h>
 
 #include "models/link.h"
 
-#define TYPE_BOOKMARKS \
-        (bookmarks_get_type())
-#define BOOKMARKS(o) \
-        (G_TYPE_CHECK_INSTANCE_CAST ((o), TYPE_BOOKMARKS, Bookmarks))
-#define BOOKMARKS_CLASS(k) \
-        (G_TYPE_CHECK_CLASS_CAST ((k), TYPE_BOOKMARKS, BookmarksClass))
-#define IS_BOOKMARKS(o) \
-        (G_TYPE_CHECK_INSTANCE_TYPE ((o), TYPE_BOOKMARKS))
+#define TYPE_UIBOOKMARKS \
+        (ui_bookmarks_get_type())
+#define UIBOOKMARKS(o) \
+        (G_TYPE_CHECK_INSTANCE_CAST ((o), TYPE_UIBOOKMARKS, UiBookmarks))
+#define UIBOOKMARKS_CLASS(k) \
+        (G_TYPE_CHECK_CLASS_CAST ((k), TYPE_UIBOOKMARKS, UiBookmarksClass))
+#define IS_UIBOOKMARKS(o) \
+        (G_TYPE_CHECK_INSTANCE_TYPE ((o), TYPE_UIBOOKMARKS))
 #define IS_SEARCH_CLASS(k) \
-        (G_TYPE_CHECK_CLASS_TYPE ((k), TYPE_BOOKMARKS))
+        (G_TYPE_CHECK_CLASS_TYPE ((k), TYPE_UIBOOKMARKS))
 
-typedef struct _Bookmarks       Bookmarks;
-typedef struct _BookmarksClass  BookmarksClass;
+typedef struct _UiBookmarks       UiBookmarks;
+typedef struct _UiBookmarksClass  UiBookmarksClass;
 
-struct _Bookmarks {
+struct _UiBookmarks {
         GtkVBox        parent;
         
         GtkWidget     *list;
@@ -53,18 +53,18 @@ struct _Bookmarks {
         gchar         *current_uri;
 };
 
-struct _BookmarksClass {
+struct _UiBookmarksClass {
         GtkVBoxClass   parent_class;
 
         /* Signals */
-        void (*link_selected) (Bookmarks *bookmarks, Link *link);
+        void (*link_selected) (UiBookmarks *bookmarks, Link *link);
 };
 
-GType bookmarks_get_type(void);
-GtkWidget *bookmarks_new(GList *);
+GType ui_bookmarks_get_type(void);
+GtkWidget *ui_bookmarks_new(GList *);
 
-void bookmarks_set_current_link(Bookmarks *, const gchar *, const gchar *);
-void bookmarks_grab_focus(Bookmarks *);
-GList *bookmarks_get_list(Bookmarks *);
+void ui_bookmarks_set_current_link(UiBookmarks *, const gchar *, const gchar *);
+void ui_bookmarks_grab_focus(UiBookmarks *);
+GList *ui_bookmarks_get_list(UiBookmarks *);
 
-#endif /* !__BOOKMARKS_H__ */
+#endif /* !__UI_BOOKMARKS_H__ */
