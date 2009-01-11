@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: chmsee\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-01-08 21:40+0800\n"
+"POT-Creation-Date: 2009-01-11 16:35+0800\n"
 "PO-Revision-Date: 2008-12-01 16:29+0000\n"
 "Last-Translator: Luca Livraghi <luca.91@hotmail.it>\n"
 "Language-Team: Italian <it@li.org>\n"
@@ -17,35 +17,35 @@ msgstr ""
 "X-Launchpad-Export-Date: 2008-12-02 10:41+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
-#: ../chmsee.glade.h:1
+#: ../data/chmsee.glade.h:1
 msgid "<b>Cache</b>"
 msgstr "<b>Cache</b>"
 
-#: ../chmsee.glade.h:2
+#: ../data/chmsee.glade.h:2
 msgid "<b>Charset</b>"
 msgstr "<b>Codifica Caratteri</b>"
 
-#: ../chmsee.glade.h:3
+#: ../data/chmsee.glade.h:3
 msgid "<b>Font</b>"
 msgstr "<b>Carattere</b>"
 
-#: ../chmsee.glade.h:4
+#: ../data/chmsee.glade.h:4
 msgid "About"
 msgstr "Informazioni"
 
-#: ../chmsee.glade.h:5
+#: ../data/chmsee.glade.h:5
 msgid "About..."
 msgstr "Informazioni su..."
 
-#: ../chmsee.glade.h:6
+#: ../data/chmsee.glade.h:6
 msgid "Auto-Detect:"
 msgstr "Rileva Automaticamente:"
 
-#: ../chmsee.glade.h:7
+#: ../data/chmsee.glade.h:7
 msgid "Back"
 msgstr "Indietro"
 
-#: ../chmsee.glade.h:8
+#: ../data/chmsee.glade.h:8
 msgid ""
 "CHM files extracted in this cache folder, you can press Clear button to free "
 "disk space.\n"
@@ -58,60 +58,60 @@ msgstr ""
 "NOTA: Se si sta visualizzando un file CHM, è necessario riaprirlo dopo la "
 "pulizia."
 
-#: ../chmsee.glade.h:11 ../chmsee.desktop.in.h:1
+#: ../data/chmsee.glade.h:11 ../data/chmsee.desktop.in.h:1
 msgid "ChmSee"
 msgstr "ChmSee"
 
-#: ../chmsee.glade.h:12
+#: ../data/chmsee.glade.h:12
 #, fuzzy
 msgid "Copy Page _Location"
 msgstr "_Copia Posizione Collegamento"
 
-#: ../chmsee.glade.h:13
+#: ../data/chmsee.glade.h:13
 msgid "Fixed Width:"
 msgstr "Larghezza Fissa:"
 
-#: ../chmsee.glade.h:14
+#: ../data/chmsee.glade.h:14
 msgid "Forward"
 msgstr "Avanti"
 
-#: ../chmsee.glade.h:15
+#: ../data/chmsee.glade.h:15
 msgid "Home"
 msgstr "Home"
 
-#: ../chmsee.glade.h:16
+#: ../data/chmsee.glade.h:16
 msgid "Normal"
 msgstr "Normale"
 
-#: ../chmsee.glade.h:17
+#: ../data/chmsee.glade.h:17
 msgid "Open File"
 msgstr "Apri File"
 
-#: ../chmsee.glade.h:18
+#: ../data/chmsee.glade.h:18
 msgid "Open Link in New _Tab"
 msgstr "Apri Collegamento in una Nuova _Scheda"
 
-#: ../chmsee.glade.h:19
+#: ../data/chmsee.glade.h:19
 msgid "Panel"
 msgstr "Pannello"
 
-#: ../chmsee.glade.h:20
+#: ../data/chmsee.glade.h:20
 msgid "Select _All"
 msgstr "Seleziona _Tutto"
 
-#: ../chmsee.glade.h:21
+#: ../data/chmsee.glade.h:21
 msgid "Setup"
 msgstr "Configurazione"
 
-#: ../chmsee.glade.h:22
+#: ../data/chmsee.glade.h:22
 msgid "Show/Hide Panel"
 msgstr "Mostra/Nascondi Pannello"
 
-#: ../chmsee.glade.h:23
+#: ../data/chmsee.glade.h:23
 msgid "The HTML Help(CHM) viewer for Unix/Linux"
 msgstr "Il visualizzatore Help(CHM) HTML per Unix/Linux"
 
-#: ../chmsee.glade.h:24
+#: ../data/chmsee.glade.h:24
 msgid ""
 "Universal\n"
 "Simplified Chinese\n"
@@ -129,107 +129,112 @@ msgstr ""
 "Russo\n"
 "Ucraino"
 
-#: ../chmsee.glade.h:31
+#: ../data/chmsee.glade.h:31
 msgid "Variable Width:"
 msgstr "Larghezza Variabile:"
 
-#: ../chmsee.glade.h:32
+#: ../data/chmsee.glade.h:32
 msgid "Zoom In"
 msgstr "Ingrandisci"
 
-#: ../chmsee.glade.h:33
+#: ../data/chmsee.glade.h:33
 msgid "Zoom Out"
 msgstr "Riduci"
 
-#: ../chmsee.glade.h:34
+#: ../data/chmsee.glade.h:34
 msgid "_Back"
 msgstr "_Indietro"
 
-#: ../chmsee.glade.h:35
+#: ../data/chmsee.glade.h:35
 msgid "_Close Tab"
 msgstr "_Chiudi scheda"
 
-#: ../chmsee.glade.h:36
+#: ../data/chmsee.glade.h:36
 msgid "_Copy"
 msgstr "_Copia"
 
-#: ../chmsee.glade.h:37
+#: ../data/chmsee.glade.h:37
 msgid "_Copy Link Location"
 msgstr "_Copia Posizione Collegamento"
 
-#: ../chmsee.glade.h:38
+#: ../data/chmsee.glade.h:38
 msgid "_Edit"
 msgstr "_Modifica"
 
-#: ../chmsee.glade.h:39
+#: ../data/chmsee.glade.h:39
 msgid "_File"
 msgstr "_File"
 
-#: ../chmsee.glade.h:40
+#: ../data/chmsee.glade.h:40
 msgid "_Forward"
 msgstr "_Avanti"
 
-#: ../chmsee.glade.h:41
+#: ../data/chmsee.glade.h:41
 msgid "_Help"
 msgstr "_Aiuto"
 
-#: ../chmsee.glade.h:42
+#: ../data/chmsee.glade.h:42
 msgid "_Home"
 msgstr "_Home"
 
-#: ../chmsee.glade.h:43
+#: ../data/chmsee.glade.h:43
 msgid "_New Tab"
 msgstr "_Nuova scheda"
 
-#: ../chmsee.glade.h:44
+#: ../data/chmsee.glade.h:44
 msgid "_Setup"
 msgstr "_Configurazione"
 
-#: ../chmsee.glade.h:45
+#: ../data/chmsee.glade.h:45
 msgid "_View"
 msgstr "_Visualizza"
 
-#: ../chmsee.glade.h:46
+#: ../data/chmsee.glade.h:46
 msgid "http://code.google.com/p/chmsee"
 msgstr ""
 
 #. TRANSLATORS: Replace this string with your names, one name per line.
-#: ../chmsee.glade.h:48
+#: ../data/chmsee.glade.h:48
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
 "  Luca Livraghi https://launchpad.net/~luca91"
 
-#: ../chmsee.desktop.in.h:2
+#: ../data/chmsee.desktop.in.h:2
 msgid "HTML Help(CHM) viewer"
 msgstr "Visualizzatore Help(CHM) HTML"
 
-#: ../src/chmsee.c:483
+#: ../src/chmsee.c:338
+#, c-format
+msgid "URI redirect: \"%s\" -> \"%s\""
+msgstr ""
+
+#: ../src/chmsee.c:499
 msgid "CHM Files"
 msgstr "File CHM"
 
-#: ../src/chmsee.c:488
+#: ../src/chmsee.c:504
 msgid "All Files"
 msgstr "Tutti i File"
 
-#: ../src/chmsee.c:1018
+#: ../src/chmsee.c:1034
 msgid "Ready!"
 msgstr "Pronto!"
 
-#: ../src/chmsee.c:1070
+#: ../src/chmsee.c:1086
 msgid "Topics"
 msgstr "Argomenti"
 
-#: ../src/chmsee.c:1087
+#: ../src/chmsee.c:1103
 msgid "Bookmarks"
 msgstr "Segnalibri"
 
 #. Custom label widget, with a close button
-#: ../src/chmsee.c:1233 ../src/chmsee.c:1400
+#: ../src/chmsee.c:1249 ../src/chmsee.c:1416
 msgid "No Title"
 msgstr "Nessun Titolo"
 
-#: ../src/chmsee.c:1502
+#: ../src/chmsee.c:1518
 #, c-format
 msgid "Error loading file '%s'"
 msgstr "Errore durante il caricamento del file '%s'"

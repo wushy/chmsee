@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: chmsee\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-01-08 21:40+0800\n"
+"POT-Creation-Date: 2009-01-11 16:35+0800\n"
 "PO-Revision-Date: 2008-12-30 20:03+0000\n"
 "Last-Translator: faisal <Unknown>\n"
 "Language-Team: Bengali <bn@li.org>\n"
@@ -17,35 +17,35 @@ msgstr ""
 "X-Launchpad-Export-Date: 2009-01-03 06:24+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
-#: ../chmsee.glade.h:1
+#: ../data/chmsee.glade.h:1
 msgid "<b>Cache</b>"
 msgstr "<b>ক্যাশ</b>"
 
-#: ../chmsee.glade.h:2
+#: ../data/chmsee.glade.h:2
 msgid "<b>Charset</b>"
 msgstr "<b>Charset</b>"
 
-#: ../chmsee.glade.h:3
+#: ../data/chmsee.glade.h:3
 msgid "<b>Font</b>"
 msgstr "<b>ফন্ট</b>"
 
-#: ../chmsee.glade.h:4
+#: ../data/chmsee.glade.h:4
 msgid "About"
 msgstr "সম্বন্ধে"
 
-#: ../chmsee.glade.h:5
+#: ../data/chmsee.glade.h:5
 msgid "About..."
 msgstr "সম্বন্ধে..."
 
-#: ../chmsee.glade.h:6
+#: ../data/chmsee.glade.h:6
 msgid "Auto-Detect:"
 msgstr "সয়ন্ক্রিয়ভাবে সনাক্ত করা"
 
-#: ../chmsee.glade.h:7
+#: ../data/chmsee.glade.h:7
 msgid "Back"
 msgstr "পেছনে"
 
-#: ../chmsee.glade.h:8
+#: ../data/chmsee.glade.h:8
 msgid ""
 "CHM files extracted in this cache folder, you can press Clear button to free "
 "disk space.\n"
@@ -58,59 +58,59 @@ msgstr ""
 "লক্ষ্য করুন: আপনি যদি একটি CHM ফাইল দেখতে থাকেন, তবে পরিস্কার করার পরে আপনাকে "
 "সেটি আবার খুলে দেখতে হবে।"
 
-#: ../chmsee.glade.h:11 ../chmsee.desktop.in.h:1
+#: ../data/chmsee.glade.h:11 ../data/chmsee.desktop.in.h:1
 msgid "ChmSee"
 msgstr "ChmSee"
 
-#: ../chmsee.glade.h:12
+#: ../data/chmsee.glade.h:12
 msgid "Copy Page _Location"
 msgstr ""
 
-#: ../chmsee.glade.h:13
+#: ../data/chmsee.glade.h:13
 msgid "Fixed Width:"
 msgstr "নির্দিষ্ট প্রস্থ:"
 
-#: ../chmsee.glade.h:14
+#: ../data/chmsee.glade.h:14
 msgid "Forward"
 msgstr "অগ্রসর"
 
-#: ../chmsee.glade.h:15
+#: ../data/chmsee.glade.h:15
 msgid "Home"
 msgstr ""
 
-#: ../chmsee.glade.h:16
+#: ../data/chmsee.glade.h:16
 msgid "Normal"
 msgstr "স্বাভাবিক"
 
-#: ../chmsee.glade.h:17
+#: ../data/chmsee.glade.h:17
 msgid "Open File"
 msgstr "ফাইল খুলুন"
 
-#: ../chmsee.glade.h:18
+#: ../data/chmsee.glade.h:18
 msgid "Open Link in New _Tab"
 msgstr ""
 
-#: ../chmsee.glade.h:19
+#: ../data/chmsee.glade.h:19
 msgid "Panel"
 msgstr "প্যানেল"
 
-#: ../chmsee.glade.h:20
+#: ../data/chmsee.glade.h:20
 msgid "Select _All"
 msgstr ""
 
-#: ../chmsee.glade.h:21
+#: ../data/chmsee.glade.h:21
 msgid "Setup"
 msgstr "সেটআপ"
 
-#: ../chmsee.glade.h:22
+#: ../data/chmsee.glade.h:22
 msgid "Show/Hide Panel"
 msgstr "প্যানেল দেখানো/লুকানো"
 
-#: ../chmsee.glade.h:23
+#: ../data/chmsee.glade.h:23
 msgid "The HTML Help(CHM) viewer for Unix/Linux"
 msgstr "ইউনিক্স/লিনাক্সের HTML সাহায্য প্রদর্শক (CHM)"
 
-#: ../chmsee.glade.h:24
+#: ../data/chmsee.glade.h:24
 msgid ""
 "Universal\n"
 "Simplified Chinese\n"
@@ -128,108 +128,113 @@ msgstr ""
 "রাশিয়ান\n"
 "ইউক্রেনিয়ান"
 
-#: ../chmsee.glade.h:31
+#: ../data/chmsee.glade.h:31
 msgid "Variable Width:"
 msgstr "পরিবর্তনযোগ্য প্রস্থ"
 
-#: ../chmsee.glade.h:32
+#: ../data/chmsee.glade.h:32
 msgid "Zoom In"
 msgstr "বড় করে দেখানো"
 
-#: ../chmsee.glade.h:33
+#: ../data/chmsee.glade.h:33
 msgid "Zoom Out"
 msgstr "ছোট করে দেখানো"
 
-#: ../chmsee.glade.h:34
+#: ../data/chmsee.glade.h:34
 msgid "_Back"
 msgstr ""
 
-#: ../chmsee.glade.h:35
+#: ../data/chmsee.glade.h:35
 msgid "_Close Tab"
 msgstr ""
 
-#: ../chmsee.glade.h:36
+#: ../data/chmsee.glade.h:36
 msgid "_Copy"
 msgstr ""
 
-#: ../chmsee.glade.h:37
+#: ../data/chmsee.glade.h:37
 msgid "_Copy Link Location"
 msgstr ""
 
-#: ../chmsee.glade.h:38
+#: ../data/chmsee.glade.h:38
 msgid "_Edit"
 msgstr ""
 
-#: ../chmsee.glade.h:39
+#: ../data/chmsee.glade.h:39
 msgid "_File"
 msgstr ""
 
-#: ../chmsee.glade.h:40
+#: ../data/chmsee.glade.h:40
 msgid "_Forward"
 msgstr ""
 
-#: ../chmsee.glade.h:41
+#: ../data/chmsee.glade.h:41
 msgid "_Help"
 msgstr ""
 
-#: ../chmsee.glade.h:42
+#: ../data/chmsee.glade.h:42
 msgid "_Home"
 msgstr ""
 
-#: ../chmsee.glade.h:43
+#: ../data/chmsee.glade.h:43
 msgid "_New Tab"
 msgstr ""
 
-#: ../chmsee.glade.h:44
+#: ../data/chmsee.glade.h:44
 #, fuzzy
 msgid "_Setup"
 msgstr "সেটআপ"
 
-#: ../chmsee.glade.h:45
+#: ../data/chmsee.glade.h:45
 msgid "_View"
 msgstr ""
 
-#: ../chmsee.glade.h:46
+#: ../data/chmsee.glade.h:46
 msgid "http://code.google.com/p/chmsee"
 msgstr ""
 
 #. TRANSLATORS: Replace this string with your names, one name per line.
-#: ../chmsee.glade.h:48
+#: ../data/chmsee.glade.h:48
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
 "  faisal https://launchpad.net/~faisal-ahmed"
 
-#: ../chmsee.desktop.in.h:2
+#: ../data/chmsee.desktop.in.h:2
 msgid "HTML Help(CHM) viewer"
 msgstr "HTML সহায়িকা(CHM) প্রদর্শক"
 
-#: ../src/chmsee.c:483
+#: ../src/chmsee.c:338
+#, c-format
+msgid "URI redirect: \"%s\" -> \"%s\""
+msgstr ""
+
+#: ../src/chmsee.c:499
 msgid "CHM Files"
 msgstr "CHM ফাইলসমূহ"
 
-#: ../src/chmsee.c:488
+#: ../src/chmsee.c:504
 msgid "All Files"
 msgstr "সমস্ত ফাইলসমূহ"
 
-#: ../src/chmsee.c:1018
+#: ../src/chmsee.c:1034
 msgid "Ready!"
 msgstr "প্রস্তুত!"
 
-#: ../src/chmsee.c:1070
+#: ../src/chmsee.c:1086
 msgid "Topics"
 msgstr "বিষয়"
 
-#: ../src/chmsee.c:1087
+#: ../src/chmsee.c:1103
 msgid "Bookmarks"
 msgstr "বুকমার্কসমূহ"
 
 #. Custom label widget, with a close button
-#: ../src/chmsee.c:1233 ../src/chmsee.c:1400
+#: ../src/chmsee.c:1249 ../src/chmsee.c:1416
 msgid "No Title"
 msgstr "শিরোনাম নাই"
 
-#: ../src/chmsee.c:1502
+#: ../src/chmsee.c:1518
 #, c-format
 msgid "Error loading file '%s'"
 msgstr "ত্রুটিপূর্নভাবে চালু হওয়া ফাইল '%s'"

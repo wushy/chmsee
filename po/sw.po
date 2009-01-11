@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: chmsee\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-01-08 21:40+0800\n"
+"POT-Creation-Date: 2009-01-11 16:35+0800\n"
 "PO-Revision-Date: 2008-12-23 07:17+0000\n"
 "Last-Translator: Emanuel Feruzi <emanuel.feruzi@gmail.com>\n"
 "Language-Team: Swahili <sw@li.org>\n"
@@ -17,35 +17,35 @@ msgstr ""
 "X-Launchpad-Export-Date: 2009-01-03 06:24+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
-#: ../chmsee.glade.h:1
+#: ../data/chmsee.glade.h:1
 msgid "<b>Cache</b>"
 msgstr "Kache"
 
-#: ../chmsee.glade.h:2
+#: ../data/chmsee.glade.h:2
 msgid "<b>Charset</b>"
 msgstr "Seti Kiwambo"
 
-#: ../chmsee.glade.h:3
+#: ../data/chmsee.glade.h:3
 msgid "<b>Font</b>"
 msgstr "Fonti"
 
-#: ../chmsee.glade.h:4
+#: ../data/chmsee.glade.h:4
 msgid "About"
 msgstr "Kuhusu"
 
-#: ../chmsee.glade.h:5
+#: ../data/chmsee.glade.h:5
 msgid "About..."
 msgstr "Kuhusu..."
 
-#: ../chmsee.glade.h:6
+#: ../data/chmsee.glade.h:6
 msgid "Auto-Detect:"
 msgstr ""
 
-#: ../chmsee.glade.h:7
+#: ../data/chmsee.glade.h:7
 msgid "Back"
 msgstr "Nyuma"
 
-#: ../chmsee.glade.h:8
+#: ../data/chmsee.glade.h:8
 msgid ""
 "CHM files extracted in this cache folder, you can press Clear button to free "
 "disk space.\n"
@@ -53,59 +53,59 @@ msgid ""
 "NOTE: If you are viewing a CHM file, you need reopen it after cleaning."
 msgstr ""
 
-#: ../chmsee.glade.h:11 ../chmsee.desktop.in.h:1
+#: ../data/chmsee.glade.h:11 ../data/chmsee.desktop.in.h:1
 msgid "ChmSee"
 msgstr "ChmSee"
 
-#: ../chmsee.glade.h:12
+#: ../data/chmsee.glade.h:12
 msgid "Copy Page _Location"
 msgstr ""
 
-#: ../chmsee.glade.h:13
+#: ../data/chmsee.glade.h:13
 msgid "Fixed Width:"
 msgstr ""
 
-#: ../chmsee.glade.h:14
+#: ../data/chmsee.glade.h:14
 msgid "Forward"
 msgstr ""
 
-#: ../chmsee.glade.h:15
+#: ../data/chmsee.glade.h:15
 msgid "Home"
 msgstr "Kaya"
 
-#: ../chmsee.glade.h:16
+#: ../data/chmsee.glade.h:16
 msgid "Normal"
 msgstr "Kawaida"
 
-#: ../chmsee.glade.h:17
+#: ../data/chmsee.glade.h:17
 msgid "Open File"
 msgstr "Fungua Faile"
 
-#: ../chmsee.glade.h:18
+#: ../data/chmsee.glade.h:18
 msgid "Open Link in New _Tab"
 msgstr ""
 
-#: ../chmsee.glade.h:19
+#: ../data/chmsee.glade.h:19
 msgid "Panel"
 msgstr ""
 
-#: ../chmsee.glade.h:20
+#: ../data/chmsee.glade.h:20
 msgid "Select _All"
 msgstr "Chagua Yote"
 
-#: ../chmsee.glade.h:21
+#: ../data/chmsee.glade.h:21
 msgid "Setup"
 msgstr ""
 
-#: ../chmsee.glade.h:22
+#: ../data/chmsee.glade.h:22
 msgid "Show/Hide Panel"
 msgstr ""
 
-#: ../chmsee.glade.h:23
+#: ../data/chmsee.glade.h:23
 msgid "The HTML Help(CHM) viewer for Unix/Linux"
 msgstr ""
 
-#: ../chmsee.glade.h:24
+#: ../data/chmsee.glade.h:24
 msgid ""
 "Universal\n"
 "Simplified Chinese\n"
@@ -116,108 +116,113 @@ msgid ""
 "Ukrainain"
 msgstr ""
 
-#: ../chmsee.glade.h:31
+#: ../data/chmsee.glade.h:31
 msgid "Variable Width:"
 msgstr ""
 
-#: ../chmsee.glade.h:32
+#: ../data/chmsee.glade.h:32
 msgid "Zoom In"
 msgstr ""
 
-#: ../chmsee.glade.h:33
+#: ../data/chmsee.glade.h:33
 msgid "Zoom Out"
 msgstr ""
 
-#: ../chmsee.glade.h:34
+#: ../data/chmsee.glade.h:34
 msgid "_Back"
 msgstr ""
 
-#: ../chmsee.glade.h:35
+#: ../data/chmsee.glade.h:35
 msgid "_Close Tab"
 msgstr ""
 
-#: ../chmsee.glade.h:36
+#: ../data/chmsee.glade.h:36
 msgid "_Copy"
 msgstr ""
 
-#: ../chmsee.glade.h:37
+#: ../data/chmsee.glade.h:37
 msgid "_Copy Link Location"
 msgstr ""
 
-#: ../chmsee.glade.h:38
+#: ../data/chmsee.glade.h:38
 msgid "_Edit"
 msgstr ""
 
-#: ../chmsee.glade.h:39
+#: ../data/chmsee.glade.h:39
 msgid "_File"
 msgstr ""
 
-#: ../chmsee.glade.h:40
+#: ../data/chmsee.glade.h:40
 msgid "_Forward"
 msgstr ""
 
-#: ../chmsee.glade.h:41
+#: ../data/chmsee.glade.h:41
 msgid "_Help"
 msgstr ""
 
-#: ../chmsee.glade.h:42
+#: ../data/chmsee.glade.h:42
 #, fuzzy
 msgid "_Home"
 msgstr "Kaya"
 
-#: ../chmsee.glade.h:43
+#: ../data/chmsee.glade.h:43
 msgid "_New Tab"
 msgstr ""
 
-#: ../chmsee.glade.h:44
+#: ../data/chmsee.glade.h:44
 msgid "_Setup"
 msgstr ""
 
-#: ../chmsee.glade.h:45
+#: ../data/chmsee.glade.h:45
 msgid "_View"
 msgstr ""
 
-#: ../chmsee.glade.h:46
+#: ../data/chmsee.glade.h:46
 msgid "http://code.google.com/p/chmsee"
 msgstr ""
 
 #. TRANSLATORS: Replace this string with your names, one name per line.
-#: ../chmsee.glade.h:48
+#: ../data/chmsee.glade.h:48
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
 "  Emanuel Feruzi https://launchpad.net/~emanuel-feruzi"
 
-#: ../chmsee.desktop.in.h:2
+#: ../data/chmsee.desktop.in.h:2
 msgid "HTML Help(CHM) viewer"
 msgstr ""
 
-#: ../src/chmsee.c:483
+#: ../src/chmsee.c:338
+#, c-format
+msgid "URI redirect: \"%s\" -> \"%s\""
+msgstr ""
+
+#: ../src/chmsee.c:499
 msgid "CHM Files"
 msgstr ""
 
-#: ../src/chmsee.c:488
+#: ../src/chmsee.c:504
 msgid "All Files"
 msgstr ""
 
-#: ../src/chmsee.c:1018
+#: ../src/chmsee.c:1034
 msgid "Ready!"
 msgstr ""
 
-#: ../src/chmsee.c:1070
+#: ../src/chmsee.c:1086
 msgid "Topics"
 msgstr ""
 
-#: ../src/chmsee.c:1087
+#: ../src/chmsee.c:1103
 msgid "Bookmarks"
 msgstr ""
 
 #. Custom label widget, with a close button
-#: ../src/chmsee.c:1233 ../src/chmsee.c:1400
+#: ../src/chmsee.c:1249 ../src/chmsee.c:1416
 msgid "No Title"
 msgstr ""
 
-#: ../src/chmsee.c:1502
+#: ../src/chmsee.c:1518
 #, c-format
 msgid "Error loading file '%s'"
 msgstr ""

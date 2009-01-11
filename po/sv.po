@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: chmsee\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-01-08 21:40+0800\n"
+"POT-Creation-Date: 2009-01-11 16:35+0800\n"
 "PO-Revision-Date: 2008-12-01 13:14+0000\n"
 "Last-Translator: Daniel Nylander <yeager@ubuntu.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
@@ -17,35 +17,35 @@ msgstr ""
 "X-Launchpad-Export-Date: 2008-12-02 10:44+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
-#: ../chmsee.glade.h:1
+#: ../data/chmsee.glade.h:1
 msgid "<b>Cache</b>"
 msgstr "<b>Cacheminne</b>"
 
-#: ../chmsee.glade.h:2
+#: ../data/chmsee.glade.h:2
 msgid "<b>Charset</b>"
 msgstr "<b>Teckenuppsättning</b>"
 
-#: ../chmsee.glade.h:3
+#: ../data/chmsee.glade.h:3
 msgid "<b>Font</b>"
 msgstr "<b>Typsnitt</b>"
 
-#: ../chmsee.glade.h:4
+#: ../data/chmsee.glade.h:4
 msgid "About"
 msgstr "Om"
 
-#: ../chmsee.glade.h:5
+#: ../data/chmsee.glade.h:5
 msgid "About..."
 msgstr "Om..."
 
-#: ../chmsee.glade.h:6
+#: ../data/chmsee.glade.h:6
 msgid "Auto-Detect:"
 msgstr "Identifiera automatiskt"
 
-#: ../chmsee.glade.h:7
+#: ../data/chmsee.glade.h:7
 msgid "Back"
 msgstr "Bakåt"
 
-#: ../chmsee.glade.h:8
+#: ../data/chmsee.glade.h:8
 msgid ""
 "CHM files extracted in this cache folder, you can press Clear button to free "
 "disk space.\n"
@@ -57,60 +57,60 @@ msgstr ""
 "\n"
 "OBSERVERA: Om du visar en CHM-fil så behöver du öppna den igen efter tömning."
 
-#: ../chmsee.glade.h:11 ../chmsee.desktop.in.h:1
+#: ../data/chmsee.glade.h:11 ../data/chmsee.desktop.in.h:1
 msgid "ChmSee"
 msgstr "ChmSee"
 
-#: ../chmsee.glade.h:12
+#: ../data/chmsee.glade.h:12
 #, fuzzy
 msgid "Copy Page _Location"
 msgstr "_Kopiera länkadress"
 
-#: ../chmsee.glade.h:13
+#: ../data/chmsee.glade.h:13
 msgid "Fixed Width:"
 msgstr "Fast bredd:"
 
-#: ../chmsee.glade.h:14
+#: ../data/chmsee.glade.h:14
 msgid "Forward"
 msgstr "Framåt"
 
-#: ../chmsee.glade.h:15
+#: ../data/chmsee.glade.h:15
 msgid "Home"
 msgstr "Hem"
 
-#: ../chmsee.glade.h:16
+#: ../data/chmsee.glade.h:16
 msgid "Normal"
 msgstr "Normal"
 
-#: ../chmsee.glade.h:17
+#: ../data/chmsee.glade.h:17
 msgid "Open File"
 msgstr "Öppna fil"
 
-#: ../chmsee.glade.h:18
+#: ../data/chmsee.glade.h:18
 msgid "Open Link in New _Tab"
 msgstr "Öppna länk i ny _flik"
 
-#: ../chmsee.glade.h:19
+#: ../data/chmsee.glade.h:19
 msgid "Panel"
 msgstr "Panel"
 
-#: ../chmsee.glade.h:20
+#: ../data/chmsee.glade.h:20
 msgid "Select _All"
 msgstr "Markera _allt"
 
-#: ../chmsee.glade.h:21
+#: ../data/chmsee.glade.h:21
 msgid "Setup"
 msgstr "Inställningar"
 
-#: ../chmsee.glade.h:22
+#: ../data/chmsee.glade.h:22
 msgid "Show/Hide Panel"
 msgstr "Visa/dölj panel"
 
-#: ../chmsee.glade.h:23
+#: ../data/chmsee.glade.h:23
 msgid "The HTML Help(CHM) viewer for Unix/Linux"
 msgstr "HTML-hjälpvisare (CHM) för Unix/Linux"
 
-#: ../chmsee.glade.h:24
+#: ../data/chmsee.glade.h:24
 msgid ""
 "Universal\n"
 "Simplified Chinese\n"
@@ -128,107 +128,112 @@ msgstr ""
 "Ryska\n"
 "Ukrainska"
 
-#: ../chmsee.glade.h:31
+#: ../data/chmsee.glade.h:31
 msgid "Variable Width:"
 msgstr "Variabel bredd:"
 
-#: ../chmsee.glade.h:32
+#: ../data/chmsee.glade.h:32
 msgid "Zoom In"
 msgstr "Zooma in"
 
-#: ../chmsee.glade.h:33
+#: ../data/chmsee.glade.h:33
 msgid "Zoom Out"
 msgstr "Zooma ut"
 
-#: ../chmsee.glade.h:34
+#: ../data/chmsee.glade.h:34
 msgid "_Back"
 msgstr "_Bakåt"
 
-#: ../chmsee.glade.h:35
+#: ../data/chmsee.glade.h:35
 msgid "_Close Tab"
 msgstr "S_täng flik"
 
-#: ../chmsee.glade.h:36
+#: ../data/chmsee.glade.h:36
 msgid "_Copy"
 msgstr "_Kopiera"
 
-#: ../chmsee.glade.h:37
+#: ../data/chmsee.glade.h:37
 msgid "_Copy Link Location"
 msgstr "_Kopiera länkadress"
 
-#: ../chmsee.glade.h:38
+#: ../data/chmsee.glade.h:38
 msgid "_Edit"
 msgstr "R_edigera"
 
-#: ../chmsee.glade.h:39
+#: ../data/chmsee.glade.h:39
 msgid "_File"
 msgstr "_Arkiv"
 
-#: ../chmsee.glade.h:40
+#: ../data/chmsee.glade.h:40
 msgid "_Forward"
 msgstr "_Framåt"
 
-#: ../chmsee.glade.h:41
+#: ../data/chmsee.glade.h:41
 msgid "_Help"
 msgstr "_Hjälp"
 
-#: ../chmsee.glade.h:42
+#: ../data/chmsee.glade.h:42
 msgid "_Home"
 msgstr "_Hem"
 
-#: ../chmsee.glade.h:43
+#: ../data/chmsee.glade.h:43
 msgid "_New Tab"
 msgstr "_Ny flik"
 
-#: ../chmsee.glade.h:44
+#: ../data/chmsee.glade.h:44
 msgid "_Setup"
 msgstr "_Inställningar"
 
-#: ../chmsee.glade.h:45
+#: ../data/chmsee.glade.h:45
 msgid "_View"
 msgstr "_Visa"
 
-#: ../chmsee.glade.h:46
+#: ../data/chmsee.glade.h:46
 msgid "http://code.google.com/p/chmsee"
 msgstr ""
 
 #. TRANSLATORS: Replace this string with your names, one name per line.
-#: ../chmsee.glade.h:48
+#: ../data/chmsee.glade.h:48
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
 "  Daniel Nylander https://launchpad.net/~yeager"
 
-#: ../chmsee.desktop.in.h:2
+#: ../data/chmsee.desktop.in.h:2
 msgid "HTML Help(CHM) viewer"
 msgstr "HTML-hjälpvisare (CHM)"
 
-#: ../src/chmsee.c:483
+#: ../src/chmsee.c:338
+#, c-format
+msgid "URI redirect: \"%s\" -> \"%s\""
+msgstr ""
+
+#: ../src/chmsee.c:499
 msgid "CHM Files"
 msgstr "CHM-filer"
 
-#: ../src/chmsee.c:488
+#: ../src/chmsee.c:504
 msgid "All Files"
 msgstr "Alla filer"
 
-#: ../src/chmsee.c:1018
+#: ../src/chmsee.c:1034
 msgid "Ready!"
 msgstr "Redo!"
 
-#: ../src/chmsee.c:1070
+#: ../src/chmsee.c:1086
 msgid "Topics"
 msgstr "Ämnen"
 
-#: ../src/chmsee.c:1087
+#: ../src/chmsee.c:1103
 msgid "Bookmarks"
 msgstr "Bokmärken"
 
 #. Custom label widget, with a close button
-#: ../src/chmsee.c:1233 ../src/chmsee.c:1400
+#: ../src/chmsee.c:1249 ../src/chmsee.c:1416
 msgid "No Title"
 msgstr "Ingen titel"
 
-#: ../src/chmsee.c:1502
+#: ../src/chmsee.c:1518
 #, c-format
 msgid "Error loading file '%s'"
 msgstr "Fel vid inläsning av filen \"%s\""
