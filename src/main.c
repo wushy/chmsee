@@ -33,7 +33,6 @@
 
 #include "chmsee.h"
 #include "startup.h"
-#include "chmfile.h"
 #include "utils.h"
 
 int

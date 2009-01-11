@@ -37,8 +37,7 @@
 
 #include <chm_lib.h>
 
-#include "chmsee.h"
-#include "utils.h"
+#include "utils/utils.h"
 #include "models/hhc.h"
 
 #define UINT16ARRAY(x) ((unsigned char)(x)[0] | ((u_int16_t)(x)[1] << 8))
@@ -66,6 +65,8 @@ static int dir_exists(const char *);
 static int rmkdir(char *);
 static int _extract_callback(struct chmFile *, struct chmUnitInfo *, void *);
 static gboolean extract_chm(const gchar *, ChmFile *);
+static void load_fileinfo(ChmFile* self);
+static void save_fileinfo(ChmFile* self);
 
 GType
 chmfile_get_type(void)
@@ -126,6 +127,7 @@ chmfile_finalize(GObject *object)
 
         d(g_message("chmfile finalize"));
 
+        save_fileinfo(chmfile);
         g_free(chmfile->filename);
         g_free(chmfile->hhc);
         g_free(chmfile->hhk);
@@ -330,8 +332,6 @@ get_dword(const unsigned char *buf)
 static const char *
 get_encoding(u_int32_t lcid)
 {
-        const char * encoding = "UTF-8";
-
         switch(lcid) {
         case 0x0436:
         case 0x042d:
@@ -751,9 +751,94 @@ chmfile_new(const gchar *filename)
         }
 
         /* Load bookmarks */
-        bookmark_file = g_strdup_printf("%s/%s", chmfile->dir, BOOKMARK_FILE);
+        bookmark_file = g_build_filename(chmfile->dir, CHMSEE_BOOKMARK_FILE, NULL);
         chmfile->bookmarks_list = bookmarks_load(bookmark_file);
         g_free(bookmark_file);
         
         return chmfile;
 }
+void
+load_fileinfo(ChmFile *book)
+{
+        GList *pairs, *list;
+        gchar *path;
+
+        path = g_strdup_printf("%s/%s", book->dir, CHMSEE_BOOKINFO_FILE);
+
+        d(g_debug("bookinfo path = %s", path));
+
+        pairs = parse_config_file("bookinfo", path);
+
+        for (list = pairs; list; list = list->next) {
+                Item *item;
+
+                item = list->data;
+                
+                if (strstr(item->id, "hhc")) {
+                        book->hhc = g_strdup(item->value);
+                        continue;
+                }
+
+                if (strstr(item->id, "hhk")) {
+                        book->hhk = g_strdup(item->value);
+                        continue;
+                }
+
+                if (strstr(item->id, "home")) {
+                        book->home = g_strdup(item->value);
+                        continue;
+                }
+
+                if (strstr(item->id, "title")) {
+                        book->title = g_strdup(item->value);
+                        continue;
+                }
+
+                if (strstr(item->id, "encoding")) {
+                        book->encoding = g_strdup(item->value);
+                        continue;
+                }
+
+                if (strstr(item->id, "variable_font")) {
+                        book->variable_font = g_strdup(item->value);
+                        continue;
+                }
+
+                if (strstr(item->id, "fixed_font")) {
+                        book->fixed_font = g_strdup(item->value);
+                        continue;
+                }
+        }
+
+        free_config_list(pairs);
+}
+
+void
+save_fileinfo(ChmFile *book)
+{
+        FILE *fd;
+        gchar *path;
+
+        path = g_build_filename(book->dir, CHMSEE_BOOKINFO_FILE, NULL);
+        
+        d(g_debug("save bookinfo path = %s", path));
+
+        fd = fopen(path, "w");
+        
+        if (!fd) {
+          g_print("Faild to open bookinfo file: %s", path);
+        } else {
+          save_option(fd, "hhc", book->hhc);
+          save_option(fd, "hhk", book->hhk);
+          save_option(fd, "home", book->home);
+          save_option(fd, "title", book->title);
+          save_option(fd, "encoding", book->encoding);
+          save_option(fd, "variable_font", book->variable_font);
+          save_option(fd, "fixed_font", book->fixed_font);
+
+          fclose(fd);
+        }
+        g_free(path);
+}
+
+

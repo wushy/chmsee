@@ -38,7 +38,7 @@
 #include <gtk/gtkwindow.h>
 #include <gtk/gtk.h>
 
-#include "chmfile.h"
+#include "models/chmfile.h"
 
 typedef struct _ChmSee      ChmSee;
 typedef struct _ChmSeeClass ChmSeeClass;

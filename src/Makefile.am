@@ -16,7 +16,6 @@ chmsee_SOURCES = \
 	marshal_main.c \
 	ui_bookmarks.c ui_bookmarks.h \
 	booktree.c booktree.h \
-	chmfile.c chmfile.h \
 	chmsee.c chmsee.h \
 	html.c html.h \
 	setup.c	setup.h	\

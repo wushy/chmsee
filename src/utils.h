@@ -24,13 +24,10 @@
 #include <glib.h>
 
 #include "chmsee.h"
-#include "chmfile.h"
 #include "utils/utils.h"
 
 void load_chmsee_config(ChmSee *);
 void save_chmsee_config(ChmSee *);
-void load_fileinfo(ChmFile *);
-void save_fileinfo(ChmFile *);
 
 
 

@@ -1176,7 +1176,6 @@ close_current_book(ChmSee *chmsee)
   gchar* bookmark_fname = g_build_filename(chmsee->book->dir, BOOKMARK_FILE, NULL);
   bookmarks_save(ui_bookmarks_get_list(UIBOOKMARKS (chmsee->bookmark_tree)), bookmark_fname);
   g_free(bookmark_fname);
-  save_fileinfo(chmsee->book);
   g_object_unref(chmsee->book);
   gtk_widget_destroy(GTK_WIDGET (chmsee->control_notebook));
   gtk_widget_destroy(GTK_WIDGET (chmsee->html_notebook));
