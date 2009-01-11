@@ -15,6 +15,7 @@ AC_CONFIG_HEADER([config.h])
 AC_PROG_CC
 AM_PROG_CC_C_O
 AC_PROG_CXX
+AC_PROG_RANLIB
 AC_ISC_POSIX
 AC_HEADER_STDC
 AC_PROG_INSTALL
@@ -131,6 +132,7 @@ AC_CONFIG_FILES([
         Makefile
 	data/Makefile
         src/Makefile
+        src/utils/Makefile
         cs2w/Makefile
         cs2w/template/Makefile
         cs2w/template/cs2w_icons/Makefile
