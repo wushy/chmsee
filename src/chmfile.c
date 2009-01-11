@@ -1,5 +1,6 @@
 /*
- *  Copyright (c) 2006           Ji YongGang <jungle@soforge-studio.com>
+ *  Copyright (C) 2006 Ji YongGang <jungle@soforge-studio.com>
+ *  Copyright (C) 2009 LI Daobing <lidaobing@gmail.com>
  *
  *  ChmSee is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -133,7 +134,9 @@ chmfile_finalize(GObject *object)
         g_free(chmfile->variable_font);
         g_free(chmfile->fixed_font);
 
-        g_node_destroy(chmfile->link_tree);
+        if(chmfile->link_tree) {
+          g_node_destroy(chmfile->link_tree);
+        }
 
 	G_OBJECT_CLASS (parent_class)->finalize (object);
 }
