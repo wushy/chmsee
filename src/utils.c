@@ -1,5 +1,6 @@
 /*
- *  Copyright (c) 2006           Ji YongGang <jungle@soforge-studio.com>
+ *  Copyright (C) 2006 Ji YongGang <jungle@soforge-studio.com>
+ *  Copyright (C) 2009 LI Daobing <lidaobing@gmail.com>
  *
  *  ChmSee is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -26,6 +27,7 @@
 #include <dirent.h>
 #include <sys/types.h>
 #include <sys/stat.h>
+#include <unistd.h>             /* R_OK */
 
 #include "link.h"
 
@@ -626,4 +628,36 @@ get_real_uri(const gchar *uri)
                 real_uri = g_strdup(uri);
 
         return real_uri;
+}
+
+char* correct_filename(const gchar* fname) {
+  if(g_access(fname, R_OK) == 0) {
+    return g_strdup(fname);
+  }
+  
+  gchar* oldpath = g_path_get_dirname(fname);
+  gchar* newpath = correct_filename(oldpath);
+
+  gchar* basename = g_path_get_basename(fname);
+  gchar* res = NULL;
+  
+  if(newpath) {
+    GDir* dir = g_dir_open(newpath, 0, NULL);
+    if(dir) {
+      while(1) {
+        const gchar* newfname = g_dir_read_name(dir);
+        if(!newfname) break;
+        if(g_ascii_strcasecmp(basename, newfname) == 0) {
+          res = g_strdup_printf("%s/%s", newpath, newfname);
+          break;
+        }
+      }
+      g_dir_close(dir);
+    }
+  }
+  free(basename);
+  free(newpath);
+  free(oldpath);
+  
+  return res;
 }

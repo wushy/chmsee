@@ -36,6 +36,7 @@
 #include <sys/stat.h>
 #include <gdk/gdkkeysyms.h>
 #include <glade/glade.h>
+#include <unistd.h>             /* R_OK */
 
 #include "html.h"
 #include "booktree.h"
@@ -325,12 +326,27 @@ html_location_changed_cb(Html *html, const gchar *location, ChmSee *chmsee)
 static gboolean
 html_open_uri_cb(Html *html, const gchar *uri, ChmSee *chmsee)
 {
-        d(g_message("html open uri cb"));
+  static const char* prefix = "file://";
+  static int prefix_len = 7;
+  
+  d(g_message("html open uri cb"));
 
-        if ((html == get_active_html(chmsee)) && chmsee->has_toc)
-                booktree_select_uri(BOOKTREE (chmsee->booktree), uri);
+  if(g_str_has_prefix(uri, prefix)) {
+    if(g_access(uri+prefix_len, R_OK) < 0) {
+      gchar* newfname = correct_filename(uri+prefix_len);
+      if(newfname) {
+        g_message(_("URI redirect: \"%s\" -> \"%s\""), uri, newfname);
+        html_open_uri(html, newfname);
+        free(newfname);
+        return TRUE;
+      }
+    }
+  }
 
-        return FALSE;
+  if ((html == get_active_html(chmsee)) && chmsee->has_toc)
+    booktree_select_uri(BOOKTREE (chmsee->booktree), uri);
+
+  return FALSE;
 }
 
 static void

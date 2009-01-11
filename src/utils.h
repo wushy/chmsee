@@ -1,5 +1,6 @@
 /*
- *  Copyright (c) 2006           Ji YongGang <jungle@soforge-studio.com>
+ *  Copyright (C) 2006 Ji YongGang <jungle@soforge-studio.com>
+ *  Copyright (C) 2009 LI Daobing <lidaobing@gmail.com>
  *
  *  ChmSee is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -64,5 +65,17 @@ void load_fileinfo(ChmFile *);
 void save_fileinfo(ChmFile *);
 GList *load_bookmarks(const gchar *);
 void save_bookmarks(const gchar *, GList *);
+
+/** 
+ * return the correct filename
+ * 
+ * @param fname the original filename
+ * 
+ * @return NULL if failed.
+ *
+ * @return char* if new file name, The string returned is new and it's
+ * the caller's responsibility to free the string.
+ */
+char* correct_filename(const gchar* fname);
 
 #endif /* !__UTILS_H__ */
