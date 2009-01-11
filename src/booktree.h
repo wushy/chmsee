@@ -24,6 +24,7 @@
 #include <gtk/gtk.h>
 
 #include "models/link.h"
+#include "models/hhc.h"
 
 #define TYPE_BOOKTREE \
         (booktree_get_type())
@@ -58,7 +59,7 @@ struct _BookTree {
         GtkTreeStore    *store;
 
         BookTreePixbufs *pixbufs;
-        GNode           *link_tree;
+        Hhc             *link_tree;
 };
 
 struct _BookTreeClass {

@@ -3,7 +3,7 @@ AM_CPPFLAGS = \
 	-DCHMSEE_BOOKMARK_FILE=\"chmsee_bookmarks\" \
 	-DCHMSEE_BOOKINFO_FILE=\"chmsee_bookinfo\" \
 	-I$(srcdir)/.. @CHMSEE_MODELS_CFLAGS@
-AM_CFLAGS = -Wall -Werror 
+AM_CFLAGS = -Wall -Werror
 
 noinst_LIBRARIES = libchmsee-models.a
 libchmsee_models_a_SOURCES = link.c bookmarks.c hhc.c chmfile.c
