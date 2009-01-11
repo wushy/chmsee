@@ -1,3 +1,5 @@
+SUBDIRS = utils
+
 CHMSEE_DEFINES = \
 	-DPACKAGE_DATA_DIR=\""$(datadir)"\" \
 	-DCHMSEE_DATA_DIR=\""$(datadir)/chmsee"\" \
@@ -39,6 +41,7 @@ chmsee_CPPFLAGS = \
 	$(AM_CFLAGS)
 
 chmsee_LDADD = \
+	utils/libchmsee-utils.a \
 	@GLADE_LIBS@ \
 	@CHMLIB_LIBS@ \
 	@MD5_LIBS@ \

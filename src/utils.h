@@ -25,39 +25,7 @@
 
 #include "chmsee.h"
 #include "chmfile.h"
-
-#ifdef _DEBUG
-#define d(x) x
-#else
-#define d(x)
-#endif
-
-#ifdef ENABLE_NLS
-#  include <libintl.h>
-#  undef _
-#  define _(String) dgettext (PACKAGE, String)
-#  ifdef gettext_noop
-#    define N_(String) gettext_noop (String)
-#  else
-#    define N_(String) (String)
-#  endif
-#else
-#  define textdomain(String) (String)
-#  define gettext(String) (String)
-#  define dgettext(Domain,Message) (Message)
-#  define dcgettext(Domain,Message,Type) (Message)
-#  define bindtextdomain(Domain,Directory) (Domain)
-#  define _(String) (String)
-#  define N_(String) (String)
-#endif
-
-gchar *convert_filename_to_utf8(const gchar *, const gchar *);
-gchar *convert_string_to_utf8(const gchar *, const gchar *);
-gint ncase_compare_utf8_string(const gchar *, const gchar *);
-gchar *file_exist_ncase(const gchar *);
-char *url_decode(const char*);
-void command_delete_tmpdir(char *);
-gchar *get_real_uri(const gchar *);
+#include "utils/utils.h"
 
 void load_chmsee_config(ChmSee *);
 void save_chmsee_config(ChmSee *);
@@ -66,16 +34,5 @@ void save_fileinfo(ChmFile *);
 GList *load_bookmarks(const gchar *);
 void save_bookmarks(const gchar *, GList *);
 
-/** 
- * return the correct filename
- * 
- * @param fname the original filename
- * 
- * @return NULL if failed.
- *
- * @return char* if new file name, The string returned is new and it's
- * the caller's responsibility to free the string.
- */
-char* correct_filename(const gchar* fname);
 
 #endif /* !__UTILS_H__ */
