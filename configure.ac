@@ -20,20 +20,23 @@ AC_ISC_POSIX
 AC_HEADER_STDC
 AC_PROG_INSTALL
 
-# Checks for libraries.
-dnl AC_PATH_XTRA
+PKG_CHECK_MODULES(
+        CHMSEE_UTILS,
+        [glib-2.0]
+        )
 
-AM_PATH_GLIB_2_0
-AM_PATH_GTK_2_0
+PKG_CHECK_MODULES(
+        CHMSEE_MODELS,
+        [glib-2.0,
+         libxml-2.0]
+         )
+                                
 
-PKG_CHECK_MODULES(GLADE, [
+PKG_CHECK_MODULES(CHMSEE, [
         gthread-2.0 >= 2.8.0
         gtk+-2.0 >= 2.8.0
         libglade-2.0 >= 2.4.0
 ])
-
-AC_SUBST(GLADE_LIBS)
-AC_SUBST(GLADE_CFLAGS)
 
 # Check for Gecko
 

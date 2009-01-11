@@ -19,7 +19,6 @@ chmsee_SOURCES = \
 	chmfile.c chmfile.h \
 	chmsee.c chmsee.h \
 	html.c html.h \
-	parser.c parser.h \
 	setup.c	setup.h	\
 	startup.c startup.h \
 	gecko_utils.cpp gecko_utils.h \
@@ -27,14 +26,14 @@ chmsee_SOURCES = \
 
 chmsee_CFLAGS = \
 	$(CHMSEE_DEFINES) \
-	@GLADE_CFLAGS@ \
+	@CHMSEE_CFLAGS@ \
 	@CHMLIB_CFLAGS@ \
 	@GECKO_CFLAGS@	\
 	$(AM_CFLAGS)
 
-chmsee_CPPFLAGS = \
+chmsee_CXXFLAGS = \
 	$(CHMSEE_DEFINES) \
-	@GLADE_CFLAGS@ \
+	@CHMSEE_CFLAGS@ \
 	@CHMLIB_CFLAGS@ \
 	@GECKO_CFLAGS@	\
 	$(AM_CFLAGS)
@@ -42,7 +41,7 @@ chmsee_CPPFLAGS = \
 chmsee_LDADD = \
 	utils/libchmsee-utils.a \
 	models/libchmsee-models.a \
-	@GLADE_LIBS@ \
+	@CHMSEE_LIBS@ \
 	@CHMLIB_LIBS@ \
 	@MD5_LIBS@ \
 	@GECKO_LIBS@ \

@@ -39,7 +39,7 @@
 
 #include "chmsee.h"
 #include "utils.h"
-#include "parser.h"
+#include "models/hhc.h"
 
 #define UINT16ARRAY(x) ((unsigned char)(x)[0] | ((u_int16_t)(x)[1] << 8))
 #define UINT32ARRAY(x) (UINT16ARRAY(x) | ((u_int32_t)(x)[2] << 16) \
@@ -736,12 +736,12 @@ chmfile_new(const gchar *filename)
                 hhc = g_strdup_printf("%s%s", chmfile->dir, chmfile->hhc);
                 
                 if (g_file_test(hhc, G_FILE_TEST_EXISTS)) {
-                        chmfile->link_tree = parse_hhc_file(hhc, chmfile->encoding);
+                        chmfile->link_tree = hhc_load(hhc, chmfile->encoding);
                 } else {
                         gchar *hhc_ncase;
                         
                         hhc_ncase = file_exist_ncase(hhc);
-                        chmfile->link_tree = parse_hhc_file(hhc_ncase, chmfile->encoding);
+                        chmfile->link_tree = hhc_load(hhc_ncase, chmfile->encoding);
                         g_free(hhc_ncase);
                 }
 

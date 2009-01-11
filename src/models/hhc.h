@@ -18,11 +18,28 @@
  */
 
 
-#ifndef __PARSER_H__
-#define __PARSER_H__
+#ifndef __CHMSEE_MODELS_HHC_H__
+#define __CHMSEE_MODELS_HHC_H__
 
 #include <glib.h>
 
-GNode *parse_hhc_file(const gchar *, const gchar *);
+typedef GNode Hhc;
+
+/** 
+ * load Hhc from file
+ * 
+ * @param filename 
+ * @param encoding 
+ * 
+ * @return 
+ */
+Hhc* hhc_load(const gchar* filename, const gchar* encoding);
+
+/** 
+ * free Hhc
+ * 
+ * @param self 
+ */
+void hhc_free(Hhc* self);
 
 #endif /* !__PARSER_H__ */
