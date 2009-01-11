@@ -752,7 +752,7 @@ chmfile_new(const gchar *filename)
 
         /* Load bookmarks */
         bookmark_file = g_strdup_printf("%s/%s", chmfile->dir, BOOKMARK_FILE);
-        chmfile->bookmarks_list = load_bookmarks(bookmark_file);
+        chmfile->bookmarks_list = bookmarks_load(bookmark_file);
         g_free(bookmark_file);
         
         return chmfile;

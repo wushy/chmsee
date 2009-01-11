@@ -24,6 +24,8 @@
 #include <glib.h>
 #include <glib-object.h>
 
+#include "models/bookmarks.h"
+
 typedef struct _ChmFile       ChmFile;
 typedef struct _ChmFileClass  ChmFileClass;
 
@@ -54,7 +56,7 @@ struct _ChmFile
         gchar          *variable_font;
         gchar          *fixed_font;
 
-        GList          *bookmarks_list;
+        Bookmarks      *bookmarks_list;
         GNode          *link_tree;
 };
 

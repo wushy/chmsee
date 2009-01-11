@@ -1,5 +1,4 @@
 /*
- *  Copyright (C) 2006 Ji YongGang <jungle@soforge-studio.com>
  *  Copyright (C) 2009 LI Daobing <lidaobing@gmail.com>
  *
  *  ChmSee is free software; you can redistribute it and/or modify
@@ -18,20 +17,36 @@
  *  Boston, MA 02110-1301, USA.
  */
 
-#ifndef __UTILS_H__
-#define __UTILS_H__
+#ifndef __CHMSEE_MODELS_BOOKMARKS_H__
+#define __CHMSEE_MODELS_BOOKMARKS_H__
 
 #include <glib.h>
 
-#include "chmsee.h"
-#include "chmfile.h"
-#include "utils/utils.h"
+typedef GList Bookmarks;
 
-void load_chmsee_config(ChmSee *);
-void save_chmsee_config(ChmSee *);
-void load_fileinfo(ChmFile *);
-void save_fileinfo(ChmFile *);
+/** 
+ * load bookmarks from file.
+ * 
+ * @param fname file path.
+ * 
+ * @return Bookmarks* if success
+ * @return NULL if failed
+ */
+Bookmarks* bookmarks_load(const gchar* fname);
 
+/** 
+ * save bookmarks to file
+ * 
+ * @param bookmarks
+ * @param ofname output file name
+ */
+void bookmarks_save(Bookmarks* bookmarks, const gchar* ofname);
 
+/** 
+ * free bookmarks
+ * 
+ * @param bookmarks 
+ */
+void bookmarks_free(Bookmarks* bookmarks);
 
-#endif /* !__UTILS_H__ */
+#endif

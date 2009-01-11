@@ -1,6 +1,6 @@
 AM_CFLAGS = -Wall -Werror -I$(srcdir)/.. @GLIB_CFLAGS@
 
 noinst_LIBRARIES = libchmsee-models.a
-libchmsee_models_a_SOURCES = link.c
+libchmsee_models_a_SOURCES = link.c bookmarks.c
 
-EXTRA_DIST = link.h
+EXTRA_DIST = link.h bookmarks.h

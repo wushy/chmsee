@@ -767,25 +767,22 @@ on_context_copy_link(GtkWidget *widget, ChmSee *chmsee)
 static void
 chmsee_quit(ChmSee *chmsee)
 {
-        if (chmsee->book) {
-                save_bookmarks(chmsee->book->dir, 
-                               ui_bookmarks_get_list(UIBOOKMARKS (chmsee->bookmark_tree)));
-                save_fileinfo(chmsee->book);
-                g_object_unref(chmsee->book);
-        }
+  if (chmsee->book) {
+    close_current_book(chmsee);
+  }
 
-        save_chmsee_config(chmsee);
+  save_chmsee_config(chmsee);
 
-        g_free(chmsee->home);
-        g_free(chmsee->cache_dir);
-        g_free(chmsee->last_dir);
-        g_free(context_menu_link);
-	gecko_utils_shutdown();
+  g_free(chmsee->home);
+  g_free(chmsee->cache_dir);
+  g_free(chmsee->last_dir);
+  g_free(context_menu_link);
+  gecko_utils_shutdown();
 
-        gtk_main_quit();
-        exit(0);
+  gtk_main_quit();
+  exit(0);
 
-        d(g_message("chmsee quit"));
+  d(g_message("chmsee quit"));
 }
 
 static GtkWidget *
@@ -1176,10 +1173,13 @@ display_book(ChmSee *chmsee, ChmFile *book)
 static void
 close_current_book(ChmSee *chmsee)
 {
-        save_bookmarks(chmsee->book->dir, ui_bookmarks_get_list(UIBOOKMARKS (chmsee->bookmark_tree)));
-        g_object_unref(chmsee->book);
-        gtk_widget_destroy(GTK_WIDGET (chmsee->control_notebook));
-        gtk_widget_destroy(GTK_WIDGET (chmsee->html_notebook));
+  gchar* bookmark_fname = g_build_filename(chmsee->book->dir, BOOKMARK_FILE, NULL);
+  bookmarks_save(ui_bookmarks_get_list(UIBOOKMARKS (chmsee->bookmark_tree)), bookmark_fname);
+  g_free(bookmark_fname);
+  save_fileinfo(chmsee->book);
+  g_object_unref(chmsee->book);
+  gtk_widget_destroy(GTK_WIDGET (chmsee->control_notebook));
+  gtk_widget_destroy(GTK_WIDGET (chmsee->html_notebook));
 }
 
 static GtkWidget*

@@ -34,207 +34,10 @@
 static gint parse_config_line(gchar *, gchar *, gchar *);
 static gchar *strip_string(gchar *);
 static gchar *escape_parse(gchar *);
-static void save_option(FILE *, const gchar *, const gchar *);
 
 #define MAXLINE 1024
 
-typedef struct {
-        gchar *id;
-        gchar *value;
-} Item;
 
-static gint
-parse_config_line(gchar *iline, gchar *id, gchar *value)
-{
-        gchar *p,*p2;
-        gchar line[1024];
-        gchar tmp[1024];
-
-        strcpy(line, iline); 
-        strcpy(id, "");
-        p = strtok(line, "=");
-
-        if (p != NULL) {
-                strcpy(id, p); /* got id */
-                strip_string(id);
-        } else 
-                return 1;
-
-        strcpy(tmp, "");
-        p = strtok(NULL, "");
-
-        if (p != NULL) {
-                strcpy(tmp, p); /* string after = */
-                strip_string(tmp);
-        } else
-                return 1;
-
-        /* Now strip quotes from string */
-        p = tmp;
-        if (*p == '\"')
-                p2 = p+1;
-        else
-                p2 = p;
-
-        if (p[strlen(p)-1] == '\"')
-                p[strlen(p)-1] = '\0';
-
-        strcpy(value, p2);
-
-        /* Now reconvert escape-chars */
-        escape_parse(value);
-
-        /* All OK */
-        return 0;
-}
-
-static gchar *
-strip_string(gchar *str)
-{
-        gint i,j;
-        gint c1;
-
-        if (str == NULL) 
-                return NULL;
-
-        /* count how many leading chars to be whitespace */
-        for (i = 0; i < strlen(str); i++) {
-                if (str[i] != ' ' && str[i] != '\t' && str[i] != '\r') 
-                        break;
-        }
-
-        /* count how many trailing chars to be whitespace */
-        for (j = strlen(str)-1; j >= 0; j--) {
-                if (str[j] != ' ' && str[j] != '\t' && str[j] != '\n') 
-                        break;
-        }
-
-        /* string contains only whitespace? */
-        if (j < i) {
-                str[0] = '\0';
-
-                return str;
-        }
-
-        /* now move the chars to the front */
-        for (c1 = i; c1 <= j; c1++)
-                str[c1-i] = str[c1]; 
-
-        str[j+1-i] = '\0';      
-
-        return str;
-}
-
-/* Parse escape-chars in string -> e.g. translate \n to newline */
-static gchar *
-escape_parse(gchar *str)
-{
-        gchar tmp[MAXLINE];
-        gchar c;
-        gint i, j;
-
-        if (str == NULL) 
-                return NULL;
-
-        j = 0;
-
-        for(i = 0; i < strlen(str); i++) {
-                c = str[i];
-                if (c == '\\') {
-                        i++;
-                        switch (str[i]) {
-
-                        case 'n':
-                                c = '\n';
-                                break;
-
-                        case 't':
-                                c = '\t';
-                                break;
-
-                        case 'b':
-                                c = '\b';
-                                break;
-
-                        default:
-                                c = str[i];
-                        }
-                }       
-
-                tmp[j] = c;
-                j++;
-        }
-
-        tmp[j] = '\0';
-
-        strcpy(str, tmp);
-
-        return(str);
-}
-
-static void
-save_option(FILE *file, const gchar *id, const gchar *value)
-{
-        gchar *p;
-
-        p = g_strdup_printf("%s=%s\n", id, value);
-        fputs(p, file);
-
-        g_free(p);
-}
-
-static GList *
-parse_config_file(const gchar *info, const gchar *file)
-{
-        FILE *fd;
-        GList *pairs = NULL;
-        gchar line[MAXLINE];
-        gchar id[MAXLINE];
-        gchar value[MAXLINE];
-
-        if ((fd = fopen(file, "r")) == NULL) {
-                d(g_debug("Failed to open ChmSee %s.\n", info));
-                return NULL;
-        }
-        
-        while (fgets(line, MAXLINE, fd)) {
-                /* Skip empty or hashed lines */
-                strip_string(line);
-
-                if (*line == '#' || *line == '\0') 
-                        continue;
-
-                /* Parse lines */
-                if (parse_config_line(line, id, value)) {
-                        g_print("Syntax error in %s config file\n", info);
-                }
-
-                Item *item = g_new(Item, 1);
-                item->id = g_strdup(id);
-                item->value = g_strdup(value);
-
-                pairs = g_list_prepend(pairs, item);
-        }
-
-        fclose(fd);
-
-        return pairs;
-}
-
-static void
-free_pairs(GList *pairs)
-{
-        GList *list;
-
-        for (list = pairs; list; list = list->next) {
-                Item *item = list->data;
-
-                g_free(item->id);
-                g_free(item->value);
-        }
-        
-        g_list_free(pairs);
-}
 
 void
 load_chmsee_config(ChmSee *chmsee)
@@ -284,7 +87,7 @@ load_chmsee_config(ChmSee *chmsee)
                 }
         }
 
-        free_pairs(pairs);
+        free_config_list(pairs);
         g_free(path);
 }
 
@@ -367,7 +170,7 @@ load_fileinfo(ChmFile *book)
                 }
         }
 
-        free_pairs(pairs);
+        free_config_list(pairs);
 }
 
 void
@@ -398,56 +201,4 @@ save_fileinfo(ChmFile *book)
         fclose(fd);
 }
 
-GList *
-load_bookmarks(const gchar *path)
-{
-        GList *links, *pairs, *list;
 
-        links = NULL;
-
-        d(g_debug("bookmarks path = %s", path));
-
-        pairs = parse_config_file("bookmarks", path);
-
-        for (list = pairs; list; list = list->next) {
-                Link *link;
-                Item *item;
-
-                item = list->data;
-                link = link_new(LINK_TYPE_PAGE, item->id, item->value);
-
-                links = g_list_prepend(links, link);
-        }
-
-        free_pairs(pairs);
-
-        return links;
-}
-
-static void
-save_bookmark(Link *link, FILE *fd)
-{
-        save_option(fd, link->name, link->uri);
-}
-
-void
-save_bookmarks(const gchar *book_dir, GList *links)
-{
-        FILE *fd;
-        gchar *path;
-
-        path = g_strdup_printf("%s/%s", book_dir, BOOKMARK_FILE);
-        
-        d(g_debug("save bookmarks path = %s", path));
-
-        fd = fopen(path, "w");
-
-        if (!fd) {
-                g_print("Faild to open bookmarks file: %s", path);
-                return;
-        }
-
-        g_list_foreach(links, (GFunc)save_bookmark, fd);
-
-        fclose(fd);
-}
