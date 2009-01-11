@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: chmsee\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-01-11 16:35+0800\n"
+"POT-Creation-Date: 2009-01-11 23:05+0800\n"
 "PO-Revision-Date: 2008-12-23 07:17+0000\n"
 "Last-Translator: Emanuel Feruzi <emanuel.feruzi@gmail.com>\n"
 "Language-Team: Swahili <sw@li.org>\n"
@@ -205,52 +205,61 @@ msgstr ""
 msgid "All Files"
 msgstr ""
 
-#: ../src/chmsee.c:1034
+#: ../src/chmsee.c:1031
 msgid "Ready!"
 msgstr ""
 
-#: ../src/chmsee.c:1086
+#: ../src/chmsee.c:1083
 msgid "Topics"
 msgstr ""
 
-#: ../src/chmsee.c:1103
+#: ../src/chmsee.c:1100
 msgid "Bookmarks"
 msgstr ""
 
 #. Custom label widget, with a close button
-#: ../src/chmsee.c:1249 ../src/chmsee.c:1416
+#: ../src/chmsee.c:1248 ../src/chmsee.c:1415
 msgid "No Title"
 msgstr ""
 
-#: ../src/chmsee.c:1518
+#: ../src/chmsee.c:1517
 #, c-format
 msgid "Error loading file '%s'"
 msgstr ""
 
-#: ../src/chmfile.c:252
+#: ../src/models/chmfile.c:257
 #, c-format
 msgid "cannot open chmfile: %s"
 msgstr ""
 
-#: ../src/chmfile.c:259
+#: ../src/models/chmfile.c:264
 #, c-format
 msgid "Extract chmfile failed: %s"
 msgstr ""
 
-#: ../src/chmfile.c:285
+#: ../src/models/chmfile.c:290
 #, c-format
 msgid "open \"%s\" failed: %s"
 msgstr ""
 
-#: ../src/bookmarks.c:313
+#: ../src/models/chmfile.c:492
+#, c-format
+msgid "Can not open chm file %s."
+msgstr ""
+
+#: ../src/models/chmfile.c:750
+msgid "Can't found hhc file."
+msgstr ""
+
+#: ../src/ui_bookmarks.c:315
 msgid "Bookmark"
 msgstr ""
 
-#: ../src/main.c:57
+#: ../src/main.c:56
 msgid "Display the version and exit"
 msgstr ""
 
-#: ../src/main.c:80
+#: ../src/main.c:79
 #, c-format
 msgid "more than 1 argument\n"
 msgstr ""

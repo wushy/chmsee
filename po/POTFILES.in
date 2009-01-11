@@ -3,8 +3,9 @@
 data/chmsee.glade
 data/chmsee.desktop.in
 src/chmsee.c
-src/chmfile.c
-src/bookmarks.c
+src/models/chmfile.c
+src/models/bookmarks.c
+src/ui_bookmarks.c
 src/html.c
 src/setup.c
 src/main.c
