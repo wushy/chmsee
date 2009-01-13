@@ -56,35 +56,40 @@ PKG_CHECK_MODULES(GECKO, $gecko_provider, enable_gecko=yes, enable_gecko=no)
 
 AM_CONDITIONAL(WITH_GECKO, test "x$enable_gecko" = "xyes")
 
-if test "x$enable_gecko" = "xno" ; then
-    AC_MSG_ERROR([
-*** You must have either the Mozilla, Firefox, Seamonkey or XulRunner
-*** development libraries installed in order to build ChmSee!])
-fi
+if test "x$enable_gecko" != "xno" ; then
 
-GECKO_INCLUDE_ROOT=`$PKG_CONFIG --cflags-only-I $gecko_provider | awk '{print $1}' | sed "s/^-I//"`
-GECKO_LIB_ROOT=`$PKG_CONFIG --libs-only-L $gecko_provider | awk '{print $1}' |  cut -c 3-`
-GECKO_FLAVOUR=$with_gecko
-AC_MSG_CHECKING([for gtkmozembed.h])
-if test -f "${GECKO_INCLUDE_ROOT}/gtkmozembed.h"; then
-	AC_DEFINE([HAVE_GTKMOZEMBED_H], [1], [Define to 1 if you have the <gtkmozembed.h> header file.])
-	AC_MSG_RESULT([yes])
-else
-	AC_MSG_RESULT([no])
-	AC_MSG_CHECKING([for gtkembedmoz/gtkmozembed.h])
-	if test -f "${GECKO_INCLUDE_ROOT}/gtkembedmoz/gtkmozembed.h"; then
-		AC_DEFINE([HAVE_GTKEMBEDMOZ_GTKMOZEMBED_H], [1], [Define to 1 if you have the <gtkembedmoz/gtkmozembed.h> header file])
-		AC_MSG_RESULT([yes])
-	else
-		AC_MSG_RESULT([no])
-		AC_MSG_ERROR([can't find gtkmozembed.h])
-	fi
-fi
+    GECKO_INCLUDE_ROOT=`$PKG_CONFIG --cflags-only-I $gecko_provider | awk '{print $1}' | sed "s/^-I//"`
+    GECKO_LIB_ROOT=`$PKG_CONFIG --libs-only-L $gecko_provider | awk '{print $1}' |  cut -c 3-`
+    GECKO_INCLUDE_ROOT=`dirname $GECKO_INCLUDE_ROOT`
+    GECKO_FLAVOUR=$with_gecko
+
+    GECKO_CFLAGS="$GECKO_CFLAGS \
+-I$GECKO_INCLUDE_ROOT \
+-I$GECKO_INCLUDE_ROOT/commandhandler \
+-I$GECKO_INCLUDE_ROOT/content \
+-I$GECKO_INCLUDE_ROOT/dom \
+-I$GECKO_INCLUDE_ROOT/find \
+-I$GECKO_INCLUDE_ROOT/gfx \
+-I$GECKO_INCLUDE_ROOT/gtkembedmoz \
+-I$GECKO_INCLUDE_ROOT/locale \
+-I$GECKO_INCLUDE_ROOT/pref \
+-I$GECKO_INCLUDE_ROOT/string \
+-I$GECKO_INCLUDE_ROOT/webbrwsr \
+-I$GECKO_INCLUDE_ROOT/xpcom \
+-I$GECKO_INCLUDE_ROOT/xpconnect"
+
     AC_SUBST(GECKO_CFLAGS)
     AC_SUBST(GECKO_LIBS)   
     AC_SUBST(GECKO_LIB_ROOT)
     AC_SUBST(GECKO_FLAVOUR)
     AC_DEFINE_UNQUOTED([GECKO_LIB_ROOT], ["${GECKO_LIB_ROOT}"], [Gecko component path])
+else
+
+    AC_MSG_ERROR([
+*** You must have either the Mozilla, Firefox, Seamonkey or XulRunner
+*** development libraries installed in order to build ChmSee!
+])
+fi
 
 # Check for chmlib library
 AM_PATH_CHMLIB(, AC_MSG_ERROR([Can't find/use chmlib. Please install CHMLIB first.])

@@ -41,13 +41,7 @@
 #ifndef __GECKO_UTILS_H__
 #define __GECKO_UTILS_H__
 
-#include "config.h"
-
-#ifdef HAVE_GTKMOZEMBED_H
 #include <gtkmozembed.h>
-#elif HAVE_GTKEMBEDMOZ_GTKMOZEMBED_H
-#include <gtkembedmoz/gtkmozembed.h>
-#endif
 
 G_BEGIN_DECLS
 
