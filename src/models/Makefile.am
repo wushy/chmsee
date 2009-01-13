@@ -2,6 +2,7 @@ AM_CPPFLAGS = \
 	-DCHMSEE_NO_LINK=\"chmsee_no_link\" \
 	-DCHMSEE_BOOKMARK_FILE=\"chmsee_bookmarks\" \
 	-DCHMSEE_BOOKINFO_FILE=\"chmsee_bookinfo\" \
+	-DG_DISABLE_DEPRECATED=1 \
 	-I$(srcdir)/.. @CHMSEE_MODELS_CFLAGS@
 AM_CFLAGS = -Wall -Werror
 

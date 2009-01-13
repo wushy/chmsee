@@ -512,7 +512,7 @@ on_open(GtkWidget *widget, ChmSee *chmsee)
 
         g_signal_connect(G_OBJECT (dialog),
                          "response",
-                         GTK_SIGNAL_FUNC (open_response_cb),
+                         G_CALLBACK (open_response_cb),
                          chmsee);
 
         /* File list fiter */
@@ -1179,7 +1179,7 @@ display_book(ChmSee *chmsee, ChmFile *book)
         /* Window title */
         gchar *window_title;
 
-        if (chmsee->book->title != NULL && g_strcasecmp(chmsee->book->title, "(null)") != 0 )
+        if (chmsee->book->title != NULL && g_ascii_strcasecmp(chmsee->book->title, "(null)") != 0 )
                 window_title = g_strdup_printf("%s - ChmSee", chmsee->book->title);
         else
                 window_title = g_strdup("ChmSee");

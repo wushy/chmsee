@@ -730,7 +730,7 @@ chmfile_new(const gchar *filename)
   d(g_debug("chmfile->endcoding = %s", chmfile->encoding));
 
   /* Parse hhc and store result to tree view */
-  if (chmfile->hhc != NULL && g_strcasecmp(chmfile->hhc, "(null)") != 0) {
+  if (chmfile->hhc != NULL && g_ascii_strcasecmp(chmfile->hhc, "(null)") != 0) {
     gchar *hhc;
 
     hhc = g_strdup_printf("%s%s", chmfile->dir, chmfile->hhc);
