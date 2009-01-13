@@ -88,6 +88,7 @@ static void on_context_new_tab(GtkWidget *, ChmSee *);
 static void on_context_copy_link(GtkWidget *, ChmSee *);
 
 static void chmsee_quit(ChmSee *);
+static void chmsee_open_uri(ChmSee *chmsee, const gchar *uri);
 static GtkWidget *get_widget(ChmSee *, gchar *);
 static void window_populate(ChmSee *);
 static void display_book(ChmSee *, ChmFile *);
@@ -100,9 +101,20 @@ static void tab_set_title(ChmSee *, Html *, const gchar *);
 static void open_homepage(ChmSee *);
 static void reload_current_page(ChmSee *);
 static void update_status_bar(ChmSee *, const gchar *);
+static void
+chmsee_drag_data_received (GtkWidget          *widget,
+                           GdkDragContext     *context,
+                           gint                x,
+                           gint                y,
+                           GtkSelectionData   *selection_data,
+                           guint               info,
+                           guint               time);
 
 static gchar *context_menu_link = NULL;
 static GtkWindowClass *parent_class = NULL;
+static const GtkTargetEntry view_drop_targets[] = {
+	{ "text/uri-list", 0, 0 }
+};
 
 GType
 chmsee_get_type(void)
@@ -133,13 +145,12 @@ chmsee_get_type(void)
 static void
 chmsee_class_init(ChmSeeClass *klass)
 {
-        GObjectClass *object_class;
-
+        GObjectClass *object_class = G_OBJECT_CLASS(klass);
+        GtkWidgetClass *widget_class = GTK_WIDGET_CLASS(klass);
         parent_class = g_type_class_peek_parent(klass);
 
-        object_class = G_OBJECT_CLASS(klass);
-
         object_class->finalize = chmsee_finalize;
+        widget_class->drag_data_received = chmsee_drag_data_received;
 }
 
 static void
@@ -173,6 +184,12 @@ chmsee_init(ChmSee *chmsee)
                          "key-press-event",
                          G_CALLBACK (keypress_event_cb),
                          chmsee);
+        gtk_drag_dest_set (GTK_WIDGET (chmsee),
+			   GTK_DEST_DEFAULT_ALL,
+			   view_drop_targets,
+			   G_N_ELEMENTS (view_drop_targets),
+			   GDK_ACTION_COPY);
+
 }
 
 static void
@@ -329,15 +346,19 @@ html_open_uri_cb(Html *html, const gchar *uri, ChmSee *chmsee)
   static const char* prefix = "file://";
   static int prefix_len = 7;
   
-  d(g_message("html open uri cb"));
-
   if(g_str_has_prefix(uri, prefix)) {
+    /* FIXME: can't disable the DND function of GtkMozEmbed */
+    if(g_str_has_suffix(uri, ".chm")
+       || g_str_has_suffix(uri, ".CHM")) {
+      chmsee_open_uri(chmsee, uri);
+    }
+    
     if(g_access(uri+prefix_len, R_OK) < 0) {
       gchar* newfname = correct_filename(uri+prefix_len);
       if(newfname) {
         g_message(_("URI redirect: \"%s\" -> \"%s\""), uri, newfname);
         html_open_uri(html, newfname);
-        free(newfname);
+        g_free(newfname);
         return TRUE;
       }
     }
@@ -1519,4 +1540,47 @@ chmsee_open_file(ChmSee *chmsee, const gchar *filename)
                 gtk_dialog_run(GTK_DIALOG (msg_dialog));
                 gtk_widget_destroy(msg_dialog);
         }
+}
+
+void
+chmsee_drag_data_received (GtkWidget          *widget,
+                           GdkDragContext     *context,
+                           gint                x,
+                           gint                y,
+                           GtkSelectionData   *selection_data,
+                           guint               info,
+                           guint               time)
+{
+  gchar  **uris;
+  gint     i = 0;
+
+  uris = gtk_selection_data_get_uris (selection_data);
+  if (!uris) {
+    gtk_drag_finish (context, FALSE, FALSE, time);
+    return;
+  }
+
+  for (i = 0; uris[i]; i++) {
+    gchar* uri = uris[i];
+    if(g_str_has_prefix(uri, "file://")
+       && (g_str_has_suffix(uri, ".chm")
+           || g_str_has_suffix(uri, ".CHM"))) {
+      chmsee_open_uri(CHMSEE(widget), uri);
+      break;
+    }
+  }
+
+  gtk_drag_finish (context, TRUE, FALSE, time);
+
+  g_strfreev (uris);
+}
+
+void chmsee_open_uri(ChmSee *chmsee, const gchar *uri) {
+  if(!g_str_has_prefix(uri, "file://")) {
+    return;
+  }
+
+  gchar* fname = g_uri_unescape_string(uri+7, NULL);
+  chmsee_open_file(chmsee, fname);
+  g_free(fname);
 }

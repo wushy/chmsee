@@ -159,6 +159,7 @@ static void
 html_init(Html *html)
 {
         html->gecko = GTK_MOZ_EMBED(gtk_moz_embed_new());
+        gtk_drag_dest_unset(GTK_WIDGET(html->gecko));
 
         g_signal_connect(G_OBJECT (html->gecko),
                          "title",
