@@ -449,3 +449,25 @@ html_decrease_size(Html *html)
 
         gecko_utils_set_zoom(html->gecko, zoom);
 }
+
+void html_shutdown(Html* html) {
+  gecko_utils_shutdown();
+}
+
+void html_init_system(void) {
+  gecko_utils_init();
+}
+
+void html_set_default_lang(gint lang) {
+  gecko_utils_set_default_lang(lang);
+}
+
+void html_set_variable_font(Html*, const gchar* font) {
+  gecko_utils_set_font(GECKO_PREF_FONT_VARIABLE, font);
+}
+
+void html_set_fixed_font(Html*, const gchar* font) {
+  gecko_utils_set_font(GECKO_PREF_FONT_FIXED, font);
+}
+
+

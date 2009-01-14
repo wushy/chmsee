@@ -43,7 +43,6 @@ main(int argc, char** argv)
 
         ChmSee *chmsee;
         const gchar* filename = NULL;
-        int opt;
         GError* error = NULL;
         gboolean option_version = FALSE;
 

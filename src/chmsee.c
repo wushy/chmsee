@@ -34,9 +34,13 @@
 #include <stdlib.h>
 #include <string.h>
 #include <sys/stat.h>
+
+#include <unistd.h>             /* R_OK */
+
+#include <glib.h>
+#include <glib/gstdio.h>
 #include <gdk/gdkkeysyms.h>
 #include <glade/glade.h>
-#include <unistd.h>             /* R_OK */
 
 #include "html.h"
 #include "booktree.h"
@@ -44,7 +48,6 @@
 #include "setup.h"
 #include "link.h"
 #include "utils.h"
-#include "gecko_utils.h"
 
 static void chmsee_class_init(ChmSeeClass *);
 static void chmsee_init(ChmSee *);
@@ -798,7 +801,7 @@ chmsee_quit(ChmSee *chmsee)
   g_free(chmsee->cache_dir);
   g_free(chmsee->last_dir);
   g_free(context_menu_link);
-  gecko_utils_shutdown();
+  html_shutdown(get_active_html(chmsee));
 
   gtk_main_quit();
   exit(0);
@@ -1187,8 +1190,8 @@ display_book(ChmSee *chmsee, ChmFile *book)
         gtk_window_set_title(GTK_WINDOW (chmsee), window_title);
         g_free(window_title);
 
-        gecko_utils_set_font(GECKO_PREF_FONT_VARIABLE, chmsee->book->variable_font);
-        gecko_utils_set_font(GECKO_PREF_FONT_FIXED, chmsee->book->fixed_font);
+   	    html_set_variable_font(get_active_html(chmsee), chmsee->book->variable_font);
+        html_set_fixed_font(get_active_html(chmsee), chmsee->book->fixed_font);
 }
 
 static void
@@ -1494,8 +1497,8 @@ chmsee_new(void)
         load_chmsee_config(chmsee);
 
         /* Init gecko */
-        gecko_utils_init();
-        gecko_utils_set_default_lang(chmsee->lang);
+        html_init_system();
+        html_set_default_lang(chmsee->lang);
 
         window_populate(chmsee);
 

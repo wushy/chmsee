@@ -73,5 +73,10 @@ void html_select_all(Html *);
 void html_increase_size(Html *);
 void html_reset_size(Html *);
 void html_decrease_size(Html *);
+void html_shutdown(Html*);
+void html_set_variable_font(Html*, const gchar*);
+void html_set_fixed_font(Html*, const gchar*);
+void html_init_system(void);
+void html_set_default_lang(gint);
 
 #endif /* !__HTML_H__ */
