@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ChmSee 1.0.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-01-11 23:05+0800\n"
+"POT-Creation-Date: 2009-01-16 23:27+0800\n"
 "PO-Revision-Date: 2009-01-11 16:37+0800\n"
 "Last-Translator: LI Daobing <lidaobing@gmail.com>\n"
 "Language-Team: szlug <szlug@googlegroups.com>\n"
@@ -197,37 +197,37 @@ msgstr "翻译人员"
 msgid "HTML Help(CHM) viewer"
 msgstr "HTML Help(CHM) 文件阅读工具"
 
-#: ../src/chmsee.c:338
+#: ../src/chmsee.c:362
 #, c-format
 msgid "URI redirect: \"%s\" -> \"%s\""
 msgstr "URI 重定向: \"%s\" -> \"%s\""
 
-#: ../src/chmsee.c:499
+#: ../src/chmsee.c:523
 msgid "CHM Files"
 msgstr "CHM 文件"
 
-#: ../src/chmsee.c:504
+#: ../src/chmsee.c:528
 msgid "All Files"
 msgstr "所有文件"
 
-#: ../src/chmsee.c:1031
+#: ../src/chmsee.c:1055
 msgid "Ready!"
 msgstr "就绪！"
 
-#: ../src/chmsee.c:1083
+#: ../src/chmsee.c:1107
 msgid "Topics"
 msgstr "目录"
 
-#: ../src/chmsee.c:1100
+#: ../src/chmsee.c:1124
 msgid "Bookmarks"
 msgstr "书签"
 
 #. Custom label widget, with a close button
-#: ../src/chmsee.c:1248 ../src/chmsee.c:1415
+#: ../src/chmsee.c:1272 ../src/chmsee.c:1439
 msgid "No Title"
 msgstr "无标题"
 
-#: ../src/chmsee.c:1517
+#: ../src/chmsee.c:1541
 #, c-format
 msgid "Error loading file '%s'"
 msgstr "打开文件错误 '%s'"
@@ -260,11 +260,11 @@ msgstr ""
 msgid "Bookmark"
 msgstr "书签"
 
-#: ../src/main.c:56
+#: ../src/main.c:55
 msgid "Display the version and exit"
 msgstr "显示版本并退出"
 
-#: ../src/main.c:79
+#: ../src/main.c:78
 #, c-format
 msgid "more than 1 argument\n"
 msgstr "超过 1 个参数\n"

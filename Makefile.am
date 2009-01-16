@@ -19,7 +19,4 @@ EXTRA_DIST = \
 	README.zh \
 	NEWS.zh \
 	po/chmsee.pot \
-	autogen.sh \
-	intltool-extract.in \
-	intltool-merge.in \
-	intltool-update.in
+	autogen.sh

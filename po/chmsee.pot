@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-01-11 23:05+0800\n"
+"POT-Creation-Date: 2009-01-16 23:27+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -188,37 +188,37 @@ msgstr ""
 msgid "HTML Help(CHM) viewer"
 msgstr ""
 
-#: ../src/chmsee.c:338
+#: ../src/chmsee.c:362
 #, c-format
 msgid "URI redirect: \"%s\" -> \"%s\""
 msgstr ""
 
-#: ../src/chmsee.c:499
+#: ../src/chmsee.c:523
 msgid "CHM Files"
 msgstr ""
 
-#: ../src/chmsee.c:504
+#: ../src/chmsee.c:528
 msgid "All Files"
 msgstr ""
 
-#: ../src/chmsee.c:1031
+#: ../src/chmsee.c:1055
 msgid "Ready!"
 msgstr ""
 
-#: ../src/chmsee.c:1083
+#: ../src/chmsee.c:1107
 msgid "Topics"
 msgstr ""
 
-#: ../src/chmsee.c:1100
+#: ../src/chmsee.c:1124
 msgid "Bookmarks"
 msgstr ""
 
 #. Custom label widget, with a close button
-#: ../src/chmsee.c:1248 ../src/chmsee.c:1415
+#: ../src/chmsee.c:1272 ../src/chmsee.c:1439
 msgid "No Title"
 msgstr ""
 
-#: ../src/chmsee.c:1517
+#: ../src/chmsee.c:1541
 #, c-format
 msgid "Error loading file '%s'"
 msgstr ""
@@ -251,11 +251,11 @@ msgstr ""
 msgid "Bookmark"
 msgstr ""
 
-#: ../src/main.c:56
+#: ../src/main.c:55
 msgid "Display the version and exit"
 msgstr ""
 
-#: ../src/main.c:79
+#: ../src/main.c:78
 #, c-format
 msgid "more than 1 argument\n"
 msgstr ""

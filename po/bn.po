@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: chmsee\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-01-11 23:05+0800\n"
+"POT-Creation-Date: 2009-01-16 23:27+0800\n"
 "PO-Revision-Date: 2008-12-30 20:03+0000\n"
 "Last-Translator: faisal <Unknown>\n"
 "Language-Team: Bengali <bn@li.org>\n"
@@ -204,37 +204,37 @@ msgstr ""
 msgid "HTML Help(CHM) viewer"
 msgstr "HTML সহায়িকা(CHM) প্রদর্শক"
 
-#: ../src/chmsee.c:338
+#: ../src/chmsee.c:362
 #, c-format
 msgid "URI redirect: \"%s\" -> \"%s\""
 msgstr ""
 
-#: ../src/chmsee.c:499
+#: ../src/chmsee.c:523
 msgid "CHM Files"
 msgstr "CHM ফাইলসমূহ"
 
-#: ../src/chmsee.c:504
+#: ../src/chmsee.c:528
 msgid "All Files"
 msgstr "সমস্ত ফাইলসমূহ"
 
-#: ../src/chmsee.c:1031
+#: ../src/chmsee.c:1055
 msgid "Ready!"
 msgstr "প্রস্তুত!"
 
-#: ../src/chmsee.c:1083
+#: ../src/chmsee.c:1107
 msgid "Topics"
 msgstr "বিষয়"
 
-#: ../src/chmsee.c:1100
+#: ../src/chmsee.c:1124
 msgid "Bookmarks"
 msgstr "বুকমার্কসমূহ"
 
 #. Custom label widget, with a close button
-#: ../src/chmsee.c:1248 ../src/chmsee.c:1415
+#: ../src/chmsee.c:1272 ../src/chmsee.c:1439
 msgid "No Title"
 msgstr "শিরোনাম নাই"
 
-#: ../src/chmsee.c:1517
+#: ../src/chmsee.c:1541
 #, c-format
 msgid "Error loading file '%s'"
 msgstr "ত্রুটিপূর্নভাবে চালু হওয়া ফাইল '%s'"
@@ -267,11 +267,11 @@ msgstr ""
 msgid "Bookmark"
 msgstr "বুকমার্ক"
 
-#: ../src/main.c:56
+#: ../src/main.c:55
 msgid "Display the version and exit"
 msgstr ""
 
-#: ../src/main.c:79
+#: ../src/main.c:78
 #, c-format
 msgid "more than 1 argument\n"
 msgstr ""

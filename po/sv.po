@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: chmsee\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-01-11 23:05+0800\n"
+"POT-Creation-Date: 2009-01-16 23:27+0800\n"
 "PO-Revision-Date: 2008-12-01 13:14+0000\n"
 "Last-Translator: Daniel Nylander <yeager@ubuntu.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
@@ -203,37 +203,37 @@ msgstr ""
 msgid "HTML Help(CHM) viewer"
 msgstr "HTML-hjälpvisare (CHM)"
 
-#: ../src/chmsee.c:338
+#: ../src/chmsee.c:362
 #, c-format
 msgid "URI redirect: \"%s\" -> \"%s\""
 msgstr ""
 
-#: ../src/chmsee.c:499
+#: ../src/chmsee.c:523
 msgid "CHM Files"
 msgstr "CHM-filer"
 
-#: ../src/chmsee.c:504
+#: ../src/chmsee.c:528
 msgid "All Files"
 msgstr "Alla filer"
 
-#: ../src/chmsee.c:1031
+#: ../src/chmsee.c:1055
 msgid "Ready!"
 msgstr "Redo!"
 
-#: ../src/chmsee.c:1083
+#: ../src/chmsee.c:1107
 msgid "Topics"
 msgstr "Ämnen"
 
-#: ../src/chmsee.c:1100
+#: ../src/chmsee.c:1124
 msgid "Bookmarks"
 msgstr "Bokmärken"
 
 #. Custom label widget, with a close button
-#: ../src/chmsee.c:1248 ../src/chmsee.c:1415
+#: ../src/chmsee.c:1272 ../src/chmsee.c:1439
 msgid "No Title"
 msgstr "Ingen titel"
 
-#: ../src/chmsee.c:1517
+#: ../src/chmsee.c:1541
 #, c-format
 msgid "Error loading file '%s'"
 msgstr "Fel vid inläsning av filen \"%s\""
@@ -266,11 +266,11 @@ msgstr ""
 msgid "Bookmark"
 msgstr "Bokmärke"
 
-#: ../src/main.c:56
+#: ../src/main.c:55
 msgid "Display the version and exit"
 msgstr ""
 
-#: ../src/main.c:79
+#: ../src/main.c:78
 #, c-format
 msgid "more than 1 argument\n"
 msgstr ""
