@@ -31,14 +31,6 @@
 
 #include "models/link.h"
 
-static gint parse_config_line(gchar *, gchar *, gchar *);
-static gchar *strip_string(gchar *);
-static gchar *escape_parse(gchar *);
-
-#define MAXLINE 1024
-
-
-
 void
 load_chmsee_config(ChmSee *chmsee)
 {
