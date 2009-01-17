@@ -10,6 +10,7 @@ Bugs
 ~~~~
 
 * issue#7: different case in URI and filename.
+* issue#12: image with a broken URL can't correct display
 
 ChmSee 1.0.3 2009-01-10
 ------------------------

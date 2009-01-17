@@ -35,6 +35,7 @@
 #include <md5.h>
 #endif
 
+#include <glib/gstdio.h>
 #include <chm_lib.h>
 
 #include "utils/utils.h"
@@ -67,12 +68,13 @@ static int _extract_callback(struct chmFile *, struct chmUnitInfo *, void *);
 static gboolean extract_chm(const gchar *, ChmFile *);
 static void load_fileinfo(ChmFile* self);
 static void save_fileinfo(ChmFile* self);
+static void extract_post_file_write(const gchar* fname);
 
 GType
 chmfile_get_type(void)
 {
   static GType type = 0;
-        
+
   if (!type) {
     static const GTypeInfo info = {
       sizeof(ChmFileClass),
@@ -87,10 +89,10 @@ chmfile_get_type(void)
     };
 
     type = g_type_register_static(G_TYPE_OBJECT,
-                                  "ChmFile", 
+                                  "ChmFile",
                                   &info, 0);
   }
-        
+
   return type;
 }
 
@@ -143,7 +145,7 @@ chmfile_finalize(GObject *object)
   G_OBJECT_CLASS (parent_class)->finalize (object);
 }
 
-static int 
+static int
 dir_exists(const char *path)
 {
   struct stat statbuf;
@@ -177,9 +179,10 @@ rmkdir(char *path)
 /*
  * callback function for enumerate API
  */
-static int 
+static int
 _extract_callback(struct chmFile *h, struct chmUnitInfo *ui, void *context)
 {
+  gchar* fname = NULL;
   char buffer[32768];
   struct extract_context *ctx = (struct extract_context *)context;
   char *i;
@@ -190,10 +193,7 @@ _extract_callback(struct chmFile *h, struct chmUnitInfo *ui, void *context)
 
   d(g_debug("ui->path = %s", ui->path));
 
-  if (snprintf(buffer, sizeof(buffer), "%s%s", ctx->base_path, ui->path) > 1024) {
-    d(g_message("CHM_ENUMERATOR_FAILURE snprintf"));
-    return CHM_ENUMERATOR_FAILURE;
-  }
+  fname = g_build_filename(ctx->base_path, ui->path+1, NULL);
 
   if (ui->length != 0) {
     FILE *fout;
@@ -205,16 +205,16 @@ _extract_callback(struct chmFile *h, struct chmUnitInfo *ui, void *context)
     file_ext = g_strrstr(g_path_get_basename(ui->path), ".");
     d(g_debug("file_ext = %s", file_ext));
 
-    if ((fout = fopen(buffer, "wb")) == NULL) {
-      /* make sure that it isn't just a missing directory before we abort */ 
+    if ((fout = fopen(fname, "wb")) == NULL) {
+      /* make sure that it isn't just a missing directory before we abort */
       char newbuf[32768];
-      strcpy(newbuf, buffer);
+      strcpy(newbuf, fname);
       i = rindex(newbuf, '/');
       *i = '\0';
       rmkdir(newbuf);
 
-      if ((fout = fopen(buffer, "wb")) == NULL) {
-        d(g_message("CHM_ENUMERATOR_FAILURE fopen"));
+      if ((fout = fopen(fname, "wb")) == NULL) {
+        g_message("CHM_ENUMERATOR_FAILURE fopen");
         return CHM_ENUMERATOR_FAILURE;
       }
     }
@@ -223,7 +223,7 @@ _extract_callback(struct chmFile *h, struct chmUnitInfo *ui, void *context)
       len = chm_retrieve_object(h, ui, (unsigned char *)buffer, offset, 32768);
       if (len > 0) {
         if(fwrite(buffer, 1, (size_t)len, fout) != len) {
-          d(g_message("CHM_ENUMERATOR_FAILURE fwrite"));
+          g_message("CHM_ENUMERATOR_FAILURE fwrite");
           return CHM_ENUMERATOR_FAILURE;
         }
         offset += len;
@@ -234,14 +234,14 @@ _extract_callback(struct chmFile *h, struct chmUnitInfo *ui, void *context)
     }
 
     fclose(fout);
-
+    extract_post_file_write(fname);
   } else {
-    if (rmkdir(buffer) == -1) {
-      d(g_message("CHM_ENUMERATOR_FAILURE rmkdir"));
+    if (rmkdir(fname) == -1) {
+      g_message("CHM_ENUMERATOR_FAILURE rmkdir");
       return CHM_ENUMERATOR_FAILURE;
     }
   }
-
+  g_free(fname);
   return CHM_ENUMERATOR_CONTINUE;
 }
 
@@ -298,7 +298,7 @@ MD5File(const char *filename, char *buf)
 
   if (i < 0)
     return NULL;
-        
+
   if (buf == NULL)
     buf = malloc(33);
   if (buf == NULL)
@@ -322,7 +322,7 @@ get_dword(const unsigned char *buf)
   u_int32_t result;
 
   result = buf[0] + (buf[1] << 8) + (buf[2] << 16) + (buf[3] << 24);
-        
+
   if (result == 0xFFFFFFFF)
     result = 0;
 
@@ -438,7 +438,7 @@ get_encoding(u_int32_t lcid)
   case 0x042c:
   case 0x041f:
   case 0x0443:
-    return "iso8859_9";          
+    return "iso8859_9";
     break;
   case 0x041e:
     return "iso8859_11";
@@ -485,7 +485,7 @@ static void
 chmfile_file_info(ChmFile *chmfile)
 {
   struct chmFile *cfd;
-        
+
   cfd = chm_open(chmfile->filename);
 
   if (cfd == NULL) {
@@ -501,7 +501,7 @@ chmfile_file_info(ChmFile *chmfile)
     gchar *title_utf8;
 
     title_utf8 = g_convert(chmfile->title, -1, "UTF-8",
-                           chmfile->encoding, 
+                           chmfile->encoding,
                            NULL, NULL, NULL);
     g_free(chmfile->title);
     chmfile->title = title_utf8;
@@ -540,19 +540,19 @@ chmfile_windows_info(struct chmFile *cfd, ChmFile *chmfile)
     return;
 
   size = chm_retrieve_object(cfd, &ui, buffer, 0L, 8);
-        
+
   if (size < 8)
     return;
 
   entries = get_dword(buffer);
-  if (entries < 1) 
+  if (entries < 1)
     return;
 
   entry_size = get_dword(buffer + 4);
   size = chm_retrieve_object(cfd, &ui, buffer, 8L, entry_size);
   if (size < entry_size)
     return;
-                
+
   hhc = get_dword(buffer + 0x60);
   hhk = get_dword(buffer + 0x64);
   home = get_dword(buffer + 0x68);
@@ -581,7 +581,7 @@ chmfile_system_info(struct chmFile *cfd, ChmFile *chmfile)
 {
   struct chmUnitInfo ui;
   unsigned char buffer[4096];
-	
+
   int index = 0;
   unsigned char* cursor = NULL;
   u_int16_t value = 0;
@@ -655,10 +655,10 @@ chmfile_system_info(struct chmFile *cfd, ChmFile *chmfile)
 
       if(!chmfile->hhc) {
         char *hhc, *hhk;
-                                
+
         hhc = g_strdup_printf("/%s.hhc", buffer + index + 2);
         hhk = g_strdup_printf("/%s.hhk", buffer + index + 2);
-                                
+
         if (chm_resolve_object(cfd, hhc, &ui) == CHM_RESOLVE_SUCCESS)
           chmfile->hhc = hhc;
 
@@ -700,10 +700,10 @@ chmfile_new(const gchar *filename)
   chmfile = g_object_new(TYPE_CHMFILE, NULL);
 
 
-  chmfile->dir = g_build_filename(g_getenv("HOME"), 
+  chmfile->dir = g_build_filename(g_getenv("HOME"),
                                   ".chmsee",
                                   "bookshelf",
-                                  md5, 
+                                  md5,
                                   NULL);
   d(g_debug("book dir = %s", chmfile->dir));
 
@@ -734,12 +734,12 @@ chmfile_new(const gchar *filename)
     gchar *hhc;
 
     hhc = g_strdup_printf("%s%s", chmfile->dir, chmfile->hhc);
-                
+
     if (g_file_test(hhc, G_FILE_TEST_EXISTS)) {
       chmfile->link_tree = hhc_load(hhc, chmfile->encoding);
     } else {
       gchar *hhc_ncase;
-                        
+
       hhc_ncase = file_exist_ncase(hhc);
       chmfile->link_tree = hhc_load(hhc_ncase, chmfile->encoding);
       g_free(hhc_ncase);
@@ -754,7 +754,7 @@ chmfile_new(const gchar *filename)
   bookmark_file = g_build_filename(chmfile->dir, CHMSEE_BOOKMARK_FILE, NULL);
   chmfile->bookmarks_list = bookmarks_load(bookmark_file);
   g_free(bookmark_file);
-        
+
   return chmfile;
 }
 void
@@ -773,7 +773,7 @@ load_fileinfo(ChmFile *book)
     Item *item;
 
     item = list->data;
-                
+
     if (strstr(item->id, "hhc")) {
       book->hhc = g_strdup(item->value);
       continue;
@@ -820,11 +820,11 @@ save_fileinfo(ChmFile *book)
   gchar *path;
 
   path = g_build_filename(book->dir, CHMSEE_BOOKINFO_FILE, NULL);
-        
+
   d(g_debug("save bookinfo path = %s", path));
 
   fd = fopen(path, "w");
-        
+
   if (!fd) {
     g_print("Faild to open bookinfo file: %s", path);
   } else {
@@ -841,4 +841,19 @@ save_fileinfo(ChmFile *book)
   g_free(path);
 }
 
-
+/* see http://code.google.com/p/chmsee/issues/detail?id=12 */
+void extract_post_file_write(const gchar* fname) {
+  gchar* basename = g_path_get_basename(fname);
+  gchar* pos = strchr(basename, ';');
+  if(pos) {
+    gchar* dirname = g_path_get_dirname(fname);
+    *pos = '\0';
+    gchar* newfname = g_build_filename(dirname, basename, NULL);
+    if(g_rename(fname, newfname) != 0) {
+      g_error("rename \"%s\" to \"%s\" failed: %s", fname, newfname, strerror(errno));
+    }
+    g_free(dirname);
+    g_free(newfname);
+  }
+  g_free(basename);
+}
