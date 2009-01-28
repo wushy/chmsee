@@ -29,8 +29,10 @@
 static gint depth = -1;
 static gint prev_depth = -1;
 static gboolean tree_item = FALSE;
-static gchar *title = NULL;
-static gchar *local = NULL;
+static gchar default_title[] = "default title";
+static gchar default_local[] = "default local";
+static gchar* title = default_title;
+static gchar* local = default_local;
 
 static GNode *parent = NULL;
 static GNode *prev_node = NULL;
@@ -173,7 +175,8 @@ endElementHH(void *ctx, const xmlChar *name)
     g_free(title);
     g_free(local);
 
-    title = local = NULL;
+    title = default_title;
+    local = default_local;
   }
 }
 
