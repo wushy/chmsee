@@ -151,7 +151,9 @@ endElementHH(void *ctx, const xmlChar *name)
     d(g_debug("title = %s", title));
     d(g_debug("local = %s", local));
 
-    link = link_new(LINK_TYPE_PAGE, title, local);
+    link = link_new(LINK_TYPE_PAGE, 
+                    title ? title : "default title",
+                    local ? local : "default local");
     node = g_node_new(link);
                         
     if (depth == 0) {
