@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: chmsee\n"
-"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2009-01-08 21:40+0800\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-03-05 20:22+0800\n"
 "PO-Revision-Date: 2009-02-22 17:38+0000\n"
 "Last-Translator: Vadim Peretokin <vperetokin@gmail.com>\n"
 "Language-Team: Russian <ru@li.org>\n"
@@ -17,35 +17,35 @@ msgstr ""
 "X-Launchpad-Export-Date: 2009-03-05 12:04+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
-#: ../chmsee.glade.h:1
+#: ../data/chmsee.glade.h:1
 msgid "<b>Cache</b>"
 msgstr "<b>Кэш</b>"
 
-#: ../chmsee.glade.h:2
+#: ../data/chmsee.glade.h:2
 msgid "<b>Charset</b>"
 msgstr "<b>Кодировка</b>"
 
-#: ../chmsee.glade.h:3
+#: ../data/chmsee.glade.h:3
 msgid "<b>Font</b>"
 msgstr "<b>Шрифт</b>"
 
-#: ../chmsee.glade.h:4
+#: ../data/chmsee.glade.h:4
 msgid "About"
 msgstr "О программе"
 
-#: ../chmsee.glade.h:5
+#: ../data/chmsee.glade.h:5
 msgid "About..."
 msgstr "О программе..."
 
-#: ../chmsee.glade.h:6
+#: ../data/chmsee.glade.h:6
 msgid "Auto-Detect:"
 msgstr "Автоопределение:"
 
-#: ../chmsee.glade.h:7
+#: ../data/chmsee.glade.h:7
 msgid "Back"
 msgstr "Назад"
 
-#: ../chmsee.glade.h:8
+#: ../data/chmsee.glade.h:8
 msgid ""
 "CHM files extracted in this cache folder, you can press Clear button to free "
 "disk space.\n"
@@ -58,59 +58,59 @@ msgstr ""
 "ВНИМАНИЕ: Если вы просматриваете CHM файл, вам необходимо открыть его заново "
 "после очистки."
 
-#: ../chmsee.glade.h:11 ../chmsee.desktop.in.h:1
+#: ../data/chmsee.glade.h:11 ../data/chmsee.desktop.in.h:1
 msgid "ChmSee"
 msgstr "ChmSee"
 
-#: ../chmsee.glade.h:12
+#: ../data/chmsee.glade.h:12
 msgid "Copy Page _Location"
 msgstr "Копировать Page _Location"
 
-#: ../chmsee.glade.h:13
+#: ../data/chmsee.glade.h:13
 msgid "Fixed Width:"
 msgstr "Фиксированной ширины:"
 
-#: ../chmsee.glade.h:14
+#: ../data/chmsee.glade.h:14
 msgid "Forward"
 msgstr "Вперед"
 
-#: ../chmsee.glade.h:15
+#: ../data/chmsee.glade.h:15
 msgid "Home"
 msgstr "Домой"
 
-#: ../chmsee.glade.h:16
+#: ../data/chmsee.glade.h:16
 msgid "Normal"
 msgstr "Обычный"
 
-#: ../chmsee.glade.h:17
+#: ../data/chmsee.glade.h:17
 msgid "Open File"
 msgstr "Открыть файл"
 
-#: ../chmsee.glade.h:18
+#: ../data/chmsee.glade.h:18
 msgid "Open Link in New _Tab"
 msgstr "Открыть в новой _вкладке"
 
-#: ../chmsee.glade.h:19
+#: ../data/chmsee.glade.h:19
 msgid "Panel"
 msgstr "Панель"
 
-#: ../chmsee.glade.h:20
+#: ../data/chmsee.glade.h:20
 msgid "Select _All"
 msgstr "Вы_делить всё"
 
-#: ../chmsee.glade.h:21
+#: ../data/chmsee.glade.h:21
 msgid "Setup"
 msgstr "Настройки"
 
-#: ../chmsee.glade.h:22
+#: ../data/chmsee.glade.h:22
 msgid "Show/Hide Panel"
 msgstr "Показать/скрыть панель"
 
-#: ../chmsee.glade.h:23
+#: ../data/chmsee.glade.h:23
 msgid "The HTML Help(CHM) viewer for Unix/Linux"
 msgstr "Просмоторщик файлов HTML Help (СHM) для Unix\\Linux"
 
-#: ../chmsee.glade.h:24
+#: ../data/chmsee.glade.h:24
 msgid ""
 "Universal\n"
 "Simplified Chinese\n"
@@ -128,136 +128,150 @@ msgstr ""
 "Русская\n"
 "Украинская"
 
-#: ../chmsee.glade.h:31
+#: ../data/chmsee.glade.h:31
 msgid "Variable Width:"
 msgstr "Изменяемой ширины:"
 
-#: ../chmsee.glade.h:32
+#: ../data/chmsee.glade.h:32
 msgid "Zoom In"
 msgstr "Увеличить"
 
-#: ../chmsee.glade.h:33
+#: ../data/chmsee.glade.h:33
 msgid "Zoom Out"
 msgstr "Уменьшить"
 
-#: ../chmsee.glade.h:34
+#: ../data/chmsee.glade.h:34
 msgid "_Back"
 msgstr "_Назад"
 
-#: ../chmsee.glade.h:35
+#: ../data/chmsee.glade.h:35
 msgid "_Close Tab"
 msgstr "_Закрыть вкладку"
 
-#: ../chmsee.glade.h:36
+#: ../data/chmsee.glade.h:36
 msgid "_Copy"
 msgstr "_Копировать"
 
-#: ../chmsee.glade.h:37
+#: ../data/chmsee.glade.h:37
 msgid "_Copy Link Location"
 msgstr "_Копировать ссылку"
 
-#: ../chmsee.glade.h:38
+#: ../data/chmsee.glade.h:38
 msgid "_Edit"
 msgstr "_Правка"
 
-#: ../chmsee.glade.h:39
+#: ../data/chmsee.glade.h:39
 msgid "_File"
 msgstr "_Файл"
 
-#: ../chmsee.glade.h:40
+#: ../data/chmsee.glade.h:40
 msgid "_Forward"
 msgstr "_Вперед"
 
-#: ../chmsee.glade.h:41
+#: ../data/chmsee.glade.h:41
 msgid "_Help"
 msgstr "_Справка"
 
-#: ../chmsee.glade.h:42
+#: ../data/chmsee.glade.h:42
 msgid "_Home"
 msgstr "_Домой"
 
-#: ../chmsee.glade.h:43
+#: ../data/chmsee.glade.h:43
 msgid "_New Tab"
 msgstr "_Новая вкладка"
 
-#: ../chmsee.glade.h:44
+#: ../data/chmsee.glade.h:44
 msgid "_Setup"
 msgstr "_Установить"
 
-#: ../chmsee.glade.h:45
+#: ../data/chmsee.glade.h:45
 msgid "_View"
 msgstr "_Просмотр"
 
-#: ../chmsee.glade.h:46
+#: ../data/chmsee.glade.h:46
 msgid "http://code.google.com/p/chmsee"
 msgstr "http://code.google.com/p/chmsee"
 
 #. TRANSLATORS: Replace this string with your names, one name per line.
-#: ../chmsee.glade.h:48
+#: ../data/chmsee.glade.h:48
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
 "  Max Habets https://launchpad.net/~sky3\n"
 "  andvalb https://launchpad.net/~andvalb"
 
-#: ../chmsee.desktop.in.h:2
+#: ../data/chmsee.desktop.in.h:2
 msgid "HTML Help(CHM) viewer"
 msgstr "Просмоторщик файлов HTML Help (CHM)"
 
-#: ../src/chmsee.c:483
+#: ../src/chmsee.c:362
+#, c-format
+msgid "URI redirect: \"%s\" -> \"%s\""
+msgstr ""
+
+#: ../src/chmsee.c:523
 msgid "CHM Files"
 msgstr "Файлы CHM"
 
-#: ../src/chmsee.c:488
+#: ../src/chmsee.c:528
 msgid "All Files"
 msgstr "Все файлы"
 
-#: ../src/chmsee.c:1018
+#: ../src/chmsee.c:1055
 msgid "Ready!"
 msgstr "Готов!"
 
-#: ../src/chmsee.c:1070
+#: ../src/chmsee.c:1107
 msgid "Topics"
 msgstr "Содержание"
 
-#: ../src/chmsee.c:1087
+#: ../src/chmsee.c:1124
 msgid "Bookmarks"
 msgstr "Закладки"
 
 #. Custom label widget, with a close button
-#: ../src/chmsee.c:1233 ../src/chmsee.c:1400
+#: ../src/chmsee.c:1272 ../src/chmsee.c:1439
 msgid "No Title"
 msgstr "Заголовок отсутствует"
 
-#: ../src/chmsee.c:1502
+#: ../src/chmsee.c:1541
 #, c-format
 msgid "Error loading file '%s'"
 msgstr "Ошибка загрузки файла '%s'"
 
-#: ../src/chmfile.c:252
+#: ../src/models/chmfile.c:257
 #, c-format
 msgid "cannot open chmfile: %s"
 msgstr "не могу открыть файл chm: %s"
 
-#: ../src/chmfile.c:259
+#: ../src/models/chmfile.c:264
 #, c-format
 msgid "Extract chmfile failed: %s"
 msgstr "Ошибка извлечения файла chm: %s"
 
-#: ../src/chmfile.c:285
+#: ../src/models/chmfile.c:290
 #, c-format
 msgid "open \"%s\" failed: %s"
 msgstr "при открытии \"%s\" ошибка: %s"
 
-#: ../src/bookmarks.c:313
+#: ../src/models/chmfile.c:492
+#, fuzzy, c-format
+msgid "Can not open chm file %s."
+msgstr "не могу открыть файл chm: %s"
+
+#: ../src/models/chmfile.c:750
+msgid "Can't found hhc file."
+msgstr ""
+
+#: ../src/ui_bookmarks.c:315
 msgid "Bookmark"
 msgstr "Закладка"
 
-#: ../src/main.c:57
+#: ../src/main.c:55
 msgid "Display the version and exit"
 msgstr "Отобразить версию и выйти"
 
-#: ../src/main.c:80
+#: ../src/main.c:78
 #, c-format
 msgid "more than 1 argument\n"
 msgstr "больше чем 1 аргумент\n"
