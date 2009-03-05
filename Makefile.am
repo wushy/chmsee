@@ -20,3 +20,6 @@ EXTRA_DIST = \
 	NEWS.zh \
 	po/chmsee.pot \
 	autogen.sh
+
+love: all
+	src/chmsee

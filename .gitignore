@@ -13,7 +13,7 @@
 /.settings
 /config.status.lineno
 /cscope.files
-/cscope.out
+cscope.out
 ABOUT-NLS
 Makefile
 Makefile.in
