@@ -1,0 +1,261 @@
+# English (United Kingdom) translation for chmsee
+# Copyright (c) 2009 Rosetta Contributors and Canonical Ltd 2009
+# This file is distributed under the same license as the chmsee package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2009.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: chmsee\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2009-01-08 21:40+0800\n"
+"PO-Revision-Date: 2009-01-26 10:09+0000\n"
+"Last-Translator: Jen Ockwell <jenfraggleubuntu@googlemail.com>\n"
+"Language-Team: English (United Kingdom) <en_GB@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2009-03-05 12:04+0000\n"
+"X-Generator: Launchpad (build Unknown)\n"
+
+#: ../chmsee.glade.h:1
+msgid "<b>Cache</b>"
+msgstr "<b>Cache</b>"
+
+#: ../chmsee.glade.h:2
+msgid "<b>Charset</b>"
+msgstr "<b>Charset</b>"
+
+#: ../chmsee.glade.h:3
+msgid "<b>Font</b>"
+msgstr "<b>Font</b>"
+
+#: ../chmsee.glade.h:4
+msgid "About"
+msgstr "About"
+
+#: ../chmsee.glade.h:5
+msgid "About..."
+msgstr "About..."
+
+#: ../chmsee.glade.h:6
+msgid "Auto-Detect:"
+msgstr "Auto-Detect:"
+
+#: ../chmsee.glade.h:7
+msgid "Back"
+msgstr "Back"
+
+#: ../chmsee.glade.h:8
+msgid ""
+"CHM files extracted in this cache folder, you can press Clear button to free "
+"disk space.\n"
+"\n"
+"NOTE: If you are viewing a CHM file, you need reopen it after cleaning."
+msgstr ""
+"CHM files extracted in this cache folder, you can press Clear button to free "
+"disk space.\n"
+"\n"
+"NOTE: If you are viewing a CHM file, you need reopen it after cleaning."
+
+#: ../chmsee.glade.h:11 ../chmsee.desktop.in.h:1
+msgid "ChmSee"
+msgstr "ChmSee"
+
+#: ../chmsee.glade.h:12
+msgid "Copy Page _Location"
+msgstr "Copy Page _Location"
+
+#: ../chmsee.glade.h:13
+msgid "Fixed Width:"
+msgstr "Fixed Width:"
+
+#: ../chmsee.glade.h:14
+msgid "Forward"
+msgstr ""
+
+#: ../chmsee.glade.h:15
+msgid "Home"
+msgstr "Home"
+
+#: ../chmsee.glade.h:16
+msgid "Normal"
+msgstr "Normal"
+
+#: ../chmsee.glade.h:17
+msgid "Open File"
+msgstr "Open File"
+
+#: ../chmsee.glade.h:18
+msgid "Open Link in New _Tab"
+msgstr "Open Link in New _Tab"
+
+#: ../chmsee.glade.h:19
+msgid "Panel"
+msgstr "Panel"
+
+#: ../chmsee.glade.h:20
+msgid "Select _All"
+msgstr "Select _All"
+
+#: ../chmsee.glade.h:21
+msgid "Setup"
+msgstr "Setup"
+
+#: ../chmsee.glade.h:22
+msgid "Show/Hide Panel"
+msgstr "Show/Hide Panel"
+
+#: ../chmsee.glade.h:23
+msgid "The HTML Help(CHM) viewer for Unix/Linux"
+msgstr "The HTML Help(CHM) viewer for Unix/Linux"
+
+#: ../chmsee.glade.h:24
+msgid ""
+"Universal\n"
+"Simplified Chinese\n"
+"Tradtional Chinese\n"
+"Japanese\n"
+"Korean\n"
+"Russian\n"
+"Ukrainain"
+msgstr ""
+"Universal\n"
+"Simplified Chinese\n"
+"Tradtional Chinese\n"
+"Japanese\n"
+"Korean\n"
+"Russian\n"
+"Ukrainain"
+
+#: ../chmsee.glade.h:31
+msgid "Variable Width:"
+msgstr "Variable Width:"
+
+#: ../chmsee.glade.h:32
+msgid "Zoom In"
+msgstr "Zoom In"
+
+#: ../chmsee.glade.h:33
+msgid "Zoom Out"
+msgstr "Zoom Out"
+
+#: ../chmsee.glade.h:34
+msgid "_Back"
+msgstr "_Back"
+
+#: ../chmsee.glade.h:35
+msgid "_Close Tab"
+msgstr "_Close Tab"
+
+#: ../chmsee.glade.h:36
+msgid "_Copy"
+msgstr "_Copy"
+
+#: ../chmsee.glade.h:37
+msgid "_Copy Link Location"
+msgstr "_Copy Link Location"
+
+#: ../chmsee.glade.h:38
+msgid "_Edit"
+msgstr "_Edit"
+
+#: ../chmsee.glade.h:39
+msgid "_File"
+msgstr "_File"
+
+#: ../chmsee.glade.h:40
+msgid "_Forward"
+msgstr ""
+
+#: ../chmsee.glade.h:41
+msgid "_Help"
+msgstr "_Help"
+
+#: ../chmsee.glade.h:42
+msgid "_Home"
+msgstr "_Home"
+
+#: ../chmsee.glade.h:43
+msgid "_New Tab"
+msgstr "_New Tab"
+
+#: ../chmsee.glade.h:44
+msgid "_Setup"
+msgstr "_Setup"
+
+#: ../chmsee.glade.h:45
+msgid "_View"
+msgstr "_View"
+
+#: ../chmsee.glade.h:46
+msgid "http://code.google.com/p/chmsee"
+msgstr "http://code.google.com/p/chmsee"
+
+#. TRANSLATORS: Replace this string with your names, one name per line.
+#: ../chmsee.glade.h:48
+msgid "translator-credits"
+msgstr ""
+"Launchpad Contributions:\n"
+"  Jen Ockwell https://launchpad.net/~rj-ockwell"
+
+#: ../chmsee.desktop.in.h:2
+msgid "HTML Help(CHM) viewer"
+msgstr "HTML Help(CHM) viewer"
+
+#: ../src/chmsee.c:483
+msgid "CHM Files"
+msgstr "CHM Files"
+
+#: ../src/chmsee.c:488
+msgid "All Files"
+msgstr "All Files"
+
+#: ../src/chmsee.c:1018
+msgid "Ready!"
+msgstr "Ready!"
+
+#: ../src/chmsee.c:1070
+msgid "Topics"
+msgstr "Topics"
+
+#: ../src/chmsee.c:1087
+msgid "Bookmarks"
+msgstr "Bookmarks"
+
+#. Custom label widget, with a close button
+#: ../src/chmsee.c:1233 ../src/chmsee.c:1400
+msgid "No Title"
+msgstr "No Title"
+
+#: ../src/chmsee.c:1502
+#, c-format
+msgid "Error loading file '%s'"
+msgstr "Error loading file '%s'"
+
+#: ../src/chmfile.c:252
+#, c-format
+msgid "cannot open chmfile: %s"
+msgstr "cannot open chmfile: %s"
+
+#: ../src/chmfile.c:259
+#, c-format
+msgid "Extract chmfile failed: %s"
+msgstr "Extract chmfile failed: %s"
+
+#: ../src/chmfile.c:285
+#, c-format
+msgid "open \"%s\" failed: %s"
+msgstr "open \"%s\" failed: %s"
+
+#: ../src/bookmarks.c:313
+msgid "Bookmark"
+msgstr "Bookmark"
+
+#: ../src/main.c:57
+msgid "Display the version and exit"
+msgstr "Display the version and exit"
+
+#: ../src/main.c:80
+#, c-format
+msgid "more than 1 argument\n"
+msgstr "more than 1 argument\n"
