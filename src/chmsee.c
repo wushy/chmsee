@@ -161,7 +161,7 @@ chmsee_init(ChmSee *chmsee)
 {
         chmsee->home = g_build_filename(g_get_home_dir(), ".chmsee", NULL);
 
-        d(g_debug("chmsee home = %s", chmsee->home));
+        g_debug("chmsee home = %s", chmsee->home);
 
         if (!g_file_test(chmsee->home, G_FILE_TEST_IS_DIR))
                 mkdir(chmsee->home, 0777);
@@ -206,7 +206,7 @@ chmsee_finalize(GObject *object)
 static gboolean
 delete_cb(GtkWidget *widget, GdkEvent *event, ChmSee *chmsee)
 {
-        d(g_message("window delete"));
+        g_message("window delete");
         return FALSE;
 }
 
@@ -263,7 +263,7 @@ booktree_link_selected_cb(GObject *ignored, Link *link, ChmSee *chmsee)
 {
         Html *html;
 
-        d(g_debug("booktree link selected: %s", link->uri));
+        g_debug("booktree link selected: %s", link->uri);
         if (!g_ascii_strcasecmp(CHMSEE_NO_LINK, link->uri))
                 return;
 
@@ -291,7 +291,7 @@ bookmarks_link_selected_cb(GObject *ignored, Link *link, ChmSee *chmsee)
 static void
 control_switch_page_cb(GtkNotebook *notebook, GtkNotebookPage *page, guint new_page_num, ChmSee *chmsee)
 {
-        d(g_debug("switch page : current page = %d", gtk_notebook_get_current_page(notebook)));
+        g_debug("switch page : current page = %d", gtk_notebook_get_current_page(notebook));
 }
 
 static void
@@ -337,7 +337,7 @@ html_switch_page_cb(GtkNotebook *notebook, GtkNotebookPage *page, guint new_page
 static void
 html_location_changed_cb(Html *html, const gchar *location, ChmSee *chmsee)
 {
-        d(g_debug("html location changed cb: %s", location));
+        g_debug("html location changed cb: %s", location);
 
         if (html == get_active_html(chmsee))
                 check_history(chmsee, html);
@@ -378,7 +378,7 @@ html_title_changed_cb(Html *html, const gchar *title, ChmSee *chmsee)
 {
         gchar *location;
 
-        d(g_debug("html title changed cb %s", title));
+        g_debug("html title changed cb %s", title);
 
         update_tab_title(chmsee, get_active_html(chmsee));
 
@@ -406,7 +406,7 @@ html_context_normal_cb(Html *html, ChmSee *chmsee)
 
         gboolean back_state, forward_state;
 
-        d(g_message("html context-normal event"));
+        g_message("html context-normal event");
 
         back_state = html_can_go_back(html);
         forward_state = html_can_go_forward(html);
@@ -458,7 +458,7 @@ html_context_link_cb(Html *html, const gchar *link, ChmSee *chmsee)
         GtkWidget *menu;
         GtkWidget *menu_item;
 
-        d(g_debug("html context-link event: %s", link));
+        g_debug("html context-link event: %s", link);
 
         g_free(context_menu_link);
 
@@ -489,7 +489,7 @@ html_context_link_cb(Html *html, const gchar *link, ChmSee *chmsee)
 static void
 html_open_new_tab_cb(Html *html, const gchar *location, ChmSee *chmsee)
 {
-        d(g_debug("html open new tab callback: %s", location));
+        g_debug("html open new tab callback: %s", location);
 
         new_tab(chmsee, location);
 }
@@ -554,16 +554,16 @@ on_close_tab(GtkWidget *widget, ChmSee *chmsee)
         for (i = 0; i < num_pages; i++) {
                 GList *children, *l;
                 
-                d(g_debug("page %d", i));
+                g_debug("page %d", i);
                 page = gtk_notebook_get_nth_page(GTK_NOTEBOOK (chmsee->html_notebook), i);
 
                 tab_label = gtk_notebook_get_tab_label(GTK_NOTEBOOK (chmsee->html_notebook), page);
-                d(g_message("tab_label"));
+                g_message("tab_label");
                 children = gtk_container_get_children(GTK_CONTAINER (tab_label));
 
                 for (l = children; l; l = l->next) {
                         if (widget == l->data) {
-                                d(g_debug("found tab on page %d", i));
+                                g_debug("found tab on page %d", i);
                                 number = i;
                                 break;
                         }
@@ -582,7 +582,7 @@ on_copy(GtkWidget *widget, ChmSee *chmsee)
 {
         Html *html;
 
-        d(g_message("On Copy"));
+        g_message("On Copy");
 
         g_return_if_fail(GTK_IS_NOTEBOOK (chmsee->html_notebook));
 
@@ -611,7 +611,7 @@ on_select_all(GtkWidget *widget, ChmSee *chmsee)
 {
         Html *html;
 
-        d(g_message("On Select All"));
+        g_message("On Select All");
 
         g_return_if_fail(GTK_IS_NOTEBOOK (chmsee->html_notebook));
 
@@ -711,7 +711,7 @@ hpanes_toggled_cb(GtkToggleToolButton *widget, ChmSee *chmsee)
         GtkWidget *control_vbox;
 
         g_object_get(widget, "active", &state, NULL);
-        d(g_debug("hpanes_toggled: %d", state));
+        g_debug("hpanes_toggled: %d", state);
 
         control_vbox = get_widget(chmsee, "control_vbox");
 
@@ -734,7 +734,7 @@ on_open_new_tab(GtkWidget *widget, ChmSee *chmsee)
         Html *html;
         gchar *location;
 
-        d(g_message("Open new tab"));
+        g_message("Open new tab");
 
         g_return_if_fail(GTK_IS_NOTEBOOK (chmsee->html_notebook));
 
@@ -766,7 +766,7 @@ on_close_current_tab(GtkWidget *widget, ChmSee *chmsee)
 static void
 on_context_new_tab(GtkWidget *widget, ChmSee *chmsee)
 {
-        d(g_debug("On context open new tab: %s", context_menu_link));
+        g_debug("On context open new tab: %s", context_menu_link);
 
         if (context_menu_link != NULL)
                 new_tab(chmsee, context_menu_link);
@@ -775,7 +775,7 @@ on_context_new_tab(GtkWidget *widget, ChmSee *chmsee)
 static void
 on_context_copy_link(GtkWidget *widget, ChmSee *chmsee)
 {
-        d(g_debug("On context copy link: %s", context_menu_link));
+        g_debug("On context copy link: %s", context_menu_link);
 
         if (context_menu_link != NULL) {
                 gtk_clipboard_set_text(gtk_clipboard_get(GDK_SELECTION_PRIMARY), 
@@ -806,7 +806,7 @@ chmsee_quit(ChmSee *chmsee)
   gtk_main_quit();
   exit(0);
 
-  d(g_message("chmsee quit"));
+  g_message("chmsee quit");
 }
 
 static GtkWidget *
@@ -1064,7 +1064,7 @@ display_book(ChmSee *chmsee, ChmFile *book)
         GtkWidget *booktree_sw;
         GtkWidget *control_vbox;
 
-        d(g_message("display book"));
+        g_message("display book");
 
         /* Close currently opened book */
         if (chmsee->book)
@@ -1111,7 +1111,7 @@ display_book(ChmSee *chmsee, ChmFile *book)
                                  G_CALLBACK (booktree_link_selected_cb),
                                  chmsee);
 
-                d(g_message("chmsee has toc"));
+                g_message("chmsee has toc");
                 chmsee->has_toc = TRUE;
         }
 
@@ -1248,7 +1248,7 @@ new_tab(ChmSee *chmsee, const gchar *location)
         GtkWidget    *tab_content;
         gint          num;
 
-        d(g_debug("new_tab : %s", location));
+        g_debug("new_tab : %s", location);
 
         /* Ignore external link */
         if (location != NULL && !g_str_has_prefix(location, "file://"))
@@ -1346,7 +1346,7 @@ reload_current_page(ChmSee *chmsee)
         Html *html;
         gchar *location;
 
-        d(g_message("Reload current page"));
+        g_message("Reload current page");
 
         g_return_if_fail(GTK_IS_NOTEBOOK (chmsee->html_notebook));
 

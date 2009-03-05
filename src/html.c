@@ -339,7 +339,7 @@ html_open_uri(Html *html, const gchar *str_uri)
         else
                 full_uri = g_strdup(str_uri);
         
-        d(g_debug("Open uri %s", full_uri));
+        g_debug("Open uri %s", full_uri);
         gtk_moz_embed_load_url(html->gecko, full_uri);
         g_free(full_uri);
 }

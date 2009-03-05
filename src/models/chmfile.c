@@ -127,7 +127,7 @@ chmfile_finalize(GObject *object)
 
   chmfile = CHMFILE (object);
 
-  d(g_message("chmfile finalize"));
+  g_message("chmfile finalize");
 
   save_fileinfo(chmfile);
   g_free(chmfile->filename);
@@ -191,7 +191,7 @@ _extract_callback(struct chmFile *h, struct chmUnitInfo *ui, void *context)
     return CHM_ENUMERATOR_CONTINUE;
   }
 
-  d(g_debug("ui->path = %s", ui->path));
+  g_debug("ui->path = %s", ui->path);
 
   fname = g_build_filename(ctx->base_path, ui->path+1, NULL);
 
@@ -203,7 +203,7 @@ _extract_callback(struct chmFile *h, struct chmUnitInfo *ui, void *context)
     gchar *file_ext;
 
     file_ext = g_strrstr(g_path_get_basename(ui->path), ".");
-    d(g_debug("file_ext = %s", file_ext));
+    g_debug("file_ext = %s", file_ext);
 
     if ((fout = fopen(fname, "wb")) == NULL) {
       /* make sure that it isn't just a missing directory before we abort */
@@ -606,14 +606,14 @@ chmfile_system_info(struct chmFile *cfd, ChmFile *chmfile)
 
     cursor = buffer + index;
     value = UINT16ARRAY(cursor);
-    d(g_debug("system value = %d", value));
+    g_debug("system value = %d", value);
     switch(value) {
     case 0:
       index += 2;
       cursor = buffer + index;
 
       chmfile->hhc = g_strdup_printf("/%s", buffer + index + 2);
-      d(g_debug("hhc %s", chmfile->hhc));
+      g_debug("hhc %s", chmfile->hhc);
 
       break;
     case 1:
@@ -621,7 +621,7 @@ chmfile_system_info(struct chmFile *cfd, ChmFile *chmfile)
       cursor = buffer + index;
 
       chmfile->hhk = g_strdup_printf("/%s", buffer + index + 2);
-      d(g_debug("hhk %s", chmfile->hhk));
+      g_debug("hhk %s", chmfile->hhk);
 
       break;
     case 2:
@@ -629,7 +629,7 @@ chmfile_system_info(struct chmFile *cfd, ChmFile *chmfile)
       cursor = buffer + index;
 
       chmfile->home = g_strdup_printf("/%s", buffer + index + 2);
-      d(g_debug("home %s", chmfile->home));
+      g_debug("home %s", chmfile->home);
 
       break;
     case 3:
@@ -637,7 +637,7 @@ chmfile_system_info(struct chmFile *cfd, ChmFile *chmfile)
       cursor = buffer + index;
 
       chmfile->title = g_strdup((char *)buffer + index + 2);
-      d(g_debug("title %s", chmfile->title));
+      g_debug("title %s", chmfile->title);
 
       break;
     case 4: // LCID stuff
@@ -645,7 +645,7 @@ chmfile_system_info(struct chmFile *cfd, ChmFile *chmfile)
       cursor = buffer + index;
 
       lcid = UINT32ARRAY(buffer + index + 2);
-      d(g_debug("lcid %x", lcid));
+      g_debug("lcid %x", lcid);
       chmfile->encoding = get_encoding(lcid);
       break;
 
@@ -671,7 +671,7 @@ chmfile_system_info(struct chmFile *cfd, ChmFile *chmfile)
       index += 2;
       cursor = buffer + index;
 
-      d(g_debug("font %s", buffer + index + 2));
+      g_debug("font %s", buffer + index + 2);
       break;
 
     default:
@@ -705,17 +705,17 @@ chmfile_new(const gchar *filename)
                                   "bookshelf",
                                   md5,
                                   NULL);
-  d(g_debug("book dir = %s", chmfile->dir));
+  g_debug("book dir = %s", chmfile->dir);
 
   /* If this chm file extracted before, load it's bookinfo */
   if (!g_file_test(chmfile->dir, G_FILE_TEST_IS_DIR)) {
     if (!extract_chm(filename, chmfile)) {
-      d(g_debug("extract_chm failed: %s", filename));
+      g_debug("extract_chm failed: %s", filename);
       return NULL;
     }
 
     chmfile->filename = g_strdup(filename);
-    d(g_debug("chmfile->filename = %s", chmfile->filename));
+    g_debug("chmfile->filename = %s", chmfile->filename);
 
     chmfile_file_info(chmfile);
     save_fileinfo(chmfile);
@@ -723,11 +723,11 @@ chmfile_new(const gchar *filename)
     load_fileinfo(chmfile);
   }
 
-  d(g_debug("chmfile->hhc = %s", chmfile->hhc));
-  d(g_debug("chmfile->hhk = %s", chmfile->hhk));
-  d(g_debug("chmfile->home = %s", chmfile->home));
-  d(g_debug("chmfile->title = %s", chmfile->title));
-  d(g_debug("chmfile->endcoding = %s", chmfile->encoding));
+  g_debug("chmfile->hhc = %s", chmfile->hhc);
+  g_debug("chmfile->hhk = %s", chmfile->hhk);
+  g_debug("chmfile->home = %s", chmfile->home);
+  g_debug("chmfile->title = %s", chmfile->title);
+  g_debug("chmfile->endcoding = %s", chmfile->encoding);
 
   /* Parse hhc and store result to tree view */
   if (chmfile->hhc != NULL && g_ascii_strcasecmp(chmfile->hhc, "(null)") != 0) {
@@ -765,7 +765,7 @@ load_fileinfo(ChmFile *book)
 
   path = g_strdup_printf("%s/%s", book->dir, CHMSEE_BOOKINFO_FILE);
 
-  d(g_debug("bookinfo path = %s", path));
+  g_debug("bookinfo path = %s", path);
 
   pairs = parse_config_file("bookinfo", path);
 
@@ -821,7 +821,7 @@ save_fileinfo(ChmFile *book)
 
   path = g_build_filename(book->dir, CHMSEE_BOOKINFO_FILE, NULL);
 
-  d(g_debug("save bookinfo path = %s", path));
+  g_debug("save bookinfo path = %s", path);
 
   fd = fopen(path, "w");
 

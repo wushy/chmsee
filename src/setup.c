@@ -56,7 +56,7 @@ variable_font_set_cb(GtkFontButton *button, ChmSee *chmsee)
 
 	font_name = g_strdup(gtk_font_button_get_font_name(button));
 	
-	d(g_debug("variable font set: %s", font_name));
+	g_debug("variable font set: %s", font_name);
 
 	gecko_utils_set_font(GECKO_PREF_FONT_VARIABLE, font_name);
 
@@ -71,7 +71,7 @@ fixed_font_set_cb(GtkFontButton *button, ChmSee *chmsee)
 
 	font_name = g_strdup(gtk_font_button_get_font_name(button));
 
-	d(g_debug("fixed font set: %s", font_name));
+	g_debug("fixed font set: %s", font_name);
 
 	gecko_utils_set_font(GECKO_PREF_FONT_FIXED, font_name);
 
@@ -89,7 +89,7 @@ cmb_lang_changed_cb(GtkWidget *widget, ChmSee *chmsee)
 	index = gtk_combo_box_get_active(combobox);
 
 	if (index >= 0) { 
-		d(g_debug("select lang: %d", index));
+		g_debug("select lang: %d", index);
 		gecko_utils_set_default_lang(index);
 		chmsee->lang = index;
 	}

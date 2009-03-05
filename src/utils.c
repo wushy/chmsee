@@ -39,7 +39,7 @@ load_chmsee_config(ChmSee *chmsee)
 
         path = g_build_filename(chmsee->home, "config", NULL);
 
-        d(g_debug("config path = %s", path));
+        g_debug("config path = %s", path);
 
         pairs = parse_config_file("config", path);
 

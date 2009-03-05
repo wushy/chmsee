@@ -23,12 +23,6 @@
 #include <stdio.h>
 #include <glib.h>
 
-#ifdef _DEBUG
-#define d(x) x
-#else
-#define d(x)
-#endif
-
 #ifdef ENABLE_NLS
 #  include <libintl.h>
 #  undef _

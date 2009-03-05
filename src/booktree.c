@@ -250,8 +250,8 @@ booktree_find_uri_foreach(GtkTreeModel *model, GtkTreePath *path, GtkTreeIter *i
         gtk_tree_model_get(model, iter, COL_LINK, &link, -1);
 
         if (g_str_has_suffix(data->uri, link->uri)) {
-                d(g_debug("data->uri: %s", data->uri));
-                d(g_debug("link->uri: %s", link->uri));
+                g_debug("data->uri: %s", data->uri);
+                g_debug("link->uri: %s", link->uri);
 
                 data->found = TRUE;
                 data->iter = *iter;
@@ -273,7 +273,7 @@ booktree_selection_changed_cb(GtkTreeSelection *selection, BookTree *tree)
                 gtk_tree_model_get(GTK_TREE_MODEL (tree->store),
                                    &iter, COL_LINK, &link, -1);
 
-                d(g_debug("book tree emiting '%s'\n", link->uri));
+                g_debug("book tree emiting '%s'\n", link->uri);
 
                 g_signal_emit(tree, signals[LINK_SELECTED], 0, link);
         }
@@ -314,7 +314,7 @@ booktree_select_uri(BookTree *tree, const gchar *uri)
                                &data);
 
         if (!data.found) {
-                d(g_message("booktree select uri: cannot found data"));
+                g_message("booktree select uri: cannot found data");
                 return;
         }
 

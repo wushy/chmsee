@@ -80,19 +80,19 @@ static xmlSAXHandlerPtr hhSAXHandler = &hhSAXHandlerStruct;
 static void
 startDocumentHH(void *ctx)
 {
-  d(g_message("SAX.startDocument()"));
+  g_message("SAX.startDocument()");
 }
 
 static void
 endDocumentHH(void *ctx)
 {
-  d(g_message("SAX.endDocument()"));
+  g_message("SAX.endDocument()");
 }
 
 static void
 startElementHH(void *ctx, const xmlChar *name, const xmlChar **atts)
 {
-  d(g_debug("SAX.startElement(%s)", (char *)name));
+  g_debug("SAX.startElement(%s)", (char *)name);
         
   if (g_ascii_strcasecmp("ul", (char *)name) == 0) {
     depth++;
@@ -101,7 +101,7 @@ startElementHH(void *ctx, const xmlChar *name, const xmlChar **atts)
 
     type = g_strdup((gchar *)atts[1]);
 
-    d(g_debug("type = %s", type));
+    g_debug("type = %s", type);
 
     if (g_ascii_strcasecmp("text/sitemap", type) == 0)
       tree_item = TRUE;
@@ -133,7 +133,7 @@ endElementHH(void *ctx, const xmlChar *name)
   GNode *node;
   Link *link;
 
-  d(g_debug("SAX.endElement(%s)", (char *) name));
+  g_debug("SAX.endElement(%s)", (char *) name);
 
   if (g_ascii_strcasecmp("ul", (char *)name) == 0) {
     depth--;
@@ -145,11 +145,11 @@ endElementHH(void *ctx, const xmlChar *name)
       local = g_strdup(CHMSEE_NO_LINK);
     }
 
-    d(g_debug("prev_depth = %d", prev_depth));
-    d(g_debug("depth = %d", depth));
+    g_debug("prev_depth = %d", prev_depth);
+    g_debug("depth = %d", depth);
 
-    d(g_debug("title = %s", title));
-    d(g_debug("local = %s", local));
+    g_debug("title = %s", title);
+    g_debug("local = %s", local);
 
     link = link_new(LINK_TYPE_PAGE, 
                     title ? title : "default title",
@@ -187,8 +187,8 @@ hhc_load(const gchar *filename, const gchar *encoding)
 
   link_tree = g_node_new(NULL);
 
-  d(g_debug("parse encoding = %s", encoding));
-  d(g_debug("filename = %s", filename));
+  g_debug("parse encoding = %s", encoding);
+  g_debug("filename = %s", filename);
 
   doc = htmlSAXParseFile(filename, 
                          encoding, 
@@ -196,11 +196,11 @@ hhc_load(const gchar *filename, const gchar *encoding)
                          link_tree);
 
   if (doc != NULL) {
-    d(g_message("htmlSAXParseFile returned non-NULL"));
+    g_message("htmlSAXParseFile returned non-NULL");
     xmlFreeDoc(doc);
   }
 
-  d(g_message("Parsing hhc file finish."));
+  g_message("Parsing hhc file finish.");
 
   return link_tree;
 }

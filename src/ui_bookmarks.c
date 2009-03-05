@@ -154,7 +154,7 @@ row_activated_cb(GtkTreeView *tree_view, GtkTreePath *path,
         if (find_link) {
                 link = LINK (find_link->data);
 
-                d(g_debug("Emiting signal with link to: %s title=%s\n", link->uri, title));
+                g_debug("Emiting signal with link to: %s title=%s\n", link->uri, title);
 
                 g_signal_emit(bookmarks, signals[LINK_SELECTED], 0, link);
         }
@@ -163,7 +163,7 @@ row_activated_cb(GtkTreeView *tree_view, GtkTreePath *path,
 static void
 selection_changed_cb(GtkTreeSelection *selection, UiBookmarks *bookmarks)
 {
-        d(g_message("bookmark selection_changed"));
+        g_message("bookmark selection_changed");
 }
 
 static void
@@ -188,7 +188,7 @@ on_bookmark_add(GtkWidget *widget, UiBookmarks *bookmarks)
         GList *find_link;
         Link *link;
 
-        d(g_message("on_bookmark_add"));
+        g_message("on_bookmark_add");
 
         name = g_strdup(gtk_entry_get_text(GTK_ENTRY (bookmarks->entry)));
 
@@ -378,9 +378,9 @@ ui_bookmarks_set_current_link(UiBookmarks *bookmarks, const gchar *name,
 {
         g_return_if_fail(IS_UIBOOKMARKS (bookmarks));
 
-        d(g_message("Call bookmarks_set_current_link"));
+        g_message("Call bookmarks_set_current_link");
 
-        d(g_debug("set entry text: %s", name));
+        g_debug("set entry text: %s", name);
         gtk_entry_set_text(GTK_ENTRY (bookmarks->entry), name);
         
         gtk_editable_set_position(GTK_EDITABLE (bookmarks->entry), -1);

@@ -31,7 +31,7 @@ bookmarks_load(const gchar *path)
   Bookmarks* links = NULL;
   GList *pairs, *list;
 
-  d(g_debug("bookmarks path = %s", path));
+  g_debug("bookmarks path = %s", path);
 
   pairs = parse_config_file("bookmarks", path);
 
@@ -61,7 +61,7 @@ bookmarks_save(Bookmarks* links, const gchar* path)
 {
   FILE *fd;
         
-  d(g_debug("save bookmarks path = %s", path));
+  g_debug("save bookmarks path = %s", path);
 
   fd = fopen(path, "w");
 

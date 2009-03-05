@@ -121,14 +121,6 @@ AM_GLIB_GNU_GETTEXT
 
 AC_PATH_PROG(GLIB_GENMARSHAL, glib-genmarshal)
 
-# Debug option
-AC_ARG_ENABLE(debug,
-        AS_HELP_STRING([--enable-debug],[turn on debug]),
-        [CFLAGS=`echo "$CFLAGS" | sed -e 's/-O.//g'`
-         CFLAGS="$CFLAGS -Wall -D_DEBUG=1"
-         enable_debug=yes],
-        enable_debug=no)
-
 AC_SUBST([AM_CXXFLAGS])
 
 AC_CONFIG_FILES([
@@ -152,6 +144,5 @@ AC_MSG_RESULT([
 ====================================================================
 
         Target                    $target  
-        Enable debug              $enable_debug
         Gecko provider            $with_gecko
 ])

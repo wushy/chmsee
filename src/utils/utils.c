@@ -47,7 +47,7 @@ convert_filename_to_utf8(const gchar *filename, const gchar *codeset)
   if (g_utf8_validate(filename, -1, NULL)) {
     filename_utf8 = g_strdup(filename);
   } else {
-    d(g_message("Convert filename to UTF8."));
+    g_debug("Convert filename to UTF8.");
     filename_utf8 = g_filename_to_utf8(filename, -1, NULL, NULL, NULL);
 
     if (filename_utf8 == NULL)
@@ -65,10 +65,10 @@ convert_string_to_utf8(const gchar *string, const gchar *codeset)
   gchar * string_utf8;
 
   if (g_utf8_validate(string, -1, NULL)) {
-    d(g_message("string is utf8"));
+    g_debug("string is utf8");
     string_utf8 = g_strdup(string);
   } else {
-    d(g_message("string is not utf8"));
+    g_debug("string is not utf8");
     string_utf8 = g_convert(string, -1, "UTF-8", 
                             codeset, 
                             NULL, NULL, NULL);
@@ -114,8 +114,8 @@ file_exist_ncase(const gchar *path)
   dirname = g_strndup(path, ch - path);
   filename = g_strdup(ch + 1);
 
-  d(g_debug("dirname = %s", dirname));
-  d(g_debug("filename = %s", filename));
+  g_debug("dirname = %s", dirname);
+  g_debug("filename = %s", filename);
 
   dir = g_dir_open(dirname, 0, NULL);
         
@@ -123,9 +123,9 @@ file_exist_ncase(const gchar *path)
     const gchar *entry;
 
     while ((entry = g_dir_read_name(dir))) {
-      d(g_debug("entry = %s", entry));
+      g_debug("entry = %s", entry);
       if (!g_ascii_strcasecmp(filename, entry)) {
-        d(g_debug("found case insensitive file: %s", entry));
+        g_debug("found case insensitive file: %s", entry);
         found = g_strdup_printf("%s/%s", dirname, entry);
         g_dir_close(dir);
 
@@ -259,7 +259,7 @@ parse_config_file(const gchar *info, const gchar *file)
   gchar value[MAXLINE];
 
   if ((fd = fopen(file, "r")) == NULL) {
-    d(g_debug("Failed to open ChmSee %s.\n", info));
+    g_debug("Failed to open ChmSee %s.\n", info);
     return NULL;
   }
         
