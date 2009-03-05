@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ChmSee 1.0.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-03-05 20:22+0800\n"
+"POT-Creation-Date: 2009-03-05 22:07+0800\n"
 "PO-Revision-Date: 2009-01-11 16:37+0800\n"
 "Last-Translator: LI Daobing <lidaobing@gmail.com>\n"
 "Language-Team: szlug <szlug@googlegroups.com>\n"
@@ -260,11 +260,19 @@ msgstr ""
 msgid "Bookmark"
 msgstr "书签"
 
-#: ../src/main.c:55
+#: ../src/main.c:88
 msgid "Display the version and exit"
 msgstr "显示版本并退出"
 
-#: ../src/main.c:78
+#: ../src/main.c:93
+msgid "be verbose, repeat 3 times to get all info"
+msgstr ""
+
+#: ../src/main.c:97
+msgid "be quiet, repeat 2 times to disable all info"
+msgstr ""
+
+#: ../src/main.c:120
 #, c-format
 msgid "more than 1 argument\n"
 msgstr "超过 1 个参数\n"

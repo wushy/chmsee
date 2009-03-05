@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: chmsee\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-03-05 20:22+0800\n"
+"POT-Creation-Date: 2009-03-05 22:07+0800\n"
 "PO-Revision-Date: 2009-01-24 16:15+0000\n"
 "Last-Translator: Mikal Krogstad <mikal.krogstad@gmail.com>\n"
 "Language-Team: Norwegian Bokmal <nb@li.org>\n"
@@ -265,11 +265,19 @@ msgstr ""
 msgid "Bookmark"
 msgstr "Legg til bokmerke"
 
-#: ../src/main.c:55
+#: ../src/main.c:88
 msgid "Display the version and exit"
 msgstr "Vis versjon og avslutt"
 
-#: ../src/main.c:78
+#: ../src/main.c:93
+msgid "be verbose, repeat 3 times to get all info"
+msgstr ""
+
+#: ../src/main.c:97
+msgid "be quiet, repeat 2 times to disable all info"
+msgstr ""
+
+#: ../src/main.c:120
 #, c-format
 msgid "more than 1 argument\n"
 msgstr "mer enn ett argument\n"
