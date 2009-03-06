@@ -4,7 +4,7 @@ AM_CPPFLAGS = \
 	-DCHMSEE_BOOKINFO_FILE=\"chmsee_bookinfo\" \
 	-DG_DISABLE_DEPRECATED=1 \
 	-I$(srcdir)/.. @CHMSEE_MODELS_CFLAGS@
-AM_CFLAGS = -Wall -Werror
+AM_CFLAGS = -Wall -Werror @CHMLIB_CFLAGS@
 
 noinst_LIBRARIES = libchmsee-models.a
 libchmsee_models_a_SOURCES = link.c bookmarks.c hhc.c chmfile.c
