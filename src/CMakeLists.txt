@@ -1,6 +1,7 @@
 include_directories(
-  ..
-  .
+  ${CMAKE_BINARY_DIR}
+  ${CMAKE_CURRENT_SOURCE_DIR}
+  ${CMAKE_CURRENT_BINARY_DIR}
   ${CHMSEE_INCLUDE_DIRS}
   )
 add_definitions(
@@ -9,13 +10,13 @@ add_definitions(
   )
 add_custom_command(
   OUTPUT marshal.h
-  COMMAND ${GLIB_GENMARSHAL} --prefix=marshal marshal.list --header > marshal.h
+  COMMAND ${GLIB_GENMARSHAL} --prefix=marshal ${CMAKE_CURRENT_SOURCE_DIR}/marshal.list --header > marshal.h
   DEPENDS marshal.list
   )
 
 add_custom_command(
   OUTPUT marshal.c
-  COMMAND ${GLIB_GENMARSHAL} --prefix=marshal marshal.list --body > marshal.c
+  COMMAND ${GLIB_GENMARSHAL} --prefix=marshal ${CMAKE_CURRENT_SOURCE_DIR}/marshal.list --body > marshal.c
   DEPENDS marshal.list
   )
 

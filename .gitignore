@@ -21,6 +21,7 @@ Makefile.in
 POTFILES
 TAGS
 aclocal.m4
+build
 compile
 config.guess
 config.h
