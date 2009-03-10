@@ -27,6 +27,7 @@
  *   (at your option) any later version.				   *
  ***************************************************************************/
 
+#include "config.h"
 #include "setup.h"
 
 #include <glade/glade.h>

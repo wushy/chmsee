@@ -27,6 +27,7 @@
  *   (at your option) any later version.                                   *
  ***************************************************************************/
 
+#include "config.h"
 #include "startup.h"
 #include <gtk/gtk.h>
 
