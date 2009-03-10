@@ -28,6 +28,7 @@
  *   (at your option) any later version.                                   *
  ***************************************************************************/
 
+#include "config.h"
 #include "chmsee.h"
 
 #include <stdio.h>
@@ -1197,7 +1198,7 @@ display_book(ChmSee *chmsee, ChmFile *book)
 static void
 close_current_book(ChmSee *chmsee)
 {
-  gchar* bookmark_fname = g_build_filename(chmsee->book->dir, BOOKMARK_FILE, NULL);
+  gchar* bookmark_fname = g_build_filename(chmsee->book->dir, CHMSEE_BOOKMARK_FILE, NULL);
   bookmarks_save(ui_bookmarks_get_list(UIBOOKMARKS (chmsee->bookmark_tree)), bookmark_fname);
   g_free(bookmark_fname);
   g_object_unref(chmsee->book);

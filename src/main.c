@@ -28,6 +28,8 @@
  *   (at your option) any later version.                                   *
  ***************************************************************************/
 
+#include "config.h"
+
 #include <stdlib.h>
 #include <getopt.h>
 #include <libintl.h>
