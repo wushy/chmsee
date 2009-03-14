@@ -2,7 +2,7 @@
 
 ACLOCAL_AMFLAGS = -I m4
 
-SUBDIRS = cs2w doc po src data
+SUBDIRS = doc po src data
 
 
 
