@@ -16,8 +16,6 @@ EXTRA_DIST = \
 	INSTALL\
 	NEWS\
 	TODO \
-	README.zh \
-	NEWS.zh \
 	po/chmsee.pot \
 	autogen.sh
 
