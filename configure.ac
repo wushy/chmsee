@@ -2,7 +2,7 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ(2.61)
-AC_INIT([chmsee],[1.0.4-pre1],[http://code.google.com/p/chmsee/issues/entry])
+AC_INIT([chmsee],[1.0.4],[http://code.google.com/p/chmsee/issues/entry])
 AM_MAINTAINER_MODE
 AC_CANONICAL_TARGET
 AM_INIT_AUTOMAKE([foreign])

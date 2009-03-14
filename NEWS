@@ -1,5 +1,5 @@
-ChmSee 1.0.4 XXXX-XX-XX
-------------------------
+ChmSee 1.0.4 2009-03-14
+-----------------------
 
 Features
 ~~~~~~~~
@@ -47,12 +47,12 @@ ChmSee 1.0.1 2008-05-16
 ChmSee 1.0.0 2007-07-23
 ------------------------
 * Add cs2w, written by rae l <crquan@gmail.com>. It's a Python script
-that can convert CHM file to web browser friendly pages.
+  that can convert CHM file to web browser friendly pages.
 
 ChmSee 1.0.0-beta2 2007-04-07
 ------------------------------
 * Using pkg-config detect gecko support library.
 * User can choose Auto-Detect Language type, it's used for some html
-without charset content specified.
+  without charset content specified.
 * Popup context menu on html contents.
 * Add Zoomin, Zoomout toolbar buttons.
