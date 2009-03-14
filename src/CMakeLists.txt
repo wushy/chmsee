@@ -46,3 +46,5 @@ target_link_libraries(chmsee
   chm
   gcrypt
   )
+
+install(TARGETS chmsee DESTINATION bin)
