@@ -21,6 +21,7 @@
 
 #include <string.h>
 
+#include "ihtml.h"
 #include "marshal.h"
 #include "utils.h"
 #include "gecko_utils.h"
@@ -49,37 +50,18 @@ enum {
         LAST_SIGNAL
 };
 
+
+
 static gint signals[LAST_SIGNAL] = { 0 };
 
 /* Has the value of the URL under the mouse pointer, otherwise NULL */
 static gchar *current_url = NULL;
 
-GType
-html_get_type (void)
-{
-        static GType type = 0;
+static void chmsee_ihtml_interface_init (ChmseeIhtmlInterface *iface);
 
-        if (!type) {
-                static const GTypeInfo info =
-                        {
-                                sizeof(HtmlClass),
-                                NULL,
-                                NULL,
-                                (GClassInitFunc)html_class_init,
-                                NULL,
-                                NULL,
-                                sizeof(Html),
-                                0,
-                                (GInstanceInitFunc)html_init,
-                        };
-                
-                type = g_type_register_static(G_TYPE_OBJECT,
-                                              "Html", 
-                                              &info, 0);
-        }
-        
-        return type;
-}
+G_DEFINE_TYPE_WITH_CODE (Html, html, G_TYPE_OBJECT,
+                         G_IMPLEMENT_INTERFACE (CHMSEE_TYPE_IHTML,
+                                                chmsee_ihtml_interface_init));
 
 static void
 html_class_init(HtmlClass *klass)
@@ -471,3 +453,23 @@ void html_set_fixed_font(Html* html, const gchar* font) {
 }
 
 
+void chmsee_ihtml_interface_init (ChmseeIhtmlInterface *iface) {
+  iface->get_title = html_get_title;
+  iface->get_location = html_get_location;
+  iface->can_go_back = html_can_go_back;
+  iface->can_go_forward = html_can_go_forward;
+
+  iface->open_uri = html_open_uri;
+  iface->copy_selection = html_copy_selection;
+  iface->select_all = html_select_all;
+  iface->go_back = html_go_back;
+  iface->go_forward = html_go_forward;
+  iface->increase_size = html_increase_size;
+  iface->decrease_size = html_decrease_size;
+  iface->reset_size = html_reset_size;
+  iface->set_variable_font = html_set_variable_font;
+  iface->set_fixed_font = html_set_fixed_font;
+  iface->clear = html_clear;
+  iface->shutdown = html_shutdown;
+  iface->get_widget = html_get_widget;
+}

@@ -30,6 +30,7 @@ set(CHMSEE_SRCS
   gecko_utils.h html.h setup.h startup.h ui_bookmarks.h
   utils.h marshal.h marshal.c
   ihtml.h ihtml.c
+  html-factory.h html-factory.c
   )
 set(CHMSEE_SRCS
   ${CHMSEE_SRCS}
