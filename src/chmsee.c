@@ -1195,6 +1195,10 @@ close_current_book(ChmSee *chmsee)
   g_object_unref(chmsee->book);
   gtk_widget_destroy(GTK_WIDGET (chmsee->control_notebook));
   gtk_widget_destroy(GTK_WIDGET (chmsee->html_notebook));
+
+  chmsee->book = NULL;
+  chmsee->control_notebook = NULL;
+  chmsee->html_notebook = NULL;
 }
 
 static GtkWidget*
@@ -1360,6 +1364,9 @@ get_active_html(ChmSee *chmsee)
         GtkWidget *frame;
         gint page_num;
 
+        if(!chmsee->html_notebook) {
+          return NULL;
+        }
         page_num = gtk_notebook_get_current_page(GTK_NOTEBOOK (chmsee->html_notebook));
 
         if (page_num == -1)
