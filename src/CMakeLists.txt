@@ -37,7 +37,9 @@ set(CHMSEE_SRCS
   models/bookmarks.h models/bookmarks.c
   models/chmfile.h models/chmfile.c
   models/hhc.h models/hhc.c
-  models/link.h models/link.c)  
+  models/link.h models/link.c
+  models/ichmfile.h models/ichmfile.c
+  )
 
 add_executable(chmsee ${CHMSEE_SRCS})
 
