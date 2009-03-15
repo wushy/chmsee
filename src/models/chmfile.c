@@ -41,6 +41,7 @@
 
 #include "utils/utils.h"
 #include "models/hhc.h"
+#include "models/ichmfile.h"
 
 #define UINT16ARRAY(x) ((unsigned char)(x)[0] | ((u_int16_t)(x)[1] << 8))
 #define UINT32ARRAY(x) (UINT16ARRAY(x) | ((u_int32_t)(x)[2] << 16)      \
@@ -71,31 +72,11 @@ static void load_fileinfo(ChmFile* self);
 static void save_fileinfo(ChmFile* self);
 static void extract_post_file_write(const gchar* fname);
 
-GType
-chmfile_get_type(void)
-{
-  static GType type = 0;
+static void chmsee_ichmfile_interface_init (ChmseeIchmfileInterface* iface);
 
-  if (!type) {
-    static const GTypeInfo info = {
-      sizeof(ChmFileClass),
-      NULL,
-      NULL,
-      (GClassInitFunc)chmfile_class_init,
-      NULL,
-      NULL,
-      sizeof(ChmFile),
-      0,
-      (GInstanceInitFunc)chmfile_init,
-    };
-
-    type = g_type_register_static(G_TYPE_OBJECT,
-                                  "ChmFile",
-                                  &info, 0);
-  }
-
-  return type;
-}
+G_DEFINE_TYPE_WITH_CODE (ChmFile, chmfile, G_TYPE_OBJECT,
+                         G_IMPLEMENT_INTERFACE (CHMSEE_TYPE_ICHMFILE,
+                                                chmsee_ichmfile_interface_init));
 
 static void
 chmfile_class_init(ChmFileClass *klass)
@@ -857,4 +838,13 @@ void extract_post_file_write(const gchar* fname) {
     g_free(newfname);
   }
   g_free(basename);
+}
+
+static void chmfile_do_action(ChmFile* self) {
+  return;
+}
+
+static void chmsee_ichmfile_interface_init (ChmseeIchmfileInterface* iface)
+{
+  iface->do_action = chmfile_do_action;
 }
