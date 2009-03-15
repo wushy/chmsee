@@ -8,6 +8,7 @@ set(CHMSEE_BOOKMARK_FILE "chmsee_bookmarks")
 set(CHMSEE_BOOKINFO_FILE "chmsee_bookinfo")
 set(CHMSEE_NO_LINK "chmsee_no_link")
 set(CHMSEE_DATA_DIR "${CMAKE_INSTALL_PREFIX}/share/chmsee")
+set(GECKO_FLAVOUR "libxul")
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/config.h.in ${CMAKE_CURRENT_BINARY_DIR}/config.h)
 
 find_program(GLIB_GENMARSHAL glib-genmarshal)
