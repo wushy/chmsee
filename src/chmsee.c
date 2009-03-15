@@ -786,7 +786,10 @@ chmsee_quit(ChmSee *chmsee)
   g_free(chmsee->cache_dir);
   g_free(chmsee->last_dir);
   g_free(context_menu_link);
-  chmsee_ihtml_shutdown(get_active_html(chmsee));
+
+  if(get_active_html(chmsee)) {
+    chmsee_ihtml_shutdown(get_active_html(chmsee));
+  }
 
   gtk_main_quit();
   exit(0);
