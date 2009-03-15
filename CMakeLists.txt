@@ -26,3 +26,4 @@ if(${LIBGCRYPT} STREQUAL "LIBGCRYPT-NOTFOUND")
 endif()
 
 add_subdirectory(src)
+add_subdirectory(data)
