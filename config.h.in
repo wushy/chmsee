@@ -4,5 +4,8 @@
 #define CHMSEE_DATA_DIR "${CHMSEE_DATA_DIR}"
 #define GLADE_FILE "chmsee.glade"
 #define PACKAGE_VERSION "${PACKAGE_VERSION}"
-#define GETTEXT_PACKAGE "chmsee"
 #define PACKAGE_STRING "chmsee ${PACKAGE_VERSION}"
+#define ENABLE_NLS
+#define PACKAGE "chmsee"
+#define GETTEXT_PACKAGE "chmsee"
+#define PACKAGE_LOCALE_DIR "${CMAKE_INSTALL_PREFIX}/share/locale"
