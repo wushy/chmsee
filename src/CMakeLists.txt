@@ -28,7 +28,9 @@ set(CHMSEE_SRCS
   booktree.c chmsee.c gecko_utils.cpp html.c main.c
   setup.c startup.c ui_bookmarks.c utils.c booktree.h chmsee.h
   gecko_utils.h html.h setup.h startup.h ui_bookmarks.h
-  utils.h marshal.h marshal.c)
+  utils.h marshal.h marshal.c
+  ihtml.h ihtml.c
+  )
 set(CHMSEE_SRCS
   ${CHMSEE_SRCS}
   utils/utils.h utils/utils.c)
