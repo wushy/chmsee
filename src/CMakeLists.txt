@@ -39,6 +39,7 @@ set(CHMSEE_SRCS
   models/hhc.h models/hhc.c
   models/link.h models/link.c
   models/ichmfile.h models/ichmfile.c
+  models/chmfile-factory.h models/chmfile-factory.c
   )
 
 add_executable(chmsee ${CHMSEE_SRCS})

@@ -50,6 +50,8 @@
 #include "link.h"
 #include "utils.h"
 
+#include "models/chmfile-factory.h"
+
 static void chmsee_class_init(ChmSeeClass *);
 static void chmsee_init(ChmSee *);
 static void chmsee_finalize(GObject *);
@@ -95,7 +97,7 @@ static void chmsee_quit(ChmSee *);
 static void chmsee_open_uri(ChmSee *chmsee, const gchar *uri);
 static GtkWidget *get_widget(ChmSee *, gchar *);
 static void window_populate(ChmSee *);
-static void display_book(ChmSee *, ChmFile *);
+static void display_book(ChmSee *, ChmseeIchmfile *);
 static void close_current_book(ChmSee *);
 static void new_tab(ChmSee *, const gchar *);
 static Html *get_active_html(ChmSee *);
@@ -272,7 +274,8 @@ booktree_link_selected_cb(GObject *ignored, Link *link, ChmSee *chmsee)
 
         g_signal_handlers_block_by_func(html, html_open_uri_cb, chmsee);
 
-        html_open_uri(html, g_build_filename(chmsee->book->dir, link->uri, NULL));
+        html_open_uri(html, g_build_filename(
+                        chmsee_ichmfile_get_dir(chmsee->book), link->uri, NULL));
 
         g_signal_handlers_unblock_by_func(html, html_open_uri_cb, chmsee);
 
@@ -647,8 +650,9 @@ on_forward(GtkWidget *widget, ChmSee *chmsee)
 static void
 on_home(GtkWidget *widget, ChmSee *chmsee)
 {
-        if (chmsee->book->home != NULL)
-                open_homepage(chmsee);
+  if (chmsee_ichmfile_get_home(chmsee->book) != NULL) {
+    open_homepage(chmsee);
+  }
 }
 
 static void
@@ -1057,7 +1061,7 @@ window_populate(ChmSee *chmsee)
 }
 
 static void
-display_book(ChmSee *chmsee, ChmFile *book)
+display_book(ChmSee *chmsee, ChmseeIchmfile *book)
 {
         GNode *link_tree;
         GList *bookmarks_list;
@@ -1089,8 +1093,8 @@ display_book(ChmSee *chmsee, ChmFile *book)
                          chmsee);
 
         /* TOC */
-        if (chmsee->book->link_tree != NULL) {
-                link_tree = chmsee->book->link_tree;
+        if (chmsee_ichmfile_get_link_tree(chmsee->book) != NULL) {
+          link_tree = chmsee_ichmfile_get_link_tree(chmsee->book);
 
                 booktree_sw = gtk_scrolled_window_new(NULL, NULL);
                 gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW (booktree_sw),
@@ -1117,7 +1121,7 @@ display_book(ChmSee *chmsee, ChmFile *book)
         }
 
         /* Bookmarks */
-        bookmarks_list = chmsee->book->bookmarks_list;
+        bookmarks_list = chmsee_ichmfile_get_bookmarks_list(chmsee->book);
         chmsee->bookmark_tree = GTK_WIDGET (ui_bookmarks_new(bookmarks_list));
 
         gtk_notebook_append_page(GTK_NOTEBOOK (chmsee->control_notebook),
@@ -1162,7 +1166,7 @@ display_book(ChmSee *chmsee, ChmFile *book)
         toolbar_button = get_widget(chmsee, "toolbar_zoom_out");
         gtk_widget_set_sensitive(toolbar_button, TRUE);
 
-        if (chmsee->book->home) {
+        if (chmsee_ichmfile_get_home(chmsee->book)) {
                 GtkWidget *menu_item;
 
                 open_homepage(chmsee);
@@ -1183,22 +1187,26 @@ display_book(ChmSee *chmsee, ChmFile *book)
         /* Window title */
         gchar *window_title;
 
-        if (chmsee->book->title != NULL && g_ascii_strcasecmp(chmsee->book->title, "(null)") != 0 )
-                window_title = g_strdup_printf("%s - ChmSee", chmsee->book->title);
-        else
-                window_title = g_strdup("ChmSee");
+        if (chmsee_ichmfile_get_title(chmsee->book) != NULL
+            && g_ascii_strcasecmp(chmsee_ichmfile_get_title(chmsee->book), "(null)") != 0 ) {
+          window_title = g_strdup_printf("%s - ChmSee", chmsee_ichmfile_get_title(chmsee->book));
+        } else {
+          window_title = g_strdup("ChmSee");
+        }
 
         gtk_window_set_title(GTK_WINDOW (chmsee), window_title);
         g_free(window_title);
 
-   	    html_set_variable_font(get_active_html(chmsee), chmsee->book->variable_font);
-        html_set_fixed_font(get_active_html(chmsee), chmsee->book->fixed_font);
+        html_set_variable_font(get_active_html(chmsee),
+                               chmsee_ichmfile_get_variable_font(chmsee->book));
+        html_set_fixed_font(get_active_html(chmsee),
+                            chmsee_ichmfile_get_fixed_font(chmsee->book));
 }
 
 static void
 close_current_book(ChmSee *chmsee)
 {
-  gchar* bookmark_fname = g_build_filename(chmsee->book->dir, CHMSEE_BOOKMARK_FILE, NULL);
+  gchar* bookmark_fname = g_build_filename(chmsee_ichmfile_get_dir(chmsee->book), CHMSEE_BOOKMARK_FILE, NULL);
   bookmarks_save(ui_bookmarks_get_list(UIBOOKMARKS (chmsee->bookmark_tree)), bookmark_fname);
   g_free(bookmark_fname);
   g_object_unref(chmsee->book);
@@ -1331,12 +1339,15 @@ open_homepage(ChmSee *chmsee)
 
         g_signal_handlers_block_by_func(html, html_open_uri_cb, chmsee);
 
-        html_open_uri(html, g_build_filename(chmsee->book->dir, chmsee->book->home, NULL));
+        html_open_uri(html, g_build_filename(chmsee_ichmfile_get_dir(chmsee->book),
+                                             chmsee_ichmfile_get_home(chmsee->book), NULL));
 
         g_signal_handlers_unblock_by_func(html, html_open_uri_cb, chmsee);
 
-        if (chmsee->has_toc)
-                booktree_select_uri(BOOKTREE (chmsee->booktree), chmsee->book->home);
+        if (chmsee->has_toc) {
+          booktree_select_uri(BOOKTREE (chmsee->booktree),
+                              chmsee_ichmfile_get_home(chmsee->book));
+        }
 
         check_history(chmsee, html);
 }
@@ -1520,12 +1531,12 @@ chmsee_new(void)
 void
 chmsee_open_file(ChmSee *chmsee, const gchar *filename)
 {
-        ChmFile *book;
+        ChmseeIchmfile* book;
 
         g_return_if_fail(IS_CHMSEE (chmsee));
 
         /* Extract chm and get file infomation */
-        book = chmfile_new(filename);
+        book = chmsee_chmfile_new(filename);
 
         if (book) {
                 display_book(chmsee, book);

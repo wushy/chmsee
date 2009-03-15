@@ -61,8 +61,7 @@ variable_font_set_cb(GtkFontButton *button, ChmSee *chmsee)
 
 	gecko_utils_set_font(GECKO_PREF_FONT_VARIABLE, font_name);
 
-        g_free(chmsee->book->variable_font);
-	chmsee->book->variable_font = font_name;
+        chmsee_ichmfile_set_variable_font(chmsee->book, font_name); 
 }
 
 static void
@@ -76,8 +75,7 @@ fixed_font_set_cb(GtkFontButton *button, ChmSee *chmsee)
 
 	gecko_utils_set_font(GECKO_PREF_FONT_FIXED, font_name);
 
-        g_free(chmsee->book->fixed_font);
-	chmsee->book->fixed_font = font_name;
+        chmsee_ichmfile_set_fixed_font(chmsee->book, font_name);
 }
 
 static void
@@ -163,9 +161,9 @@ setup_window_new(ChmSee *chmsee)
 	
 	if (chmsee->book) {
 		gtk_font_button_set_font_name(GTK_FONT_BUTTON (variable_font_button),
-					      chmsee->book->variable_font);
+                                              chmsee_ichmfile_get_variable_font(chmsee->book));
 		gtk_font_button_set_font_name(GTK_FONT_BUTTON (fixed_font_button),
-					      chmsee->book->fixed_font);
+                                              chmsee_ichmfile_get_fixed_font(chmsee->book));
 		gtk_widget_set_sensitive(variable_font_button, TRUE);
 		gtk_widget_set_sensitive(fixed_font_button, TRUE);
 	}

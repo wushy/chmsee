@@ -38,7 +38,7 @@
 #include <gtk/gtkwindow.h>
 #include <gtk/gtk.h>
 
-#include "models/chmfile.h"
+#include "models/ichmfile.h"
 
 typedef struct _ChmSee      ChmSee;
 typedef struct _ChmSeeClass ChmSeeClass;
@@ -79,7 +79,7 @@ struct _ChmSee {
 
         gint             lang;
 
-        ChmFile         *book;
+        ChmseeIchmfile  *book;
 
         gchar           *home;
         gchar           *cache_dir;

@@ -51,10 +51,57 @@ GType chmsee_ichmfile_get_type(void)
   return iface_type;
 }
 
+const gchar* chmsee_ichmfile_get_dir(ChmseeIchmfile* self)
+{
+  g_return_val_if_fail(CHMSEE_IS_ICHMFILE(self), NULL);
+  return CHMSEE_ICHMFILE_GET_INTERFACE(self)->get_dir(self);
+}
 
-void
-chmsee_ichmfile_do_action(ChmseeIchmfile* self)
+const gchar* chmsee_ichmfile_get_home(ChmseeIchmfile* self)
+{
+  g_return_val_if_fail(CHMSEE_IS_ICHMFILE(self), NULL);
+  return CHMSEE_ICHMFILE_GET_INTERFACE(self)->get_home(self);
+}
+
+const gchar* chmsee_ichmfile_get_title(ChmseeIchmfile* self)
+{
+  g_return_val_if_fail(CHMSEE_IS_ICHMFILE(self), NULL);
+  return CHMSEE_ICHMFILE_GET_INTERFACE(self)->get_title(self);
+}
+
+const gchar* chmsee_ichmfile_get_variable_font(ChmseeIchmfile* self)
+{
+  g_return_val_if_fail(CHMSEE_IS_ICHMFILE(self), NULL);
+  return CHMSEE_ICHMFILE_GET_INTERFACE(self)->get_variable_font(self);
+}
+
+const gchar* chmsee_ichmfile_get_fixed_font(ChmseeIchmfile* self)
+{
+  g_return_val_if_fail(CHMSEE_IS_ICHMFILE(self), NULL);
+  return CHMSEE_ICHMFILE_GET_INTERFACE(self)->get_fixed_font(self);
+}
+
+Hhc* chmsee_ichmfile_get_link_tree(ChmseeIchmfile* self)
+{
+  g_return_val_if_fail(CHMSEE_IS_ICHMFILE(self), NULL);
+  return CHMSEE_ICHMFILE_GET_INTERFACE(self)->get_link_tree(self);
+}
+
+Bookmarks* chmsee_ichmfile_get_bookmarks_list(ChmseeIchmfile* self) {
+  g_return_val_if_fail(CHMSEE_IS_ICHMFILE(self), NULL);
+  return CHMSEE_ICHMFILE_GET_INTERFACE(self)->get_bookmarks_list(self);
+}
+
+void chmsee_ichmfile_set_variable_font(ChmseeIchmfile* self, const gchar* font)
 {
   g_return_if_fail(CHMSEE_IS_ICHMFILE(self));
-  CHMSEE_ICHMFILE_GET_INTERFACE(self)->do_action(self);
+  return CHMSEE_ICHMFILE_GET_INTERFACE(self)->set_variable_font(self, font);
 }
+
+void chmsee_ichmfile_set_fixed_font(ChmseeIchmfile* self, const gchar* font)
+{
+  g_return_if_fail(CHMSEE_IS_ICHMFILE(self));
+  return CHMSEE_ICHMFILE_GET_INTERFACE(self)->set_fixed_font(self, font);
+}
+
+

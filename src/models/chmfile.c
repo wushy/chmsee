@@ -840,11 +840,52 @@ void extract_post_file_write(const gchar* fname) {
   g_free(basename);
 }
 
-static void chmfile_do_action(ChmFile* self) {
-  return;
+static const gchar* chmfile_get_dir(ChmFile* self) {
+  return self->dir;
+}
+
+static const gchar* chmfile_get_home(ChmFile* self) {
+  return self->home;
+}
+
+static const gchar* chmfile_get_title(ChmFile* self) {
+  return self->title;
+}
+
+static const gchar* chmfile_get_fixed_font(ChmFile* self) {
+  return self->fixed_font;
+}
+static const gchar* chmfile_get_variable_font(ChmFile* self) {
+  return self->variable_font;
+}
+
+static Hhc* chmfile_get_link_tree(ChmFile* self) {
+  return self->link_tree;
+}
+
+static Bookmarks* chmfile_get_bookmarks_list(ChmFile* self){
+  return self->bookmarks_list;
+}
+
+static void chmfile_set_fixed_font(ChmFile* self, const gchar* font) {
+  g_free(self->fixed_font);
+  self->fixed_font = g_strdup(font);
+}
+
+static void chmfile_set_variable_font(ChmFile* self, const gchar* font) {
+  g_free(self->variable_font);
+  self->variable_font = g_strdup(font);
 }
 
 static void chmsee_ichmfile_interface_init (ChmseeIchmfileInterface* iface)
 {
-  iface->do_action = chmfile_do_action;
+  iface->get_dir = chmfile_get_dir;
+  iface->get_home = chmfile_get_home;
+  iface->get_title = chmfile_get_title;
+  iface->get_fixed_font = chmfile_get_fixed_font;
+  iface->get_variable_font = chmfile_get_variable_font;
+  iface->get_link_tree = chmfile_get_link_tree;
+  iface->get_bookmarks_list = chmfile_get_bookmarks_list;
+  iface->set_fixed_font = chmfile_set_fixed_font;
+  iface->set_variable_font = chmfile_set_variable_font;
 }
