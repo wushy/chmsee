@@ -35,3 +35,11 @@ add_custom_target(report
 	COMMAND gtester-report gtester.xml > report.html
 	DEPENDS test
 	VERBATIM)
+add_custom_target(love
+	COMMAND src/chmsee -vvv --g-fatal-warnings
+	DEPENDS chmsee
+	)
+add_custom_target(love-gdb
+	COMMAND gdb --args src/chmsee -vvv --g-fatal-warnings
+	DEPENDS chmsee
+	)
