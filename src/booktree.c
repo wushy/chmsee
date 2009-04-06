@@ -111,6 +111,7 @@ booktree_init(BookTree *self)
 	gtk_tree_view_set_model(GTK_TREE_VIEW (self),
 			GTK_TREE_MODEL (self->store));
 	gtk_tree_view_set_headers_visible(GTK_TREE_VIEW (self), FALSE);
+	gtk_tree_view_set_enable_search(GTK_TREE_VIEW(self), TRUE);
 
 	booktree_create_pixbufs(self);
 	booktree_add_columns(self);

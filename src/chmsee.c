@@ -1083,146 +1083,150 @@ window_populate(ChmSee *chmsee)
 }
 
 static void
-display_book(ChmSee *chmsee, ChmseeIchmfile *book)
+display_book(ChmSee* self, ChmseeIchmfile *book)
 {
-        GNode *link_tree;
-        GList *bookmarks_list;
+	GNode *link_tree;
+	GList *bookmarks_list;
 
-        GtkWidget *booktree_sw;
-        GtkWidget *control_vbox;
+	GtkWidget *booktree_sw;
+	GtkWidget *control_vbox;
 
-        g_message("display book");
+	g_message("display book");
 
-        /* Close currently opened book */
-        if (chmsee->book)
-                close_current_book(chmsee);
+	/* Close currently opened book */
+	if (self->book)
+		close_current_book(self);
 
-        chmsee->book = book;
+	self->book = book;
 
-        control_vbox = get_widget(chmsee, "control_vbox");
+	control_vbox = get_widget(self, "control_vbox");
 
-        /* Book contents TreeView widget */
-        chmsee->control_notebook = gtk_notebook_new();
+	/* Book contents TreeView widget */
+	self->control_notebook = gtk_notebook_new();
 
-        gtk_box_pack_start(GTK_BOX (control_vbox),
-                           GTK_WIDGET (chmsee->control_notebook),
-                           TRUE,
-                           TRUE,
-                           2);
-	g_signal_connect(G_OBJECT (chmsee->control_notebook),
-                         "switch-page",
-                         G_CALLBACK (control_switch_page_cb),
-                         chmsee);
+	gtk_box_pack_start(GTK_BOX (control_vbox),
+			GTK_WIDGET (self->control_notebook),
+			TRUE,
+			TRUE,
+			2);
+	g_signal_connect(G_OBJECT (self->control_notebook),
+			"switch-page",
+			G_CALLBACK (control_switch_page_cb),
+			self);
 
-        /* TOC */
-        if (chmsee_ichmfile_get_link_tree(chmsee->book) != NULL) {
-          link_tree = chmsee_ichmfile_get_link_tree(chmsee->book);
+	/* TOC */
+	if (chmsee_ichmfile_get_link_tree(self->book) != NULL) {
+		link_tree = chmsee_ichmfile_get_link_tree(self->book);
 
-                booktree_sw = gtk_scrolled_window_new(NULL, NULL);
-                gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW (booktree_sw),
-                                               GTK_POLICY_NEVER,
-                                               GTK_POLICY_AUTOMATIC);
-                gtk_scrolled_window_set_shadow_type(GTK_SCROLLED_WINDOW (booktree_sw),
-                                                    GTK_SHADOW_IN);
-                gtk_container_set_border_width(GTK_CONTAINER (booktree_sw), 2);
+		booktree_sw = gtk_scrolled_window_new(NULL, NULL);
+		gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW (booktree_sw),
+				GTK_POLICY_NEVER,
+				GTK_POLICY_AUTOMATIC);
+		gtk_scrolled_window_set_shadow_type(GTK_SCROLLED_WINDOW (booktree_sw),
+				GTK_SHADOW_IN);
+		gtk_container_set_border_width(GTK_CONTAINER (booktree_sw), 2);
 
-                chmsee->booktree = GTK_WIDGET (booktree_new(link_tree));
+		self->booktree = GTK_WIDGET (booktree_new(link_tree));
 
-                gtk_container_add(GTK_CONTAINER (booktree_sw), chmsee->booktree);
-                gtk_notebook_append_page(GTK_NOTEBOOK (chmsee->control_notebook),
-                                         booktree_sw,
-                                         gtk_label_new(_("Topics")));
+		gtk_container_add(GTK_CONTAINER (booktree_sw), self->booktree);
+		gtk_notebook_append_page(GTK_NOTEBOOK (self->control_notebook),
+				booktree_sw,
+				gtk_label_new(_("Topics")));
 
-                g_signal_connect(G_OBJECT (chmsee->booktree),
-                                 "link-selected",
-                                 G_CALLBACK (booktree_link_selected_cb),
-                                 chmsee);
+		g_signal_connect(G_OBJECT (self->booktree),
+				"link-selected",
+				G_CALLBACK (booktree_link_selected_cb),
+				self);
 
-                g_message("chmsee has toc");
-                chmsee->has_toc = TRUE;
-        }
+		g_message("chmsee has toc");
+		self->has_toc = TRUE;
+	}
 
-        /* Bookmarks */
-        bookmarks_list = chmsee_ichmfile_get_bookmarks_list(chmsee->book);
-        chmsee->bookmark_tree = GTK_WIDGET (ui_bookmarks_new(bookmarks_list));
+	/* Bookmarks */
+	bookmarks_list = chmsee_ichmfile_get_bookmarks_list(self->book);
+	self->bookmark_tree = GTK_WIDGET (ui_bookmarks_new(bookmarks_list));
 
-        gtk_notebook_append_page(GTK_NOTEBOOK (chmsee->control_notebook),
-                                 chmsee->bookmark_tree,
-                                 gtk_label_new (_("Bookmarks")));
+	gtk_notebook_append_page(GTK_NOTEBOOK (self->control_notebook),
+			self->bookmark_tree,
+			gtk_label_new (_("Bookmarks")));
 
-        g_signal_connect(G_OBJECT (chmsee->bookmark_tree),
-                         "link-selected",
-                         G_CALLBACK (bookmarks_link_selected_cb),
-                         chmsee);
+	g_signal_connect(G_OBJECT (self->bookmark_tree),
+			"link-selected",
+			G_CALLBACK (bookmarks_link_selected_cb),
+			self);
 
-        GtkWidget *hpaned;
+	GtkWidget *hpaned;
 
-        hpaned = get_widget(chmsee, "hpaned1");
+	hpaned = get_widget(self, "hpaned1");
 
-        /* HTML tabs notebook */
-        chmsee->html_notebook = gtk_notebook_new();
-        gtk_paned_add2 (GTK_PANED (hpaned), chmsee->html_notebook);
+	/* HTML tabs notebook */
+	self->html_notebook = gtk_notebook_new();
+	gtk_paned_add2 (GTK_PANED (hpaned), self->html_notebook);
 
-        g_signal_connect(G_OBJECT (chmsee->html_notebook),
-                         "switch-page",
-                         G_CALLBACK (html_switch_page_cb),
-                         chmsee);
+	g_signal_connect(G_OBJECT (self->html_notebook),
+			"switch-page",
+			G_CALLBACK (html_switch_page_cb),
+			self);
 
-        gtk_widget_show_all(hpaned);
-        new_tab(chmsee, NULL);
+	gtk_widget_show_all(hpaned);
+	new_tab(self, NULL);
 
-        gtk_notebook_set_current_page(GTK_NOTEBOOK (chmsee->control_notebook),
-                                      g_list_length(bookmarks_list) && chmsee->has_toc ? 1 : 0);
+	gtk_notebook_set_current_page(GTK_NOTEBOOK (self->control_notebook),
+			g_list_length(bookmarks_list) && self->has_toc ? 1 : 0);
 
-        /* Toolbar buttons state */
-        GtkWidget *toolbar_button;
+	/* Toolbar buttons state */
+	GtkWidget *toolbar_button;
 
-        toolbar_button = get_widget(chmsee, "toolbar_hpanes");
-        gtk_widget_set_sensitive(toolbar_button, TRUE);
-        g_object_set(toolbar_button, "active", TRUE, NULL);
+	toolbar_button = get_widget(self, "toolbar_hpanes");
+	gtk_widget_set_sensitive(toolbar_button, TRUE);
+	g_object_set(toolbar_button, "active", TRUE, NULL);
 
-        toolbar_button = get_widget(chmsee, "toolbar_zoom_in");
-        gtk_widget_set_sensitive(toolbar_button, TRUE);
-        toolbar_button = get_widget(chmsee, "toolbar_zoom_reset");
-        gtk_widget_set_sensitive(toolbar_button, TRUE);
-        toolbar_button = get_widget(chmsee, "toolbar_zoom_out");
-        gtk_widget_set_sensitive(toolbar_button, TRUE);
+	toolbar_button = get_widget(self, "toolbar_zoom_in");
+	gtk_widget_set_sensitive(toolbar_button, TRUE);
+	toolbar_button = get_widget(self, "toolbar_zoom_reset");
+	gtk_widget_set_sensitive(toolbar_button, TRUE);
+	toolbar_button = get_widget(self, "toolbar_zoom_out");
+	gtk_widget_set_sensitive(toolbar_button, TRUE);
 
-        if (chmsee_ichmfile_get_home(chmsee->book)) {
-                GtkWidget *menu_item;
+	if (chmsee_ichmfile_get_home(self->book)) {
+		GtkWidget *menu_item;
 
-                open_homepage(chmsee);
+		open_homepage(self);
 
-                menu_item = get_widget(chmsee, "menu_new_tab");
-                gtk_widget_set_sensitive(menu_item, TRUE);
+		menu_item = get_widget(self, "menu_new_tab");
+		gtk_widget_set_sensitive(menu_item, TRUE);
 
-                menu_item = get_widget(chmsee, "menu_close_tab");
-                gtk_widget_set_sensitive(menu_item, TRUE);
+		menu_item = get_widget(self, "menu_close_tab");
+		gtk_widget_set_sensitive(menu_item, TRUE);
 
-                menu_item = get_widget(chmsee, "menu_home");
-                gtk_widget_set_sensitive(menu_item, TRUE);
+		menu_item = get_widget(self, "menu_home");
+		gtk_widget_set_sensitive(menu_item, TRUE);
 
-                toolbar_button = get_widget(chmsee, "toolbar_home");
-                gtk_widget_set_sensitive(toolbar_button, TRUE);
-        }
+		toolbar_button = get_widget(self, "toolbar_home");
+		gtk_widget_set_sensitive(toolbar_button, TRUE);
+	}
 
-        /* Window title */
-        gchar *window_title;
+	/* Window title */
+	gchar *window_title;
 
-        if (chmsee_ichmfile_get_title(chmsee->book) != NULL
-            && g_ascii_strcasecmp(chmsee_ichmfile_get_title(chmsee->book), "(null)") != 0 ) {
-          window_title = g_strdup_printf("%s - ChmSee", chmsee_ichmfile_get_title(chmsee->book));
-        } else {
-          window_title = g_strdup("ChmSee");
-        }
+	if (chmsee_ichmfile_get_title(self->book) != NULL
+			&& g_ascii_strcasecmp(chmsee_ichmfile_get_title(self->book), "(null)") != 0 ) {
+		window_title = g_strdup_printf("%s - ChmSee", chmsee_ichmfile_get_title(self->book));
+	} else {
+		window_title = g_strdup("ChmSee");
+	}
 
-        gtk_window_set_title(GTK_WINDOW (chmsee), window_title);
-        g_free(window_title);
+	gtk_window_set_title(GTK_WINDOW (self), window_title);
+	g_free(window_title);
 
-        chmsee_ihtml_set_variable_font(get_active_html(chmsee),
-                               chmsee_ichmfile_get_variable_font(chmsee->book));
-        chmsee_ihtml_set_fixed_font(get_active_html(chmsee),
-                            chmsee_ichmfile_get_fixed_font(chmsee->book));
+	chmsee_ihtml_set_variable_font(get_active_html(self),
+			chmsee_ichmfile_get_variable_font(self->book));
+	chmsee_ihtml_set_fixed_font(get_active_html(self),
+			chmsee_ichmfile_get_fixed_font(self->book));
+
+	if(self->has_toc) {
+		gtk_widget_grab_focus(self->booktree);
+	}
 }
 
 static void
