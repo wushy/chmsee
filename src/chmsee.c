@@ -94,9 +94,11 @@ static void on_close_current_tab(GtkWidget *, ChmSee *);
 static void on_context_new_tab(GtkWidget *, ChmSee *);
 static void on_context_copy_link(GtkWidget *, ChmSee *);
 static void on_fullscreen_toggled(ChmSee* self, GtkWidget* menu);
+static void on_map(ChmSee* self);
 
 static void chmsee_quit(ChmSee *);
 static void chmsee_open_uri(ChmSee *chmsee, const gchar *uri);
+static void chmsee_open_file(ChmSee *chmsee, const gchar *filename);
 static GtkWidget *get_widget(ChmSee *, gchar *);
 static void window_populate(ChmSee *);
 static void display_book(ChmSee *, ChmseeIchmfile *);
@@ -185,6 +187,7 @@ chmsee_init(ChmSee *chmsee)
         chmsee->pos_y = -100;
         chmsee->width = 0;
         chmsee->height = 0;
+        chmsee->hpaned_position = -1;
         chmsee->has_toc = FALSE;
         chmsee->has_index = FALSE;
 
@@ -192,6 +195,10 @@ chmsee_init(ChmSee *chmsee)
                          "key-press-event",
                          G_CALLBACK (keypress_event_cb),
                          chmsee);
+        g_signal_connect(G_OBJECT(chmsee),
+        		"map",
+        		G_CALLBACK(on_map),
+        		NULL);
         gtk_drag_dest_set (GTK_WIDGET (chmsee),
 			   GTK_DEST_DEFAULT_ALL,
 			   view_drop_targets,
@@ -1485,7 +1492,7 @@ update_status_bar(ChmSee *chmsee, const gchar *message)
 /* external functions */
 
 ChmSee *
-chmsee_new(void)
+chmsee_new(const gchar* filename)
 {
         ChmSee *chmsee;
 
@@ -1523,6 +1530,10 @@ chmsee_new(void)
 
         gtk_window_set_title(GTK_WINDOW (chmsee), "ChmSee");
         gtk_window_set_icon_from_file(GTK_WINDOW (chmsee), get_resource_path("chmsee-icon.png"), NULL);
+
+        if(filename != NULL) {
+        	chmsee_open_file(chmsee, filename);
+        }
 
         return chmsee;
 }
@@ -1609,10 +1620,13 @@ int chmsee_get_hpaned_position(ChmSee* self) {
 }
 
 void chmsee_set_hpaned_position(ChmSee* self, int hpaned_position) {
+	self->hpaned_position = hpaned_position;
+	/*
 	g_object_set(G_OBJECT(get_widget(self, "hpaned1")),
 			"position", hpaned_position,
 			NULL
 			);
+			*/
 }
 
 void on_fullscreen_toggled(ChmSee* self, GtkWidget* menu) {
@@ -1625,5 +1639,14 @@ void on_fullscreen_toggled(ChmSee* self, GtkWidget* menu) {
 		gtk_window_fullscreen(GTK_WINDOW(self));
 	} else {
 		gtk_window_unfullscreen(GTK_WINDOW(self));
+	}
+}
+
+void on_map(ChmSee* self) {
+	if(self->hpaned_position >= 0) {
+	g_object_set(G_OBJECT(get_widget(self, "hpaned1")),
+			"position", self->hpaned_position,
+			NULL
+			);
 	}
 }

@@ -144,11 +144,7 @@ main(int argc, char** argv)
   startup_popup_new();
 
   /* Create main window */
-  chmsee = chmsee_new();
-
-  if (filename) {
-    chmsee_open_file(chmsee, filename);
-  }
+  chmsee = chmsee_new(filename);
 
   gtk_widget_show(GTK_WIDGET (chmsee));
 

@@ -78,7 +78,7 @@ struct _ChmSee {
         gint             pos_y;
         gint             width;
         gint             height;
-
+        gint             hpaned_position;
         gint             lang;
 
         ChmseeIchmfile  *book;
@@ -93,8 +93,8 @@ struct _ChmSeeClass {
 };
 
 GType chmsee_get_type(void);
-ChmSee * chmsee_new(void);
-void chmsee_open_file(ChmSee *, const gchar *);
+ChmSee * chmsee_new(const gchar* fname);
+/* void chmsee_open_file(ChmSee *, const gchar *); */
 int chmsee_get_hpaned_position(ChmSee* self);
 void chmsee_set_hpaned_position(ChmSee* self, int hpaned_position);
 
