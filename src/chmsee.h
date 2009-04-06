@@ -80,6 +80,7 @@ struct _ChmSee {
         gint             height;
         gint             hpaned_position;
         gint             lang;
+        gboolean         fullscreen;
 
         ChmseeIchmfile  *book;
 

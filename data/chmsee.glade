@@ -11,7 +11,7 @@
       <widget class="GtkVBox" id="main_vbox">
         <property name="visible">True</property>
         <child>
-          <widget class="GtkHandleBox" id="handlebox2">
+          <widget class="GtkHandleBox" id="handlebox_menu">
             <property name="visible">True</property>
             <child>
               <widget class="GtkMenuBar" id="menubar1">
@@ -169,7 +169,7 @@
           </packing>
         </child>
         <child>
-          <widget class="GtkHandleBox" id="handlebox1">
+          <widget class="GtkHandleBox" id="handlebox_toolbar">
             <property name="visible">True</property>
             <child>
               <widget class="GtkToolbar" id="main_toolbar">
@@ -350,7 +350,7 @@
           </packing>
         </child>
         <child>
-          <widget class="GtkStatusbar" id="statusbar1">
+          <widget class="GtkStatusbar" id="statusbar">
             <property name="visible">True</property>
           </widget>
           <packing>

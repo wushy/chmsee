@@ -95,6 +95,7 @@ static void on_context_new_tab(GtkWidget *, ChmSee *);
 static void on_context_copy_link(GtkWidget *, ChmSee *);
 static void on_fullscreen_toggled(ChmSee* self, GtkWidget* menu);
 static void on_map(ChmSee* self);
+static gboolean on_window_state_event(ChmSee* self, GdkEventWindowState* event);
 
 static void chmsee_quit(ChmSee *);
 static void chmsee_open_uri(ChmSee *chmsee, const gchar *uri);
@@ -190,6 +191,10 @@ chmsee_init(ChmSee *chmsee)
         chmsee->hpaned_position = -1;
         chmsee->has_toc = FALSE;
         chmsee->has_index = FALSE;
+        chmsee->fullscreen = FALSE;
+
+        gtk_widget_add_events(GTK_WIDGET(chmsee),
+        		GDK_STRUCTURE_MASK);
 
         g_signal_connect(G_OBJECT (chmsee),
                          "key-press-event",
@@ -198,6 +203,10 @@ chmsee_init(ChmSee *chmsee)
         g_signal_connect(G_OBJECT(chmsee),
         		"map",
         		G_CALLBACK(on_map),
+                        NULL);
+        g_signal_connect(G_OBJECT(chmsee),
+        		"window-state-event",
+        		G_CALLBACK(on_window_state_event),
         		NULL);
         gtk_drag_dest_set (GTK_WIDGET (chmsee),
 			   GTK_DEST_DEFAULT_ALL,
@@ -244,14 +253,24 @@ configure_event_cb(GtkWidget *widget, GdkEventConfigure *event, ChmSee *chmsee)
 }
 
 static gboolean
-keypress_event_cb(GtkWidget *widget, GdkEventKey *event, ChmSee *chmsee)
+keypress_event_cb(GtkWidget *widget, GdkEventKey *event, ChmSee *self)
 {
-        if (event->keyval == GDK_Escape) {
-                gtk_window_iconify(GTK_WINDOW (chmsee));
-                return TRUE;
-        }
+	if (event->keyval == GDK_Escape) {
+		if(self->fullscreen) {
+			gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(get_widget(self, "menu_fullscreen")),
+					FALSE);
+		} else {
+			gtk_window_iconify(GTK_WINDOW (self));
+			return TRUE;
+		}
+	} else if(event->keyval == GDK_F11) {
+		if(self->fullscreen) {
+			gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(get_widget(self, "menu_fullscreen")),
+					FALSE);
+		}
+	}
 
-        return FALSE;
+	return FALSE;
 }
 
 static void
@@ -1057,7 +1076,7 @@ window_populate(ChmSee *chmsee)
         gtk_widget_hide(control_vbox);
 
         /* status bar */
-        chmsee->statusbar = glade_xml_get_widget(glade, "statusbar1");
+        chmsee->statusbar = glade_xml_get_widget(glade, "statusbar");
         chmsee->scid_default = gtk_statusbar_get_context_id(GTK_STATUSBAR (chmsee->statusbar),
                                                             "default");
         update_status_bar(chmsee, _("Ready!"));
@@ -1649,4 +1668,46 @@ void on_map(ChmSee* self) {
 			NULL
 			);
 	}
+}
+
+
+static void on_fullscreen(ChmSee* self) {
+	gtk_widget_hide(get_widget(self, "handlebox_menu"));
+	gtk_widget_hide(get_widget(self, "handlebox_toolbar"));
+	gtk_widget_hide(get_widget(self, "statusbar"));
+	gtk_widget_hide(get_widget(self, "control_vbox"));
+	self->fullscreen = TRUE;
+}
+
+static void on_unfullscreen(ChmSee* self) {
+	gtk_widget_show(get_widget(self, "handlebox_menu"));
+	gtk_widget_show(get_widget(self, "handlebox_toolbar"));
+	gtk_widget_show(get_widget(self, "statusbar"));
+
+	gboolean toolbar_hpanes_active;
+	g_object_get(G_OBJECT(get_widget(self, "toolbar_hpanes")),
+			"active", &toolbar_hpanes_active,
+			NULL);
+
+	if(toolbar_hpanes_active) {
+		gtk_widget_show(get_widget(self, "control_vbox"));
+	}
+	self->fullscreen = FALSE;
+}
+
+gboolean on_window_state_event(ChmSee* self, GdkEventWindowState* event) {
+	g_return_val_if_fail(IS_CHMSEE(self), FALSE);
+	g_return_val_if_fail(event->type == GDK_WINDOW_STATE, FALSE);
+
+	if(!(event->changed_mask & GDK_WINDOW_STATE_FULLSCREEN)) {
+		return FALSE;
+	}
+
+	if(event->new_window_state & GDK_WINDOW_STATE_FULLSCREEN) {
+		on_fullscreen(self);
+	} else {
+		on_unfullscreen(self);
+	}
+
+	return FALSE;
 }
