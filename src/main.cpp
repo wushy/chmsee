@@ -74,6 +74,7 @@ main(int argc, char** argv)
 {
   ChmSee *chmsee;
   const gchar* filename = NULL;
+  const gchar* datadir = NULL;
   GError* error = NULL;
   gboolean option_version = FALSE;
 
@@ -82,19 +83,27 @@ main(int argc, char** argv)
 
 
   GOptionEntry options[] = {
-    {"version", 0,
-      0, G_OPTION_ARG_NONE, &option_version,
-      _("Display the version and exit"),
-      NULL
-    },
-    {"verbose", 'v',
-      G_OPTION_FLAG_NO_ARG, G_OPTION_ARG_CALLBACK, (void*)callback_verbose,
-      _("be verbose, repeat 3 times to get all info"),
-      NULL},
-    {"quiet", 'q',
-      G_OPTION_FLAG_NO_ARG, G_OPTION_ARG_CALLBACK, (void*)callback_quiet,
-      _("be quiet, repeat 2 times to disable all info"),
-      NULL}
+		  {"version", 0,
+				  0, G_OPTION_ARG_NONE, &option_version,
+				  _("Display the version and exit"),
+				  NULL
+		  },
+		  {"verbose", 'v',
+				  G_OPTION_FLAG_NO_ARG, G_OPTION_ARG_CALLBACK, (void*)callback_verbose,
+				  _("be verbose, repeat 3 times to get all info"),
+				  NULL
+		  },
+		  {"quiet", 'q',
+				  G_OPTION_FLAG_NO_ARG, G_OPTION_ARG_CALLBACK, (void*)callback_quiet,
+				  _("be quiet, repeat 2 times to disable all info"),
+				  NULL
+		  },
+		  {"datadir", 0,
+				  G_OPTION_FLAG_FILENAME, G_OPTION_ARG_FILENAME, &datadir,
+				  "choose data dir, default is " CHMSEE_DATA_DIR_DEFAULT,
+				  "PATH"
+		  },
+		  {NULL}
   };
   if(!gtk_init_with_args(&argc, &argv,
                          "[chmfile]\n"
@@ -102,7 +111,9 @@ main(int argc, char** argv)
                          "GTK+ based CHM file viewer\n"
                          "Example: chmsee FreeBSD_Handbook.chm"
                          ,
-                         options, GETTEXT_PACKAGE, &error)) {
+                         options,
+                         g_strdup(GETTEXT_PACKAGE),
+                         &error)) {
     g_printerr("%s\n", error->message);
     return 1;
   }
@@ -110,7 +121,11 @@ main(int argc, char** argv)
     g_print("%s\n", PACKAGE_STRING);
     return 0;
   }
+
   init_log(log_level);
+  if(datadir != NULL) {
+	  set_data_dir(datadir);
+  }
 
   if(argc == 1) {
   } else if(argc == 2) {

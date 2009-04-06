@@ -608,5 +608,11 @@ const gchar* get_resource_path(const gchar* resouce_name) {
 	return res;
 }
 
+void set_data_dir(const gchar* new_data_dir) {
+	if(data_dir != NULL) {
+		g_free(data_dir);
+	}
+	data_dir = g_strdup(new_data_dir);
+}
 
 
