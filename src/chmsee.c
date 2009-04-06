@@ -93,6 +93,7 @@ static void on_open_new_tab(GtkWidget *, ChmSee *);
 static void on_close_current_tab(GtkWidget *, ChmSee *);
 static void on_context_new_tab(GtkWidget *, ChmSee *);
 static void on_context_copy_link(GtkWidget *, ChmSee *);
+static void on_fullscreen_toggled(ChmSee* self, GtkWidget* menu);
 
 static void chmsee_quit(ChmSee *);
 static void chmsee_open_uri(ChmSee *chmsee, const gchar *uri);
@@ -925,6 +926,18 @@ window_populate(ChmSee *chmsee)
                          chmsee);
         gtk_widget_set_sensitive(menu_item, FALSE);
 
+        menu_item = get_widget(chmsee, "menu_fullscreen");
+        g_signal_connect_swapped(G_OBJECT(menu_item),
+        		"toggled",
+        		G_CALLBACK(on_fullscreen_toggled),
+        		chmsee);
+        gtk_widget_add_accelerator(menu_item,
+                                   "activate",
+                                   accel_group,
+                                   GDK_F11,
+                                   0,
+                                   GTK_ACCEL_VISIBLE);
+
         menu_item = get_widget(chmsee, "menu_about");
         g_signal_connect(G_OBJECT (menu_item),
                          "activate",
@@ -1600,4 +1613,17 @@ void chmsee_set_hpaned_position(ChmSee* self, int hpaned_position) {
 			"position", hpaned_position,
 			NULL
 			);
+}
+
+void on_fullscreen_toggled(ChmSee* self, GtkWidget* menu) {
+	g_return_if_fail(IS_CHMSEE(self));
+	gboolean active;
+	g_object_get(G_OBJECT(menu),
+			"active", &active,
+			NULL);
+	if(active) {
+		gtk_window_fullscreen(GTK_WINDOW(self));
+	} else {
+		gtk_window_unfullscreen(GTK_WINDOW(self));
+	}
 }
