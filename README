@@ -9,22 +9,21 @@ Homepage: http://code.google.com/p/chmsee
 Dependencies
 ============
 
-Compile ChmSee from source you need following libraries: Gtk2+,
-libglade2, chmlib, gecko(Mozilla, Firefox, Seamonkey or Xulrunner).
-
+Compile ChmSee from source you need following packages:
+ * cmake >= 2.6
+ * libgtk2.0-dev >= 2.8
+ * libglade2-dev >= 2.4
+ * xulrunner-dev >= 1.9
+ * libchm-dev
+ * libgcrypt-dev
 
 Installation
 ============
 
 $ cd chmsee-$VERSION
-$ ./configure
+$ cmake .
 $ make
-$ make install-strip
-
-If configure script cannot found existing chmlib on your system, you
-can specify with --with-chmlib=/path/to/chmlib, or skip testing with
---disable-chmlibtest.
-
+$ make install
 
 Report bug
 ==========
