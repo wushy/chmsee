@@ -89,9 +89,9 @@ do_command(GtkMozEmbed *embed, const char *command)
 	nsCOMPtr<nsICommandManager> cmdManager;
 
 	gtk_moz_embed_get_nsIWebBrowser(embed, getter_AddRefs(webBrowser));
-	
+
 	cmdManager = do_GetInterface(webBrowser);
-	
+
 	return cmdManager->DoCommand(command, nsnull, nsnull);
 }
 
@@ -107,12 +107,12 @@ util_split_font_string(const gchar *font_name, gchar **name, gint *size)
 	}
 
 	mask = (PangoFontMask) (PANGO_FONT_MASK_FAMILY | PANGO_FONT_MASK_SIZE);
-	
+
 	desc = pango_font_description_from_string(font_name);
 	if (!desc) {
 		return FALSE;
 	}
-	
+
 	if ((pango_font_description_get_set_fields(desc) & mask) == mask) {
 		*size = PANGO_PIXELS(pango_font_description_get_size (desc));
 		*name = g_strdup(pango_font_description_get_family (desc));
@@ -124,6 +124,7 @@ util_split_font_string(const gchar *font_name, gchar **name, gint *size)
 	return retval;
 }
 
+/*
 static gboolean
 gecko_prefs_set_bool(const gchar *key, gboolean value)
 {
@@ -139,6 +140,7 @@ gecko_prefs_set_bool(const gchar *key, gboolean value)
 
 	return NS_SUCCEEDED (rv) != PR_FALSE;
 }
+*/
 
 static gboolean
 gecko_prefs_set_string(const gchar *key, const gchar *value)
@@ -181,7 +183,7 @@ gecko_utils_init_prefs(void)
 	NS_ENSURE_SUCCESS (rv, rv);
 
 	nsCOMPtr<nsILocalFile> file;
-	rv = NS_NewNativeLocalFile(nsEmbedCString(CHMSEE_DATA_DIR "/default-prefs.js"),
+	rv = NS_NewNativeLocalFile(nsEmbedCString(get_resource_path("default-prefs.js")),
                                    PR_TRUE, getter_AddRefs(file));
 	NS_ENSURE_SUCCESS (rv, rv);
 
@@ -288,7 +290,7 @@ gecko_utils_get_mouse_event_modifiers(gpointer event)
 	nsIDOMMouseEvent *aMouseEvent;
 	PRBool            ctrl, alt, shift, meta;
 	gint              mask;
-	
+
 	aMouseEvent = (nsIDOMMouseEvent *) event;
 
 	aMouseEvent->GetCtrlKey(&ctrl);
@@ -310,7 +312,7 @@ gecko_utils_get_mouse_event_modifiers(gpointer event)
 	return mask;
 }
 
-extern "C" void 
+extern "C" void
 gecko_utils_set_font(gint type, const gchar *fontname)
 {
 	gchar *name;
@@ -335,14 +337,14 @@ gecko_utils_set_font(gint type, const gchar *fontname)
 	}
 
 	g_free(name);
-}		   
+}
 
-extern "C" void 
+extern "C" void
 gecko_utils_set_default_lang(gint type)
 {
         if (type < LANG_TYPES_NUM )
                 gecko_prefs_set_string("intl.charset.detector", lang[type]);
-}		   
+}
 
 extern "C" void
 gecko_utils_select_all(GtkMozEmbed *embed)
@@ -359,12 +361,12 @@ gecko_utils_copy_selection(GtkMozEmbed *embed)
 extern "C" gfloat
 gecko_utils_get_zoom(GtkMozEmbed *embed)
 {
-	nsCOMPtr<nsIWebBrowser>	webBrowser;	
+	nsCOMPtr<nsIWebBrowser>	webBrowser;
 	nsCOMPtr<nsIDOMWindow> 	domWindow;
 	float zoom;
 
 	gtk_moz_embed_get_nsIWebBrowser(GTK_MOZ_EMBED(embed), getter_AddRefs(webBrowser));
-	webBrowser->GetContentDOMWindow(getter_AddRefs(domWindow));	
+	webBrowser->GetContentDOMWindow(getter_AddRefs(domWindow));
 
 	if (!domWindow) {
 		g_warning("could not get DOMWindow.");
@@ -379,11 +381,11 @@ gecko_utils_get_zoom(GtkMozEmbed *embed)
 extern "C" void
 gecko_utils_set_zoom(GtkMozEmbed *embed, gfloat zoom)
 {
-	nsCOMPtr<nsIWebBrowser>	webBrowser;	
+	nsCOMPtr<nsIWebBrowser>	webBrowser;
 	nsCOMPtr<nsIDOMWindow> 	domWindow;
-	
+
 	gtk_moz_embed_get_nsIWebBrowser(GTK_MOZ_EMBED(embed), getter_AddRefs(webBrowser));
-	webBrowser->GetContentDOMWindow(getter_AddRefs(domWindow));	
+	webBrowser->GetContentDOMWindow(getter_AddRefs(domWindow));
 
 	if (!domWindow) {
 		g_warning("Could not get DOMWindow.");

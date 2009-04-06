@@ -223,7 +223,7 @@ destroy_cb(GtkWidget *widget, ChmSee *chmsee)
 static gboolean
 configure_event_cb(GtkWidget *widget, GdkEventConfigure *event, ChmSee *chmsee)
 {
-        if (chmsee->html_notebook != NULL 
+        if (chmsee->html_notebook != NULL
             && (event->width != chmsee->width || event->height != chmsee->height))
                 reload_current_page(chmsee);
 
@@ -320,7 +320,7 @@ html_switch_page_cb(GtkNotebook *notebook, GtkNotebookPage *page, guint new_page
         ui_bookmarks_set_current_link(UIBOOKMARKS (chmsee->bookmark_tree), title, location);
       } else {
         const gchar *book_title;
-                        
+
         book_title = booktree_get_selected_book_title(BOOKTREE (chmsee->booktree));
         ui_bookmarks_set_current_link(UIBOOKMARKS (chmsee->bookmark_tree), book_title, location);
       }
@@ -351,14 +351,14 @@ html_open_uri_cb(ChmseeIhtml* html, const gchar *uri, ChmSee *chmsee)
 {
   static const char* prefix = "file://";
   static int prefix_len = 7;
-  
+
   if(g_str_has_prefix(uri, prefix)) {
     /* FIXME: can't disable the DND function of GtkMozEmbed */
     if(g_str_has_suffix(uri, ".chm")
        || g_str_has_suffix(uri, ".CHM")) {
       chmsee_open_uri(chmsee, uri);
     }
-    
+
     if(g_access(uri+prefix_len, R_OK) < 0) {
       gchar* newfname = correct_filename(uri+prefix_len);
       if(newfname) {
@@ -392,7 +392,7 @@ html_title_changed_cb(ChmseeIhtml *html, const gchar *title, ChmSee *chmsee)
                         ui_bookmarks_set_current_link(UIBOOKMARKS (chmsee->bookmark_tree), title, location);
                 else {
                         const gchar *book_title;
-                        
+
                         book_title = booktree_get_selected_book_title(BOOKTREE (chmsee->booktree));
                         ui_bookmarks_set_current_link(UIBOOKMARKS (chmsee->bookmark_tree), book_title, location);
                 }
@@ -414,31 +414,31 @@ html_context_normal_cb(ChmseeIhtml *html, ChmSee *chmsee)
         back_state = chmsee_ihtml_can_go_back(html);
         forward_state = chmsee_ihtml_can_go_forward(html);
 
-        glade = glade_xml_new(CHMSEE_DATA_DIR"/"GLADE_FILE, "html_context_normal", NULL);
+        glade = glade_xml_new(get_resource_path(GLADE_FILE), "html_context_normal", NULL);
         menu = glade_xml_get_widget(glade, "html_context_normal");
 
         menu_item = glade_xml_get_widget(glade, "menu_back");
-        g_signal_connect(G_OBJECT (menu_item), 
+        g_signal_connect(G_OBJECT (menu_item),
                          "activate",
                          G_CALLBACK (on_back),
                          chmsee);
         gtk_widget_set_sensitive(menu_item, back_state);
 
         menu_item = glade_xml_get_widget(glade, "menu_forward");
-        g_signal_connect(G_OBJECT (menu_item), 
+        g_signal_connect(G_OBJECT (menu_item),
                          "activate",
                          G_CALLBACK (on_forward),
                          chmsee);
         gtk_widget_set_sensitive(menu_item, forward_state);
 
         menu_item = glade_xml_get_widget(glade, "menu_copy");
-        g_signal_connect(G_OBJECT (menu_item), 
+        g_signal_connect(G_OBJECT (menu_item),
                          "activate",
                          G_CALLBACK (on_copy),
                          chmsee);
 
         menu_item = glade_xml_get_widget(glade, "menu_select_all");
-        g_signal_connect(G_OBJECT (menu_item), 
+        g_signal_connect(G_OBJECT (menu_item),
                          "activate",
                          G_CALLBACK (on_select_all),
                          chmsee);
@@ -467,11 +467,11 @@ html_context_link_cb(ChmseeIhtml *html, const gchar *link, ChmSee *chmsee)
 
         context_menu_link = g_strdup(link);
 
-        glade = glade_xml_new(CHMSEE_DATA_DIR"/"GLADE_FILE, "html_context_link", NULL);
+        glade = glade_xml_new(get_resource_path(GLADE_FILE), "html_context_link", NULL);
         menu = glade_xml_get_widget(glade, "html_context_link");
 
         menu_item = glade_xml_get_widget(glade, "menu_new_tab");
-        g_signal_connect(G_OBJECT (menu_item), 
+        g_signal_connect(G_OBJECT (menu_item),
                          "activate",
                          G_CALLBACK (on_context_new_tab),
                          chmsee);
@@ -513,7 +513,7 @@ on_open(GtkWidget *widget, ChmSee *chmsee)
         GtkFileFilter *filter;
 
         /* create openfile dialog */
-        glade = glade_xml_new(CHMSEE_DATA_DIR"/"GLADE_FILE, "openfile_dialog", NULL);
+        glade = glade_xml_new(get_resource_path(GLADE_FILE), "openfile_dialog", NULL);
         dialog = glade_xml_get_widget(glade, "openfile_dialog");
 
         g_signal_connect(G_OBJECT (dialog),
@@ -556,7 +556,7 @@ on_close_tab(GtkWidget *widget, ChmSee *chmsee)
 
         for (i = 0; i < num_pages; i++) {
                 GList *children, *l;
-                
+
                 g_debug("page %d", i);
                 page = gtk_notebook_get_nth_page(GTK_NOTEBOOK (chmsee->html_notebook), i);
 
@@ -595,7 +595,7 @@ on_copy_page_location(GtkWidget* widget, ChmSee* chmsee) {
   ChmseeIhtml* html = get_active_html(chmsee);
   const gchar* location = chmsee_ihtml_get_location(html);
   if(!location) return;
-  
+
   gtk_clipboard_set_text(
     gtk_clipboard_get(GDK_SELECTION_PRIMARY),
     location,
@@ -625,13 +625,13 @@ on_setup(GtkWidget *widget, ChmSee *chmsee)
         setup_window_new(chmsee);
 }
 
-static void 
+static void
 on_back(GtkWidget *widget, ChmSee *chmsee)
 {
   chmsee_ihtml_go_back(get_active_html(chmsee));
 }
 
-static void 
+static void
 on_forward(GtkWidget *widget, ChmSee *chmsee)
 {
   chmsee_ihtml_go_forward(get_active_html(chmsee));
@@ -670,16 +670,16 @@ about_response_cb(GtkDialog *dialog, gint response_id, gpointer user_data)
                 gtk_widget_destroy(GTK_WIDGET (dialog));
 }
 
-static void 
+static void
 on_about(GtkWidget *widget)
 {
         GladeXML *glade;
         GtkWidget *dialog;
 
-        glade = glade_xml_new(CHMSEE_DATA_DIR"/"GLADE_FILE, "about_dialog", NULL);
+        glade = glade_xml_new(get_resource_path(GLADE_FILE), "about_dialog", NULL);
         dialog = glade_xml_get_widget(glade, "about_dialog");
 
-        g_signal_connect(G_OBJECT (dialog), 
+        g_signal_connect(G_OBJECT (dialog),
                          "response",
                          G_CALLBACK (about_response_cb),
                          NULL);
@@ -702,10 +702,10 @@ hpanes_toggled_cb(GtkToggleToolButton *widget, ChmSee *chmsee)
         control_vbox = get_widget(chmsee, "control_vbox");
 
         if (state) {
-                icon_widget = gtk_image_new_from_file(CHMSEE_DATA_DIR"/hide-pane.png");
+                icon_widget = gtk_image_new_from_file(get_resource_path("hide-pane.png"));
                 gtk_widget_show(control_vbox);
         } else {
-                icon_widget = gtk_image_new_from_file(CHMSEE_DATA_DIR"/show-pane.png");
+                icon_widget = gtk_image_new_from_file(get_resource_path("show-pane.png"));
                 gtk_widget_hide(control_vbox);
         }
 
@@ -729,7 +729,7 @@ on_open_new_tab(GtkWidget *widget, ChmSee *chmsee)
 
         if (location != NULL) {
           new_tab(chmsee, location);
-        }      
+        }
 }
 
 static void
@@ -763,7 +763,7 @@ on_context_copy_link(GtkWidget *widget, ChmSee *chmsee)
         g_debug("On context copy link: %s", context_menu_link);
 
         if (context_menu_link != NULL) {
-                gtk_clipboard_set_text(gtk_clipboard_get(GDK_SELECTION_PRIMARY), 
+                gtk_clipboard_set_text(gtk_clipboard_get(GDK_SELECTION_PRIMARY),
                                        context_menu_link, -1);
                 gtk_clipboard_set_text(gtk_clipboard_get(GDK_SELECTION_CLIPBOARD),
                                        context_menu_link, -1);
@@ -806,7 +806,7 @@ get_widget(ChmSee *chmsee, gchar *widget_name)
         glade = g_object_get_data(G_OBJECT (chmsee), "glade");
 
         widget = GTK_WIDGET (glade_xml_get_widget(glade, widget_name));
-        
+
         return widget;
 }
 
@@ -815,7 +815,7 @@ window_populate(ChmSee *chmsee)
 {
         GladeXML *glade;
 
-        glade = glade_xml_new(CHMSEE_DATA_DIR"/"GLADE_FILE, "main_vbox", NULL);
+        glade = glade_xml_new(get_resource_path(GLADE_FILE), "main_vbox", NULL);
 
         if (glade == NULL) {
                 g_error("Cannot find glade file!");
@@ -954,7 +954,7 @@ window_populate(ChmSee *chmsee)
                          NULL);
 
         toolbar_button = get_widget(chmsee, "toolbar_hpanes");
-        icon_widget = gtk_image_new_from_file(CHMSEE_DATA_DIR"/show-pane.png");
+        icon_widget = gtk_image_new_from_file(get_resource_path("show-pane.png"));
         gtk_widget_show(icon_widget);
         gtk_tool_button_set_icon_widget(GTK_TOOL_BUTTON (toolbar_button), icon_widget);
         g_object_set(toolbar_button, "active", FALSE, NULL);
@@ -1064,11 +1064,11 @@ display_book(ChmSee *chmsee, ChmseeIchmfile *book)
 
         /* Book contents TreeView widget */
         chmsee->control_notebook = gtk_notebook_new();
-        
-        gtk_box_pack_start(GTK_BOX (control_vbox), 
-                           GTK_WIDGET (chmsee->control_notebook), 
-                           TRUE, 
-                           TRUE, 
+
+        gtk_box_pack_start(GTK_BOX (control_vbox),
+                           GTK_WIDGET (chmsee->control_notebook),
+                           TRUE,
+                           TRUE,
                            2);
 	g_signal_connect(G_OBJECT (chmsee->control_notebook),
                          "switch-page",
@@ -1119,7 +1119,7 @@ display_book(ChmSee *chmsee, ChmseeIchmfile *book)
         GtkWidget *hpaned;
 
         hpaned = get_widget(chmsee, "hpaned1");
-        
+
         /* HTML tabs notebook */
         chmsee->html_notebook = gtk_notebook_new();
         gtk_paned_add2 (GTK_PANED (hpaned), chmsee->html_notebook);
@@ -1134,10 +1134,10 @@ display_book(ChmSee *chmsee, ChmseeIchmfile *book)
 
         gtk_notebook_set_current_page(GTK_NOTEBOOK (chmsee->control_notebook),
                                       g_list_length(bookmarks_list) && chmsee->has_toc ? 1 : 0);
-        
+
         /* Toolbar buttons state */
         GtkWidget *toolbar_button;
-                
+
         toolbar_button = get_widget(chmsee, "toolbar_hpanes");
         gtk_widget_set_sensitive(toolbar_button, TRUE);
         g_object_set(toolbar_button, "active", TRUE, NULL);
@@ -1405,10 +1405,10 @@ update_tab_title(ChmSee *chmsee, ChmseeIhtml *html)
   const gchar* book_title;
 
         html_title = chmsee_ihtml_get_title(html);
-        
+
         if (chmsee->has_toc)
                 book_title = booktree_get_selected_book_title(BOOKTREE (chmsee->booktree));
-        else 
+        else
                 book_title = "";
 
         if (book_title && book_title[0] != '\0' &&
@@ -1511,7 +1511,7 @@ chmsee_new(void)
                 gtk_window_resize(GTK_WINDOW (chmsee), 800, 600);
 
         gtk_window_set_title(GTK_WINDOW (chmsee), "ChmSee");
-        gtk_window_set_icon_from_file(GTK_WINDOW (chmsee), CHMSEE_DATA_DIR"/chmsee-icon.png", NULL);
+        gtk_window_set_icon_from_file(GTK_WINDOW (chmsee), get_resource_path("chmsee-icon.png"), NULL);
 
         return chmsee;
 }
@@ -1533,7 +1533,7 @@ chmsee_open_file(ChmSee *chmsee, const gchar *filename)
         } else {
                 /* Popup an error message dialog */
                 GtkWidget *msg_dialog;
-                
+
                 msg_dialog = gtk_message_dialog_new(GTK_WINDOW (chmsee),
                                                     GTK_DIALOG_DESTROY_WITH_PARENT,
                                                     GTK_MESSAGE_ERROR,

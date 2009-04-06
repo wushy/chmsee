@@ -23,6 +23,8 @@
 #include <stdio.h>
 #include <glib.h>
 
+G_BEGIN_DECLS
+
 #ifdef ENABLE_NLS
 #  include <libintl.h>
 #  undef _
@@ -96,5 +98,11 @@ typedef struct {
 
 const gchar* get_encoding_by_lcid(guint32 lcid);
 
+const gchar* get_data_dir();
+#define CHMSEE_DATA_DIR get_data_dir()
+
+const gchar* get_resource_path(const gchar* resouce_name);
+
+G_END_DECLS
 
 #endif

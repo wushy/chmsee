@@ -586,3 +586,27 @@ get_encoding_by_lcid(guint32 lcid)
     break;
   }
 }
+
+static gchar* data_dir = NULL;
+
+static void init_data_dir() {
+	data_dir = g_strdup(CHMSEE_DATA_DIR_DEFAULT);
+}
+
+const gchar* get_data_dir() {
+	if(data_dir == NULL) {
+		init_data_dir();
+	}
+	return data_dir;
+}
+
+
+const gchar* get_resource_path(const gchar* resouce_name) {
+	gchar* filename = g_build_filename(get_data_dir(), resouce_name, NULL);
+	const gchar* res = g_intern_string(filename);
+	g_free(filename);
+	return res;
+}
+
+
+

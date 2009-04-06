@@ -91,11 +91,11 @@ booktree_class_init(BookTreeClass *klass)
                               G_TYPE_FROM_CLASS (klass),
                               G_SIGNAL_RUN_LAST,
                               G_STRUCT_OFFSET (BookTreeClass, link_selected),
-                              NULL, 
+                              NULL,
                               NULL,
                               g_cclosure_marshal_VOID__POINTER,
                               G_TYPE_NONE,
-                              1, 
+                              1,
                               G_TYPE_POINTER);
 }
 
@@ -143,9 +143,9 @@ booktree_create_pixbufs(BookTree *tree)
 
         pixbufs = g_new0(BookTreePixbufs, 1);
 
-        pixbufs->pixbuf_closed = gdk_pixbuf_new_from_file(CHMSEE_DATA_DIR "/book-closed.png", NULL);
-        pixbufs->pixbuf_opened = gdk_pixbuf_new_from_file(CHMSEE_DATA_DIR "/book-open.png", NULL);
-        pixbufs->pixbuf_doc = gdk_pixbuf_new_from_file(CHMSEE_DATA_DIR "/helpdoc.png", NULL);
+        pixbufs->pixbuf_closed = gdk_pixbuf_new_from_file(get_resource_path("book-closed.png"), NULL);
+        pixbufs->pixbuf_opened = gdk_pixbuf_new_from_file(get_resource_path("book-open.png"), NULL);
+        pixbufs->pixbuf_doc = gdk_pixbuf_new_from_file(get_resource_path("helpdoc.png"), NULL);
 
         tree->pixbufs = pixbufs;
 }
@@ -188,7 +188,7 @@ booktree_setup_selection(BookTree *tree)
         selection = gtk_tree_view_get_selection(GTK_TREE_VIEW (tree));
         gtk_tree_selection_set_mode(selection, GTK_SELECTION_BROWSE);
 
-        g_signal_connect(selection, 
+        g_signal_connect(selection,
                          "changed",
                          G_CALLBACK (booktree_selection_changed_cb),
                          tree);
