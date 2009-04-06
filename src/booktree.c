@@ -32,6 +32,7 @@ static void booktree_add_columns(BookTree *);
 static void booktree_setup_selection(BookTree *);
 static void booktree_populate_tree(BookTree *);
 static void booktree_insert_node(BookTree *, GNode *, GtkTreeIter *);
+static void on_row_activated(BookTree* self, GtkTreePath* path);
 
 /* Signals */
 enum {
@@ -100,20 +101,25 @@ booktree_class_init(BookTreeClass *klass)
 }
 
 static void
-booktree_init(BookTree *tree)
+booktree_init(BookTree *self)
 {
-        tree->store = gtk_tree_store_new(N_COLUMNS,
-                                         GDK_TYPE_PIXBUF,
-                                         GDK_TYPE_PIXBUF,
-                                         G_TYPE_STRING,
-                                         G_TYPE_POINTER);
-        gtk_tree_view_set_model(GTK_TREE_VIEW (tree),
-                                GTK_TREE_MODEL (tree->store));
-        gtk_tree_view_set_headers_visible(GTK_TREE_VIEW (tree), FALSE);
+	self->store = gtk_tree_store_new(N_COLUMNS,
+			GDK_TYPE_PIXBUF,
+			GDK_TYPE_PIXBUF,
+			G_TYPE_STRING,
+			G_TYPE_POINTER);
+	gtk_tree_view_set_model(GTK_TREE_VIEW (self),
+			GTK_TREE_MODEL (self->store));
+	gtk_tree_view_set_headers_visible(GTK_TREE_VIEW (self), FALSE);
 
-        booktree_create_pixbufs(tree);
-        booktree_add_columns(tree);
-        booktree_setup_selection(tree);
+	booktree_create_pixbufs(self);
+	booktree_add_columns(self);
+	booktree_setup_selection(self);
+
+	g_signal_connect(G_OBJECT(self),
+			"row-activated",
+			G_CALLBACK(on_row_activated),
+			NULL);
 }
 
 static void
@@ -369,3 +375,11 @@ booktree_get_selected_book_title(BookTree *tree)
         return link->name;
 }
 
+void on_row_activated(BookTree* self, GtkTreePath* path) {
+	g_return_if_fail(IS_BOOKTREE(self));
+	if(gtk_tree_view_row_expanded(GTK_TREE_VIEW(self), path)) {
+		gtk_tree_view_collapse_row(GTK_TREE_VIEW(self), path);
+	} else {
+		gtk_tree_view_expand_row(GTK_TREE_VIEW(self), path, FALSE);
+	}
+}
