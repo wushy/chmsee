@@ -1,5 +1,5 @@
 project(chmsee)
-cmake_minimum_required(VERSION 2.4.6 FATAL_ERROR)
+cmake_minimum_required(VERSION 2.6 FATAL_ERROR)
 set(PACKAGE_VERSION "1.0.4-SNAPSHOT" )
 find_package(PkgConfig)
 pkg_check_modules (CHMSEE REQUIRED gthread-2.0 glib-2.0 libxml-2.0 gtk+-2.0 libglade-2.0 libxul-embedding-unstable)
@@ -30,3 +30,8 @@ add_subdirectory(src)
 add_subdirectory(data)
 add_subdirectory(po)
 add_subdirectory(test)
+add_custom_target(report
+	COMMAND gtester -o gtester.xml test/test
+	COMMAND gtester-report gtester.xml > report.html
+	DEPENDS test
+	VERBATIM)
