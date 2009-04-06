@@ -30,6 +30,12 @@
 #ifndef __STARTUP_H__
 #define __STARTUP_H__
 
+#include <glib.h>
+
+G_BEGIN_DECLS
+
 void startup_popup_new(void);
+
+G_END_DECLS
 
 #endif /* __STARTUP_H__ */

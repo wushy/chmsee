@@ -52,7 +52,7 @@ convert_filename_to_utf8(const gchar *filename, const gchar *codeset)
 
     if (filename_utf8 == NULL)
       filename_utf8 = g_convert(filename, -1, "UTF-8",
-                                codeset, 
+                                codeset,
                                 NULL, NULL, NULL);
   }
 
@@ -69,8 +69,8 @@ convert_string_to_utf8(const gchar *string, const gchar *codeset)
     string_utf8 = g_strdup(string);
   } else {
     g_debug("string is not utf8");
-    string_utf8 = g_convert(string, -1, "UTF-8", 
-                            codeset, 
+    string_utf8 = g_convert(string, -1, "UTF-8",
+                            codeset,
                             NULL, NULL, NULL);
   }
 
@@ -118,7 +118,7 @@ file_exist_ncase(const gchar *path)
   g_debug("filename = %s", filename);
 
   dir = g_dir_open(dirname, 0, NULL);
-        
+
   if (dir) {
     const gchar *entry;
 
@@ -187,7 +187,7 @@ void
 command_delete_tmpdir(char *s_path)
 {
   char *argv[4];
-                
+
   g_return_if_fail(g_file_test(s_path, G_FILE_TEST_EXISTS));
 
   argv[0] = "rm";
@@ -195,8 +195,8 @@ command_delete_tmpdir(char *s_path)
   argv[2] = s_path;
   argv[3] = NULL;
 
-  g_spawn_async(g_get_tmp_dir(), argv, NULL, 
-                G_SPAWN_SEARCH_PATH, 
+  g_spawn_async(g_get_tmp_dir(), argv, NULL,
+                G_SPAWN_SEARCH_PATH,
                 NULL, NULL, NULL,
                 NULL);
 }
@@ -211,7 +211,7 @@ get_real_uri(const gchar *uri)
 
   if (p)
     real_uri = g_strndup(uri, p - uri);
-  else 
+  else
     real_uri = g_strdup(uri);
 
   return real_uri;
@@ -221,13 +221,13 @@ char* correct_filename(const gchar* fname) {
   if(g_access(fname, R_OK) == 0) {
     return g_strdup(fname);
   }
-  
+
   gchar* oldpath = g_path_get_dirname(fname);
   gchar* newpath = correct_filename(oldpath);
 
   gchar* basename = g_path_get_basename(fname);
   gchar* res = NULL;
-  
+
   if(newpath) {
     GDir* dir = g_dir_open(newpath, 0, NULL);
     if(dir) {
@@ -245,7 +245,7 @@ char* correct_filename(const gchar* fname) {
   free(basename);
   free(newpath);
   free(oldpath);
-  
+
   return res;
 }
 
@@ -262,12 +262,12 @@ parse_config_file(const gchar *info, const gchar *file)
     g_debug("Failed to open ChmSee %s.\n", info);
     return NULL;
   }
-        
+
   while (fgets(line, MAXLINE, fd)) {
     /* Skip empty or hashed lines */
     strip_string(line);
 
-    if (*line == '#' || *line == '\0') 
+    if (*line == '#' || *line == '\0')
       continue;
 
     /* Parse lines */
@@ -293,18 +293,18 @@ strip_string(gchar *str)
   gint i,j;
   gint c1;
 
-  if (str == NULL) 
+  if (str == NULL)
     return NULL;
 
   /* count how many leading chars to be whitespace */
   for (i = 0; i < strlen(str); i++) {
-    if (str[i] != ' ' && str[i] != '\t' && str[i] != '\r') 
+    if (str[i] != ' ' && str[i] != '\t' && str[i] != '\r')
       break;
   }
 
   /* count how many trailing chars to be whitespace */
   for (j = strlen(str)-1; j >= 0; j--) {
-    if (str[j] != ' ' && str[j] != '\t' && str[j] != '\n') 
+    if (str[j] != ' ' && str[j] != '\t' && str[j] != '\n')
       break;
   }
 
@@ -317,9 +317,9 @@ strip_string(gchar *str)
 
   /* now move the chars to the front */
   for (c1 = i; c1 <= j; c1++)
-    str[c1-i] = str[c1]; 
+    str[c1-i] = str[c1];
 
-  str[j+1-i] = '\0';      
+  str[j+1-i] = '\0';
 
   return str;
 }
@@ -330,14 +330,14 @@ parse_config_line(gchar *iline, gchar *id, gchar *value)
   gchar line[1024];
   gchar tmp[1024];
 
-  strcpy(line, iline); 
+  strcpy(line, iline);
   strcpy(id, "");
   p = strtok(line, "=");
 
   if (p != NULL) {
     strcpy(id, p); /* got id */
     strip_string(id);
-  } else 
+  } else
     return 1;
 
   strcpy(tmp, "");
@@ -375,7 +375,7 @@ escape_parse(gchar *str)
   gchar c;
   gint i, j;
 
-  if (str == NULL) 
+  if (str == NULL)
     return NULL;
 
   j = 0;
@@ -401,7 +401,7 @@ escape_parse(gchar *str)
       default:
         c = str[i];
       }
-    }       
+    }
 
     tmp[j] = c;
     j++;
@@ -424,7 +424,7 @@ void free_config_list(GList *pairs)
     g_free(item->id);
     g_free(item->value);
   }
-        
+
   g_list_free(pairs);
 }
 
@@ -432,4 +432,157 @@ void
 save_option(FILE* ofile, const gchar *id, const gchar *value)
 {
   fprintf(ofile, "%s=%s\n", id, value);
+}
+
+const char *
+get_encoding_by_lcid(guint32 lcid)
+{
+  switch(lcid) {
+  case 0x0436:
+  case 0x042d:
+  case 0x0403:
+  case 0x0406:
+  case 0x0413:
+  case 0x0813:
+  case 0x0409:
+  case 0x0809:
+  case 0x0c09:
+  case 0x1009:
+  case 0x1409:
+  case 0x1809:
+  case 0x1c09:
+  case 0x2009:
+  case 0x2409:
+  case 0x2809:
+  case 0x2c09:
+  case 0x3009:
+  case 0x3409:
+  case 0x0438:
+  case 0x040b:
+  case 0x040c:
+  case 0x080c:
+  case 0x0c0c:
+  case 0x100c:
+  case 0x140c:
+  case 0x180c:
+  case 0x0407:
+  case 0x0807:
+  case 0x0c07:
+  case 0x1007:
+  case 0x1407:
+  case 0x040f:
+  case 0x0421:
+  case 0x0410:
+  case 0x0810:
+  case 0x043e:
+  case 0x0414:
+  case 0x0814:
+  case 0x0416:
+  case 0x0816:
+  case 0x040a:
+  case 0x080a:
+  case 0x0c0a:
+  case 0x100a:
+  case 0x140a:
+  case 0x180a:
+  case 0x1c0a:
+  case 0x200a:
+  case 0x240a:
+  case 0x280a:
+  case 0x2c0a:
+  case 0x300a:
+  case 0x340a:
+  case 0x380a:
+  case 0x3c0a:
+  case 0x400a:
+  case 0x440a:
+  case 0x480a:
+  case 0x4c0a:
+  case 0x500a:
+  case 0x0441:
+  case 0x041d:
+  case 0x081d:
+    return "ISO-8859-1";
+    break;
+  case 0x041c:
+  case 0x041a:
+  case 0x0405:
+  case 0x040e:
+  case 0x0418:
+  case 0x081a:
+  case 0x041b:
+  case 0x0424:
+    return "ISO-8859-2";
+    break;
+  case 0x0c01:
+	  return "WINDOWS-1256";
+  case 0x0401:
+  case 0x0801:
+  case 0x1001:
+  case 0x1401:
+  case 0x1801:
+  case 0x1c01:
+  case 0x2001:
+  case 0x2401:
+  case 0x2801:
+  case 0x2c01:
+  case 0x3001:
+  case 0x3401:
+  case 0x3801:
+  case 0x3c01:
+  case 0x4001:
+  case 0x0429:
+  case 0x0420:
+    return "ISO-8859-6";
+    break;
+  case 0x0408:
+    return "ISO-8859-7";
+    break;
+  case 0x040d:
+    return "ISO-8859-8";
+    break;
+  case 0x042c:
+  case 0x041f:
+  case 0x0443:
+    return "ISO-8859-9";
+    break;
+  case 0x041e:
+    return "ISO-8859-11";
+    break;
+  case 0x0425:
+  case 0x0426:
+  case 0x0427:
+    return "ISO-8859-13";
+    break;
+  case 0x0411:
+    return "cp932";
+    break;
+  case 0x0804:
+  case 0x1004:
+    return "cp936";
+    break;
+  case 0x0412:
+    return "cp949";
+    break;
+  case 0x0404:
+  case 0x0c04:
+  case 0x1404:
+    return "cp950";
+    break;
+  case 0x082c:
+  case 0x0423:
+  case 0x0402:
+  case 0x043f:
+  case 0x042f:
+  case 0x0419:
+  case 0x0c1a:
+  case 0x0444:
+  case 0x0422:
+  case 0x0843:
+    return "cp1251";
+    break;
+  default:
+    return "";
+    break;
+  }
 }

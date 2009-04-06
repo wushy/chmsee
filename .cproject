@@ -28,6 +28,7 @@
 <listOptionValue builtIn="false" value="&quot;${workspace_loc:/chmsee/src}&quot;"/>
 <listOptionValue builtIn="false" value="/usr/include/libglade-2.0"/>
 <listOptionValue builtIn="false" value="/usr/include/gtk-2.0"/>
+<listOptionValue builtIn="false" value="/usr/include/xulrunner-1.9.0.8/unstable"/>
 </option>
 <inputType id="cdt.managedbuild.tool.gnu.c.compiler.input.1566535710" superClass="cdt.managedbuild.tool.gnu.c.compiler.input"/>
 </tool>
@@ -44,11 +45,16 @@
 <listOptionValue builtIn="false" value="&quot;${workspace_loc:/chmsee/src}&quot;"/>
 <listOptionValue builtIn="false" value="/usr/include/libglade-2.0"/>
 <listOptionValue builtIn="false" value="/usr/include/gtk-2.0"/>
+<listOptionValue builtIn="false" value="/usr/include/xulrunner-1.9.0.8/unstable"/>
 </option>
 <inputType id="cdt.managedbuild.tool.gnu.assembler.input.2060702548" superClass="cdt.managedbuild.tool.gnu.assembler.input"/>
 </tool>
 </toolChain>
 </folderInfo>
+<sourceEntries>
+<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="test"/>
+<entry excluding="test" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+</sourceEntries>
 </configuration>
 </storageModule>
 <storageModule moduleId="org.eclipse.cdt.core.externalSettings"/>
@@ -218,6 +224,19 @@
 </scannerInfoProvider>
 </profile>
 </scannerConfigBuildInfo>
+</storageModule>
+<storageModule moduleId="org.eclipse.cdt.internal.ui.text.commentOwnerProjectMappings"/>
+<storageModule moduleId="org.eclipse.cdt.make.core.buildtargets">
+<buildTargets>
+<target name="test" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
+<buildCommand>make</buildCommand>
+<buildArguments/>
+<buildTarget>test</buildTarget>
+<stopOnError>true</stopOnError>
+<useDefaultCommand>true</useDefaultCommand>
+<runAllBuilders>true</runAllBuilders>
+</target>
+</buildTargets>
 </storageModule>
 </cconfiguration>
 </storageModule>

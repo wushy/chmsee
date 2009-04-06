@@ -41,7 +41,7 @@
 static void dummy_log_handler (const gchar *log_domain,
                                GLogLevelFlags log_level,
                                const gchar *message,
-                               gpointer unused_data) 
+                               gpointer unused_data)
 {}
 
 static void init_log(int log_level) {
@@ -72,15 +72,12 @@ static gboolean callback_quiet(const gchar *option_name,
 int
 main(int argc, char** argv)
 {
-  extern char *optarg;
-  extern int optind;
-
   ChmSee *chmsee;
   const gchar* filename = NULL;
   GError* error = NULL;
   gboolean option_version = FALSE;
 
-  if (!g_thread_supported()) 
+  if (!g_thread_supported())
     g_thread_init(NULL);
 
 
@@ -91,11 +88,11 @@ main(int argc, char** argv)
       NULL
     },
     {"verbose", 'v',
-      G_OPTION_FLAG_NO_ARG, G_OPTION_ARG_CALLBACK, callback_verbose,
+      G_OPTION_FLAG_NO_ARG, G_OPTION_ARG_CALLBACK, (void*)callback_verbose,
       _("be verbose, repeat 3 times to get all info"),
       NULL},
     {"quiet", 'q',
-      G_OPTION_FLAG_NO_ARG, G_OPTION_ARG_CALLBACK, callback_quiet,
+      G_OPTION_FLAG_NO_ARG, G_OPTION_ARG_CALLBACK, (void*)callback_quiet,
       _("be quiet, repeat 2 times to disable all info"),
       NULL}
   };

@@ -25,7 +25,7 @@ link_directories(
   )
 
 set(CHMSEE_SRCS
-  booktree.c chmsee.c gecko_utils.cpp html.c main.c
+  booktree.c chmsee.c gecko_utils.cpp html.c
   setup.c startup.c ui_bookmarks.c utils.c booktree.h chmsee.h
   gecko_utils.h html.h setup.h startup.h ui_bookmarks.h
   utils.h marshal.h marshal.c
@@ -45,12 +45,16 @@ set(CHMSEE_SRCS
   models/chmfile-factory.h models/chmfile-factory.c
   )
 
-add_executable(chmsee ${CHMSEE_SRCS})
-
-target_link_libraries(chmsee
+add_library(chmseelib STATIC ${CHMSEE_SRCS})
+target_link_libraries(chmseelib
   ${CHMSEE_LIBRARIES}
   chm
   gcrypt
+  )
+
+add_executable(chmsee main.cpp)
+target_link_libraries(chmsee
+  chmseelib
   )
 
 install(TARGETS chmsee DESTINATION bin)

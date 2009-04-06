@@ -40,6 +40,8 @@
 
 #include "models/ichmfile.h"
 
+G_BEGIN_DECLS
+
 typedef struct _ChmSee      ChmSee;
 typedef struct _ChmSeeClass ChmSeeClass;
 
@@ -63,10 +65,10 @@ struct _ChmSee {
         GtkWidget       *control_notebook;
         GtkWidget       *html_notebook;
 
-        GtkWidget       *booktree;        
+        GtkWidget       *booktree;
         GtkWidget       *bookmark_tree;
         GtkWidget       *index_tree;
-        
+
         GtkWidget       *statusbar;
         guint            scid_default;
 
@@ -93,5 +95,7 @@ struct _ChmSeeClass {
 GType chmsee_get_type(void);
 ChmSee * chmsee_new(void);
 void chmsee_open_file(ChmSee *, const gchar *);
+
+G_END_DECLS
 
 #endif /* !__CHMSEE_H__ */
