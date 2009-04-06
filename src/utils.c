@@ -32,64 +32,68 @@
 #include "models/link.h"
 
 void
-load_chmsee_config(ChmSee *chmsee)
+load_chmsee_config(ChmSee *self)
 {
-        GList *pairs, *list;
-        gchar *path;
+	GList *pairs, *list;
+	gchar *path;
 
-        path = g_build_filename(chmsee->home, "config", NULL);
+	path = g_build_filename(self->home, "config", NULL);
 
-        g_debug("config path = %s", path);
+	g_debug("config path = %s", path);
 
-        pairs = parse_config_file("config", path);
+	pairs = parse_config_file("config", path);
 
-        for (list = pairs; list; list = list->next) {
-                Item *item;
+	for (list = pairs; list; list = list->next) {
+		Item *item;
 
-                item = list->data;
-                
-                /* Get user prefered language */
-                if (strstr(item->id, "LANG")) {
-                        chmsee->lang = atoi(item->value);
-                        continue;
-                }
+		item = list->data;
 
-                /* Get last directory */
-                if (strstr(item->id, "LAST_DIR")) {
-                        chmsee->last_dir = g_strdup(item->value);
-                        continue;
-                }
+		/* Get user prefered language */
+		if (strstr(item->id, "LANG")) {
+			self->lang = atoi(item->value);
+			continue;
+		}
 
-                /* Get window position */
-                if (strstr(item->id, "POS_X")) {
-                        chmsee->pos_x = atoi(item->value);
-                        continue;
-                }
-                if (strstr(item->id, "POS_Y")) {
-                        chmsee->pos_y = atoi(item->value);
-                        continue;
-                }
-                if (strstr(item->id, "WIDTH")) {
-                        chmsee->width = atoi(item->value);
-                        continue;
-                }
-                if (strstr(item->id, "HEIGHT")) {
-                        chmsee->height = atoi(item->value);
-                        continue;
-                }
-        }
+		/* Get last directory */
+		if (strstr(item->id, "LAST_DIR")) {
+			self->last_dir = g_strdup(item->value);
+			continue;
+		}
 
-        free_config_list(pairs);
-        g_free(path);
+		/* Get window position */
+		if (strstr(item->id, "POS_X")) {
+			self->pos_x = atoi(item->value);
+			continue;
+		}
+		if (strstr(item->id, "POS_Y")) {
+			self->pos_y = atoi(item->value);
+			continue;
+		}
+		if (strstr(item->id, "WIDTH")) {
+			self->width = atoi(item->value);
+			continue;
+		}
+		if (strstr(item->id, "HEIGHT")) {
+			self->height = atoi(item->value);
+			continue;
+		}
+		if(strstr(item->id, "HPANED_POSTION")) {
+			chmsee_set_hpaned_position(self, atoi(item->value));
+			continue;
+		}
+	}
+
+	free_config_list(pairs);
+	g_free(path);
 }
 
-void 
-save_chmsee_config(ChmSee *chmsee)
+void
+save_chmsee_config(ChmSee *self)
 {
         FILE *file;
         gchar *path;
 
-        path = g_build_filename(chmsee->home, "config", NULL);
+        path = g_build_filename(self->home, "config", NULL);
 
         file = fopen(path, "w");
 
@@ -98,12 +102,13 @@ save_chmsee_config(ChmSee *chmsee)
                 return;
         }
 
-        save_option(file, "LANG", g_strdup_printf("%d", chmsee->lang));
-        save_option(file, "LAST_DIR", chmsee->last_dir);
-        save_option(file, "POS_X", g_strdup_printf("%d", chmsee->pos_x));
-        save_option(file, "POS_Y", g_strdup_printf("%d", chmsee->pos_y));
-        save_option(file, "WIDTH", g_strdup_printf("%d", chmsee->width));
-        save_option(file, "HEIGHT", g_strdup_printf("%d", chmsee->height));
+        save_option(file, "LANG", g_strdup_printf("%d", self->lang));
+        save_option(file, "LAST_DIR", self->last_dir);
+        save_option(file, "POS_X", g_strdup_printf("%d", self->pos_x));
+        save_option(file, "POS_Y", g_strdup_printf("%d", self->pos_y));
+        save_option(file, "WIDTH", g_strdup_printf("%d", self->width));
+        save_option(file, "HEIGHT", g_strdup_printf("%d", self->height));
+        save_option(file, "HPANED_POSTION", g_strdup_printf("%d", chmsee_get_hpaned_position(self)));
 
         fclose(file);
         g_free(path);

@@ -1494,14 +1494,12 @@ chmsee_new(void)
                          G_CALLBACK (configure_event_cb),
                          chmsee);
 
-        load_chmsee_config(chmsee);
-
         /* Init gecko */
         chmsee_html_init_system();
         chmsee_html_set_default_lang(chmsee->lang);
 
         window_populate(chmsee);
-
+        load_chmsee_config(chmsee);
         if (chmsee->pos_x >= 0 && chmsee->pos_y >= 0)
                 gtk_window_move(GTK_WINDOW (chmsee), chmsee->pos_x, chmsee->pos_y);
 
@@ -1586,4 +1584,20 @@ void chmsee_open_uri(ChmSee *chmsee, const gchar *uri) {
   gchar* fname = g_uri_unescape_string(uri+7, NULL);
   chmsee_open_file(chmsee, fname);
   g_free(fname);
+}
+
+int chmsee_get_hpaned_position(ChmSee* self) {
+	gint position;
+	g_object_get(G_OBJECT(get_widget(self, "hpaned1")),
+			"position", &position,
+			NULL
+			);
+	return position;
+}
+
+void chmsee_set_hpaned_position(ChmSee* self, int hpaned_position) {
+	g_object_set(G_OBJECT(get_widget(self, "hpaned1")),
+			"position", hpaned_position,
+			NULL
+			);
 }
