@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <glade-interface>
-  <!-- interface-requires gtk+ 2.16 -->
+  <!-- interface-requires gtk+ 2.8 -->
   <!-- interface-naming-policy toplevel-contextual -->
   <widget class="GtkWindow" id="main_window">
     <property name="title" translatable="yes">ChmSee</property>
@@ -135,6 +135,15 @@
                             <property name="visible">True</property>
                             <property name="label" translatable="yes">_Full Screen</property>
                             <property name="use_underline">True</property>
+                          </widget>
+                        </child>
+                        <child>
+                          <widget class="GtkCheckMenuItem" id="menu_sidepane">
+                            <property name="visible">True</property>
+                            <property name="sensitive">False</property>
+                            <property name="label" translatable="yes">Side _Pane</property>
+                            <property name="use_underline">True</property>
+                            <property name="active">True</property>
                           </widget>
                         </child>
                       </widget>
