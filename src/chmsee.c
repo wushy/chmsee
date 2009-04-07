@@ -100,6 +100,7 @@ static void on_fullscreen_toggled(ChmSee* self, GtkWidget* menu);
 static void on_sidepane_toggled(ChmSee* self, GtkWidget* menu);
 static void on_map(ChmSee* self);
 static gboolean on_window_state_event(ChmSee* self, GdkEventWindowState* event);
+static gboolean on_scroll_event(ChmSee* self, GdkEventScroll* event);
 
 static void chmsee_quit(ChmSee *);
 static void chmsee_open_uri(ChmSee *chmsee, const gchar *uri);
@@ -169,54 +170,58 @@ chmsee_class_init(ChmSeeClass *klass)
 }
 
 static void
-chmsee_init(ChmSee *chmsee)
+chmsee_init(ChmSee* self)
 {
-        chmsee->home = g_build_filename(g_get_home_dir(), ".chmsee", NULL);
+	self->home = g_build_filename(g_get_home_dir(), ".chmsee", NULL);
 
-        g_debug("chmsee home = %s", chmsee->home);
+	g_debug("chmsee home = %s", self->home);
 
-        if (!g_file_test(chmsee->home, G_FILE_TEST_IS_DIR))
-                mkdir(chmsee->home, 0777);
+	if (!g_file_test(self->home, G_FILE_TEST_IS_DIR))
+		mkdir(self->home, 0777);
 
-        chmsee->cache_dir = g_build_filename(chmsee->home, "bookshelf", NULL);
+	self->cache_dir = g_build_filename(self->home, "bookshelf", NULL);
 
-        if (!g_file_test(chmsee->cache_dir, G_FILE_TEST_IS_DIR))
-                mkdir(chmsee->cache_dir, 0777);
+	if (!g_file_test(self->cache_dir, G_FILE_TEST_IS_DIR))
+		mkdir(self->cache_dir, 0777);
 
-        chmsee->lang = 0;
-        chmsee->last_dir = g_strdup(g_get_home_dir());
+	self->lang = 0;
+	self->last_dir = g_strdup(g_get_home_dir());
 
-        chmsee->book = NULL;
-        chmsee->html_notebook = NULL;
-        chmsee->pos_x = -100;
-        chmsee->pos_y = -100;
-        chmsee->width = 0;
-        chmsee->height = 0;
-        chmsee->hpaned_position = -1;
-        chmsee->has_toc = FALSE;
-        chmsee->has_index = FALSE;
-        chmsee->fullscreen = FALSE;
+	self->book = NULL;
+	self->html_notebook = NULL;
+	self->pos_x = -100;
+	self->pos_y = -100;
+	self->width = 0;
+	self->height = 0;
+	self->hpaned_position = -1;
+	self->has_toc = FALSE;
+	self->has_index = FALSE;
+	self->fullscreen = FALSE;
 
-        gtk_widget_add_events(GTK_WIDGET(chmsee),
-        		GDK_STRUCTURE_MASK);
+	gtk_widget_add_events(GTK_WIDGET(self),
+			GDK_STRUCTURE_MASK | GDK_BUTTON_PRESS_MASK );
 
-        g_signal_connect(G_OBJECT (chmsee),
-                         "key-press-event",
-                         G_CALLBACK (keypress_event_cb),
-                         chmsee);
-        g_signal_connect(G_OBJECT(chmsee),
-        		"map",
-        		G_CALLBACK(on_map),
-                        NULL);
-        g_signal_connect(G_OBJECT(chmsee),
-        		"window-state-event",
-        		G_CALLBACK(on_window_state_event),
-        		NULL);
-        gtk_drag_dest_set (GTK_WIDGET (chmsee),
-			   GTK_DEST_DEFAULT_ALL,
-			   view_drop_targets,
-			   G_N_ELEMENTS (view_drop_targets),
-			   GDK_ACTION_COPY);
+	g_signal_connect(G_OBJECT (self),
+			"key-press-event",
+			G_CALLBACK (keypress_event_cb),
+			self);
+	g_signal_connect(G_OBJECT(self),
+			"scroll-event",
+			G_CALLBACK(on_scroll_event),
+			NULL);
+	g_signal_connect(G_OBJECT(self),
+			"map",
+			G_CALLBACK(on_map),
+			NULL);
+	g_signal_connect(G_OBJECT(self),
+			"window-state-event",
+			G_CALLBACK(on_window_state_event),
+			NULL);
+	gtk_drag_dest_set (GTK_WIDGET (self),
+			GTK_DEST_DEFAULT_ALL,
+			view_drop_targets,
+			G_N_ELEMENTS (view_drop_targets),
+			GDK_ACTION_COPY);
 
 }
 
@@ -682,9 +687,12 @@ on_home(GtkWidget *widget, ChmSee *chmsee)
 }
 
 static void
-on_zoom_in(GtkWidget *widget, ChmSee *chmsee)
+on_zoom_in(GtkWidget *widget, ChmSee *self)
 {
-  chmsee_ihtml_increase_size(get_active_html(chmsee));
+	ChmseeIhtml* html = get_active_html(self);
+	if(html != NULL) {
+		chmsee_ihtml_increase_size(html);
+	}
 }
 
 static void
@@ -694,9 +702,12 @@ on_zoom_reset(GtkWidget *widget, ChmSee *chmsee)
 }
 
 static void
-on_zoom_out(GtkWidget *widget, ChmSee *chmsee)
+on_zoom_out(GtkWidget *widget, ChmSee *self)
 {
-  chmsee_ihtml_decrease_size(get_active_html(chmsee));
+	ChmseeIhtml* html = get_active_html(self);
+	if(html != NULL) {
+		chmsee_ihtml_decrease_size(html);
+	}
 }
 
 static void
@@ -1761,6 +1772,19 @@ gboolean on_window_state_event(ChmSee* self, GdkEventWindowState* event) {
 		on_fullscreen(self);
 	} else {
 		on_unfullscreen(self);
+	}
+
+	return FALSE;
+}
+
+static gboolean on_scroll_event(ChmSee* self, GdkEventScroll* event) {
+	if(event->direction == GDK_SCROLL_UP && (event->state & GDK_CONTROL_MASK)) {
+		on_zoom_in(NULL, self);
+	} else if(event->direction == GDK_SCROLL_DOWN && (event->state & GDK_CONTROL_MASK)) {
+		on_zoom_out(NULL, self);
+	} else {
+		g_debug("event->direction: %d", event->direction);
+		g_debug("event->state: %x", event->state);
 	}
 
 	return FALSE;
