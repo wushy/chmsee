@@ -132,31 +132,7 @@ static const GtkTargetEntry view_drop_targets[] = {
 	{ "text/uri-list", 0, 0 }
 };
 
-GType
-chmsee_get_type(void)
-{
-        static GType type = 0;
-
-        if (!type) {
-                static const GTypeInfo info = {
-                        sizeof(ChmSeeClass),
-                        NULL,
-                        NULL,
-                        (GClassInitFunc)chmsee_class_init,
-                        NULL,
-                        NULL,
-                        sizeof(ChmSee),
-                        0,
-                        (GInstanceInitFunc)chmsee_init,
-                };
-
-                type = g_type_register_static(GTK_TYPE_WINDOW,
-                                              "ChmSee",
-                                              &info, 0);
-        }
-
-        return type;
-}
+G_DEFINE_TYPE (ChmSee, chmsee, G_TYPE_OBJECT);
 
 static void
 chmsee_class_init(ChmSeeClass *klass)
