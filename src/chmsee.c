@@ -127,7 +127,6 @@ chmsee_drag_data_received (GtkWidget          *widget,
                            guint               time);
 
 static gchar *context_menu_link = NULL;
-static GtkWindowClass *parent_class = NULL;
 static const GtkTargetEntry view_drop_targets[] = {
 	{ "text/uri-list", 0, 0 }
 };
@@ -139,8 +138,6 @@ chmsee_class_init(ChmSeeClass *klass)
 {
         GObjectClass *object_class = G_OBJECT_CLASS(klass);
         GtkWidgetClass *widget_class = GTK_WIDGET_CLASS(klass);
-        parent_class = g_type_class_peek_parent(klass);
-
         object_class->finalize = chmsee_finalize;
         widget_class->drag_data_received = chmsee_drag_data_received;
 }
@@ -204,7 +201,7 @@ chmsee_init(ChmSee* self)
 static void
 chmsee_finalize(GObject *object)
 {
-	G_OBJECT_CLASS (parent_class)->finalize (object);
+	G_OBJECT_CLASS (chmsee_parent_class)->finalize (object);
 }
 
 /* callbacks */
