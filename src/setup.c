@@ -47,7 +47,8 @@ typedef struct
 static void
 on_cache_clear(GtkWidget *widget, ChmSee *chmsee)
 {
-	command_delete_tmpdir(chmsee->cache_dir);
+	command_delete_tmpdir(
+			chmsee_get_cache_dir(chmsee));
 }
 
 static void
@@ -61,7 +62,7 @@ variable_font_set_cb(GtkFontButton *button, ChmSee *chmsee)
 
 	gecko_utils_set_font(GECKO_PREF_FONT_VARIABLE, font_name);
 
-        chmsee_ichmfile_set_variable_font(chmsee->book, font_name);
+	chmsee_set_variable_font(chmsee, font_name);
 }
 
 static void
@@ -75,7 +76,7 @@ fixed_font_set_cb(GtkFontButton *button, ChmSee *chmsee)
 
 	gecko_utils_set_font(GECKO_PREF_FONT_FIXED, font_name);
 
-        chmsee_ichmfile_set_fixed_font(chmsee->book, font_name);
+	chmsee_set_fixed_font(chmsee, font_name);
 }
 
 static void
@@ -90,7 +91,7 @@ cmb_lang_changed_cb(GtkWidget *widget, ChmSee *chmsee)
 	if (index >= 0) {
 		g_debug("select lang: %d", index);
 		gecko_utils_set_default_lang(index);
-		chmsee->lang = index;
+		chmsee_set_lang(chmsee, index);
 	}
 }
 
@@ -124,7 +125,7 @@ setup_window_new(ChmSee *chmsee)
 
 	/* cache directory */
 	cache_entry = glade_xml_get_widget(glade, "cache_dir_entry");
-	gtk_entry_set_text(GTK_ENTRY(cache_entry), chmsee->cache_dir);
+	gtk_entry_set_text(GTK_ENTRY(cache_entry), chmsee_get_cache_dir(chmsee));
 
 	clear_button = glade_xml_get_widget(glade, "setup_clear");
 	g_signal_connect(G_OBJECT (clear_button),
@@ -151,7 +152,7 @@ setup_window_new(ChmSee *chmsee)
 			 "changed",
 			 G_CALLBACK (cmb_lang_changed_cb),
 			 chmsee);
-	gtk_combo_box_set_active(GTK_COMBO_BOX (cmb_lang), chmsee->lang);
+	gtk_combo_box_set_active(GTK_COMBO_BOX (cmb_lang), chmsee_get_lang(chmsee));
 
 	close_button = glade_xml_get_widget(glade, "setup_close");
 	g_signal_connect(G_OBJECT (close_button),
@@ -159,11 +160,11 @@ setup_window_new(ChmSee *chmsee)
 			 G_CALLBACK (on_window_close),
 			 chmsee);
 
-	if (chmsee->book) {
+	if (chmsee_has_book(chmsee)) {
 		gtk_font_button_set_font_name(GTK_FONT_BUTTON (variable_font_button),
-                                              chmsee_ichmfile_get_variable_font(chmsee->book));
+                                              chmsee_get_variable_font(chmsee));
 		gtk_font_button_set_font_name(GTK_FONT_BUTTON (fixed_font_button),
-                                              chmsee_ichmfile_get_fixed_font(chmsee->book));
+                                              chmsee_get_fixed_font(chmsee));
 		gtk_widget_set_sensitive(variable_font_button, TRUE);
 		gtk_widget_set_sensitive(fixed_font_button, TRUE);
 	}

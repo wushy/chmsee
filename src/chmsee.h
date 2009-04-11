@@ -62,32 +62,6 @@ typedef struct _ChmSeeClass ChmSeeClass;
 
 struct _ChmSee {
         GtkWindow        parent;
-
-        GtkWidget       *control_notebook;
-        GtkWidget       *html_notebook;
-
-        GtkWidget       *booktree;
-        GtkWidget       *bookmark_tree;
-        GtkWidget       *index_tree;
-
-        GtkWidget       *statusbar;
-        guint            scid_default;
-
-        gboolean         has_toc;
-        gboolean         has_index;
-        gint             pos_x;
-        gint             pos_y;
-        gint             width;
-        gint             height;
-        gint             hpaned_position;
-        gint             lang;
-        gboolean         fullscreen;
-
-        ChmseeIchmfile  *book;
-
-        gchar           *home;
-        gchar           *cache_dir;
-        gchar           *last_dir;
         ChmSeePrivate*  priv;
 };
 
@@ -100,6 +74,18 @@ ChmSee * chmsee_new(const gchar* fname);
 /* void chmsee_open_file(ChmSee *, const gchar *); */
 int chmsee_get_hpaned_position(ChmSee* self);
 void chmsee_set_hpaned_position(ChmSee* self, int hpaned_position);
+const gchar* chmsee_get_cache_dir(ChmSee* self);
+
+const gchar* chmsee_get_variable_font(ChmSee* self);
+void chmsee_set_variable_font(ChmSee* self, const gchar* font_name);
+
+const gchar* chmsee_get_fixed_font(ChmSee* self);
+void chmsee_set_fixed_font(ChmSee* self, const gchar* font_name);
+
+int chmsee_get_lang(ChmSee* self);
+void chmsee_set_lang(ChmSee* self, int lang);
+
+gboolean chmsee_has_book(ChmSee* self);
 
 G_END_DECLS
 

@@ -49,11 +49,36 @@
 #include "ui_bookmarks.h"
 #include "setup.h"
 #include "link.h"
-#include "utils.h"
+#include "utils/utils.h"
 
 #include "models/chmfile-factory.h"
 
 struct _ChmSeePrivate {
+    GtkWidget       *control_notebook;
+    GtkWidget       *html_notebook;
+
+    GtkWidget       *booktree;
+    GtkWidget       *bookmark_tree;
+    GtkWidget       *index_tree;
+
+    GtkWidget       *statusbar;
+    guint            scid_default;
+
+    gboolean         has_toc;
+    gboolean         has_index;
+    gint             pos_x;
+    gint             pos_y;
+    gint             width;
+    gint             height;
+    gint             hpaned_position;
+    gint             lang;
+    gboolean         fullscreen;
+
+    ChmseeIchmfile  *book;
+
+    gchar           *home;
+    gchar           *cache_dir;
+    gchar           *last_dir;
 };
 
 #define selfp (self->priv)
@@ -63,12 +88,14 @@ static void chmsee_class_init(ChmSeeClass *);
 static void chmsee_init(ChmSee *);
 static void chmsee_finalize(GObject *);
 static void chmsee_dispose(GObject* self);
+static void chmsee_load_config(ChmSee *self);
+static void chmsee_save_config(ChmSee *self);
 
 static gboolean delete_cb(GtkWidget *, GdkEvent *, ChmSee *);
 static void destroy_cb(GtkWidget *, ChmSee *);
-static gboolean configure_event_cb(GtkWidget *, GdkEventConfigure *, ChmSee *);
+static gboolean on_configure_event(GtkWidget *, GdkEventConfigure *, ChmSee *);
 
-static gboolean keypress_event_cb(GtkWidget *, GdkEventKey *, ChmSee *);
+static gboolean on_keypress_event(GtkWidget *, GdkEventKey *, ChmSee *);
 static void open_response_cb(GtkWidget *, gint, ChmSee *);
 static void about_response_cb(GtkDialog *, gint, gpointer);
 static void booktree_link_selected_cb(GObject *, Link *, ChmSee *);
@@ -111,7 +138,7 @@ static gboolean on_scroll_event(ChmSee* self, GdkEventScroll* event);
 
 static void chmsee_quit(ChmSee *);
 static void chmsee_open_uri(ChmSee *chmsee, const gchar *uri);
-static void chmsee_open_file(ChmSee *chmsee, const gchar *filename);
+static void chmsee_open_file(ChmSee *self, const gchar *filename);
 static GtkWidget *get_widget(ChmSee *, gchar *);
 static void populate_window(ChmSee *);
 static void display_book(ChmSee *, ChmseeIchmfile *);
@@ -138,7 +165,7 @@ static const GtkTargetEntry view_drop_targets[] = {
 	{ "text/uri-list", 0, 0 }
 };
 
-G_DEFINE_TYPE (ChmSee, chmsee, G_TYPE_OBJECT);
+G_DEFINE_TYPE (ChmSee, chmsee, GTK_TYPE_WINDOW);
 
 static void
 chmsee_class_init(ChmSeeClass *klass)
@@ -153,38 +180,38 @@ static void
 chmsee_init(ChmSee* self)
 {
 	self->priv = CHMSEE_GET_PRIVATE(self);
-	self->home = g_build_filename(g_get_home_dir(), ".chmsee", NULL);
+	selfp->home = g_build_filename(g_get_home_dir(), ".chmsee", NULL);
 
-	g_debug("chmsee home = %s", self->home);
+	g_debug("chmsee home = %s", selfp->home);
 
-	if (!g_file_test(self->home, G_FILE_TEST_IS_DIR))
-		mkdir(self->home, 0777);
+	if (!g_file_test(selfp->home, G_FILE_TEST_IS_DIR))
+		mkdir(selfp->home, 0777);
 
-	self->cache_dir = g_build_filename(self->home, "bookshelf", NULL);
+	selfp->cache_dir = g_build_filename(selfp->home, "bookshelf", NULL);
 
-	if (!g_file_test(self->cache_dir, G_FILE_TEST_IS_DIR))
-		mkdir(self->cache_dir, 0777);
+	if (!g_file_test(selfp->cache_dir, G_FILE_TEST_IS_DIR))
+		mkdir(selfp->cache_dir, 0777);
 
-	self->lang = 0;
-	self->last_dir = g_strdup(g_get_home_dir());
+	selfp->lang = 0;
+	selfp->last_dir = g_strdup(g_get_home_dir());
 
-	self->book = NULL;
-	self->html_notebook = NULL;
-	self->pos_x = -100;
-	self->pos_y = -100;
-	self->width = 0;
-	self->height = 0;
-	self->hpaned_position = -1;
-	self->has_toc = FALSE;
-	self->has_index = FALSE;
-	self->fullscreen = FALSE;
+	selfp->book = NULL;
+	selfp->html_notebook = NULL;
+	selfp->pos_x = -100;
+	selfp->pos_y = -100;
+	selfp->width = 0;
+	selfp->height = 0;
+	selfp->hpaned_position = -1;
+	selfp->has_toc = FALSE;
+	selfp->has_index = FALSE;
+	selfp->fullscreen = FALSE;
 
 	gtk_widget_add_events(GTK_WIDGET(self),
 			GDK_STRUCTURE_MASK | GDK_BUTTON_PRESS_MASK );
 
 	g_signal_connect(G_OBJECT (self),
 			"key-press-event",
-			G_CALLBACK (keypress_event_cb),
+			G_CALLBACK (on_keypress_event),
 			self);
 	g_signal_connect(G_OBJECT(self),
 			"scroll-event",
@@ -209,12 +236,40 @@ chmsee_init(ChmSee* self)
 static void
 chmsee_finalize(GObject *object)
 {
+	ChmSee* self = CHMSEE(object);
+
+	if(selfp->home) {
+		g_free(selfp->home);
+		selfp->home = NULL;
+	}
+
+	if(selfp->cache_dir) {
+		g_free(selfp->cache_dir);
+		selfp->cache_dir = NULL;
+	}
+
+	if(selfp->last_dir) {
+		g_free(selfp->last_dir);
+		selfp->last_dir = NULL;
+	}
 	G_OBJECT_CLASS (chmsee_parent_class)->finalize (object);
 }
 
-static void chmsee_dispose(GObject* self)
+static void chmsee_dispose(GObject* gobject)
 {
-	G_OBJECT_CLASS(chmsee_parent_class)->dispose(self);
+	ChmSee* self = CHMSEE(gobject);
+
+	if(selfp->book) {
+		g_object_unref(selfp->book);
+		selfp->book = NULL;
+	}
+
+	if(selfp->html_notebook) {
+		g_object_unref(selfp->html_notebook);
+		selfp->html_notebook = NULL;
+	}
+
+	G_OBJECT_CLASS(chmsee_parent_class)->dispose(gobject);
 }
 
 
@@ -234,25 +289,25 @@ destroy_cb(GtkWidget *widget, ChmSee *chmsee)
 }
 
 static gboolean
-configure_event_cb(GtkWidget *widget, GdkEventConfigure *event, ChmSee *chmsee)
+on_configure_event(GtkWidget *widget, GdkEventConfigure *event, ChmSee *self)
 {
-        if (chmsee->html_notebook != NULL
-            && (event->width != chmsee->width || event->height != chmsee->height))
-                reload_current_page(chmsee);
+        if (selfp->html_notebook != NULL
+            && (event->width != selfp->width || event->height != selfp->height))
+                reload_current_page(self);
 
-        chmsee->width = event->width;
-        chmsee->height = event->height;
-        chmsee->pos_x = event->x;
-        chmsee->pos_y = event->y;
+        selfp->width = event->width;
+        selfp->height = event->height;
+        selfp->pos_x = event->x;
+        selfp->pos_y = event->y;
 
         return FALSE;
 }
 
 static gboolean
-keypress_event_cb(GtkWidget *widget, GdkEventKey *event, ChmSee *self)
+on_keypress_event(GtkWidget *widget, GdkEventKey *event, ChmSee *self)
 {
 	if (event->keyval == GDK_Escape) {
-		if(self->fullscreen) {
+		if(selfp->fullscreen) {
 			gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(get_widget(self, "menu_fullscreen")),
 					FALSE);
 		} else {
@@ -260,12 +315,12 @@ keypress_event_cb(GtkWidget *widget, GdkEventKey *event, ChmSee *self)
 			return TRUE;
 		}
 	} else if(event->keyval == GDK_F11) {
-		if(self->fullscreen) {
+		if(selfp->fullscreen) {
 			gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(get_widget(self, "menu_fullscreen")),
 					FALSE);
 		}
 	} else if(event->keyval == GDK_F9) {
-		if(self->fullscreen) {
+		if(selfp->fullscreen) {
 			set_sidepane_state(self,
 					!gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(get_widget(self, "menu_sidepane"))));
 		}
@@ -291,7 +346,7 @@ open_response_cb(GtkWidget *widget, gint response_id, ChmSee *chmsee)
 }
 
 static void
-booktree_link_selected_cb(GObject *ignored, Link *link, ChmSee *chmsee)
+booktree_link_selected_cb(GObject *ignored, Link *link, ChmSee *self)
 {
         ChmseeIhtml* html;
 
@@ -299,16 +354,16 @@ booktree_link_selected_cb(GObject *ignored, Link *link, ChmSee *chmsee)
         if (!g_ascii_strcasecmp(CHMSEE_NO_LINK, link->uri))
                 return;
 
-        html = get_active_html(chmsee);
+        html = get_active_html(self);
 
-        g_signal_handlers_block_by_func(html, html_open_uri_cb, chmsee);
+        g_signal_handlers_block_by_func(html, html_open_uri_cb, self);
 
         chmsee_ihtml_open_uri(html, g_build_filename(
-                        chmsee_ichmfile_get_dir(chmsee->book), link->uri, NULL));
+                        chmsee_ichmfile_get_dir(selfp->book), link->uri, NULL));
 
-        g_signal_handlers_unblock_by_func(html, html_open_uri_cb, chmsee);
+        g_signal_handlers_unblock_by_func(html, html_open_uri_cb, self);
 
-        check_history(chmsee, html);
+        check_history(self, html);
 }
 
 static void
@@ -325,7 +380,7 @@ control_switch_page_cb(GtkNotebook *notebook, GtkNotebookPage *page, guint new_p
 }
 
 static void
-html_switch_page_cb(GtkNotebook *notebook, GtkNotebookPage *page, guint new_page_num, ChmSee *chmsee)
+html_switch_page_cb(GtkNotebook *notebook, GtkNotebookPage *page, guint new_page_num, ChmSee *self)
 {
   GtkWidget *new_page;
 
@@ -338,30 +393,30 @@ html_switch_page_cb(GtkNotebook *notebook, GtkNotebookPage *page, guint new_page
 
     new_html = g_object_get_data(G_OBJECT (new_page), "html");
 
-    update_tab_title(chmsee, new_html);
+    update_tab_title(self, new_html);
 
     title = chmsee_ihtml_get_title(new_html);
     location = chmsee_ihtml_get_location(new_html);
 
     if (location != NULL && strlen(location)) {
       if (strlen(title)) {
-        ui_bookmarks_set_current_link(UIBOOKMARKS (chmsee->bookmark_tree), title, location);
+        ui_bookmarks_set_current_link(UIBOOKMARKS (selfp->bookmark_tree), title, location);
       } else {
         const gchar *book_title;
 
-        book_title = booktree_get_selected_book_title(BOOKTREE (chmsee->booktree));
-        ui_bookmarks_set_current_link(UIBOOKMARKS (chmsee->bookmark_tree), book_title, location);
+        book_title = booktree_get_selected_book_title(BOOKTREE (selfp->booktree));
+        ui_bookmarks_set_current_link(UIBOOKMARKS (selfp->bookmark_tree), book_title, location);
       }
 
       /* Sync the book tree. */
-      if (chmsee->has_toc)
-        booktree_select_uri(BOOKTREE (chmsee->booktree), location);
+      if (selfp->has_toc)
+        booktree_select_uri(BOOKTREE (selfp->booktree), location);
     }
 
-    check_history(chmsee, new_html);
+    check_history(self, new_html);
   } else {
-    gtk_window_set_title(GTK_WINDOW (chmsee), "ChmSee");
-    check_history(chmsee, NULL);
+    gtk_window_set_title(GTK_WINDOW (self), "ChmSee");
+    check_history(self, NULL);
   }
 }
 
@@ -375,7 +430,7 @@ html_location_changed_cb(ChmseeIhtml *html, const gchar *location, ChmSee *chmse
 }
 
 static gboolean
-html_open_uri_cb(ChmseeIhtml* html, const gchar *uri, ChmSee *chmsee)
+html_open_uri_cb(ChmseeIhtml* html, const gchar *uri, ChmSee *self)
 {
   static const char* prefix = "file://";
   static int prefix_len = 7;
@@ -384,7 +439,7 @@ html_open_uri_cb(ChmseeIhtml* html, const gchar *uri, ChmSee *chmsee)
     /* FIXME: can't disable the DND function of GtkMozEmbed */
     if(g_str_has_suffix(uri, ".chm")
        || g_str_has_suffix(uri, ".CHM")) {
-      chmsee_open_uri(chmsee, uri);
+      chmsee_open_uri(self, uri);
     }
 
     if(g_access(uri+prefix_len, R_OK) < 0) {
@@ -398,31 +453,31 @@ html_open_uri_cb(ChmseeIhtml* html, const gchar *uri, ChmSee *chmsee)
     }
   }
 
-  if ((html == get_active_html(chmsee)) && chmsee->has_toc)
-    booktree_select_uri(BOOKTREE (chmsee->booktree), uri);
+  if ((html == get_active_html(self)) && selfp->has_toc)
+    booktree_select_uri(BOOKTREE (selfp->booktree), uri);
 
   return FALSE;
 }
 
 static void
-html_title_changed_cb(ChmseeIhtml *html, const gchar *title, ChmSee *chmsee)
+html_title_changed_cb(ChmseeIhtml *html, const gchar *title, ChmSee *self)
 {
         const gchar *location;
 
         g_debug("html title changed cb %s", title);
 
-        update_tab_title(chmsee, get_active_html(chmsee));
+        update_tab_title(self, get_active_html(self));
 
         location = chmsee_ihtml_get_location(html);
 
         if (location != NULL && strlen(location)) {
                 if (strlen(title))
-                        ui_bookmarks_set_current_link(UIBOOKMARKS (chmsee->bookmark_tree), title, location);
+                        ui_bookmarks_set_current_link(UIBOOKMARKS (selfp->bookmark_tree), title, location);
                 else {
                         const gchar *book_title;
 
-                        book_title = booktree_get_selected_book_title(BOOKTREE (chmsee->booktree));
-                        ui_bookmarks_set_current_link(UIBOOKMARKS (chmsee->bookmark_tree), book_title, location);
+                        book_title = booktree_get_selected_book_title(BOOKTREE (selfp->booktree));
+                        ui_bookmarks_set_current_link(UIBOOKMARKS (selfp->bookmark_tree), book_title, location);
                 }
         }
 }
@@ -534,7 +589,7 @@ html_link_message_cb(ChmseeIhtml *html, const gchar *url, ChmSee *chmsee)
 /* Toolbar button events */
 
 static void
-on_open(GtkWidget *widget, ChmSee *chmsee)
+on_open(GtkWidget *widget, ChmSee *self)
 {
         GladeXML *glade;
         GtkWidget *dialog;
@@ -547,7 +602,7 @@ on_open(GtkWidget *widget, ChmSee *chmsee)
         g_signal_connect(G_OBJECT (dialog),
                          "response",
                          G_CALLBACK (open_response_cb),
-                         chmsee);
+                         self);
 
         /* File list fiter */
         filter = gtk_file_filter_new();
@@ -561,23 +616,24 @@ on_open(GtkWidget *widget, ChmSee *chmsee)
         gtk_file_chooser_add_filter(GTK_FILE_CHOOSER (dialog), filter);
 
         /* Previous opened folder */
-        if (chmsee->last_dir)
-                gtk_file_chooser_set_current_folder(GTK_FILE_CHOOSER (dialog), chmsee->last_dir);
+        if (selfp->last_dir) {
+                gtk_file_chooser_set_current_folder(GTK_FILE_CHOOSER (dialog), selfp->last_dir);
+        }
 
 	g_object_unref(glade);
 }
 
 static void
-on_close_tab(GtkWidget *widget, ChmSee *chmsee)
+on_close_tab(GtkWidget *widget, ChmSee *self)
 {
         gint num_pages, number, i;
         GtkWidget *tab_label, *page;
 
         number = -1;
-        num_pages = gtk_notebook_get_n_pages(GTK_NOTEBOOK (chmsee->html_notebook));
+        num_pages = gtk_notebook_get_n_pages(GTK_NOTEBOOK (selfp->html_notebook));
 
         if (num_pages == 1) {
-                chmsee_quit(chmsee);
+                chmsee_quit(self);
 
                 return;
         }
@@ -586,9 +642,9 @@ on_close_tab(GtkWidget *widget, ChmSee *chmsee)
                 GList *children, *l;
 
                 g_debug("page %d", i);
-                page = gtk_notebook_get_nth_page(GTK_NOTEBOOK (chmsee->html_notebook), i);
+                page = gtk_notebook_get_nth_page(GTK_NOTEBOOK (selfp->html_notebook), i);
 
-                tab_label = gtk_notebook_get_tab_label(GTK_NOTEBOOK (chmsee->html_notebook), page);
+                tab_label = gtk_notebook_get_tab_label(GTK_NOTEBOOK (selfp->html_notebook), page);
                 g_message("tab_label");
                 children = gtk_container_get_children(GTK_CONTAINER (tab_label));
 
@@ -601,7 +657,7 @@ on_close_tab(GtkWidget *widget, ChmSee *chmsee)
                 }
 
                 if (number >= 0) {
-                        gtk_notebook_remove_page(GTK_NOTEBOOK (chmsee->html_notebook), number);
+                        gtk_notebook_remove_page(GTK_NOTEBOOK (selfp->html_notebook), number);
 
                         break;
                 }
@@ -609,13 +665,13 @@ on_close_tab(GtkWidget *widget, ChmSee *chmsee)
 }
 
 static void
-on_copy(GtkWidget *widget, ChmSee *chmsee)
+on_copy(GtkWidget *widget, ChmSee *self)
 {
         g_message("On Copy");
 
-        g_return_if_fail(GTK_IS_NOTEBOOK (chmsee->html_notebook));
+        g_return_if_fail(GTK_IS_NOTEBOOK (selfp->html_notebook));
 
-        chmsee_ihtml_copy_selection(get_active_html(chmsee));
+        chmsee_ihtml_copy_selection(get_active_html(self));
 }
 
 static void
@@ -635,15 +691,15 @@ on_copy_page_location(GtkWidget* widget, ChmSee* chmsee) {
 }
 
 static void
-on_select_all(GtkWidget *widget, ChmSee *chmsee)
+on_select_all(GtkWidget *widget, ChmSee *self)
 {
         ChmseeIhtml *html;
 
         g_message("On Select All");
 
-        g_return_if_fail(GTK_IS_NOTEBOOK (chmsee->html_notebook));
+        g_return_if_fail(GTK_IS_NOTEBOOK (selfp->html_notebook));
 
-        html = get_active_html(chmsee);
+        html = get_active_html(self);
         chmsee_ihtml_select_all(html);
 }
 
@@ -666,10 +722,10 @@ on_forward(GtkWidget *widget, ChmSee *chmsee)
 }
 
 static void
-on_home(GtkWidget *widget, ChmSee *chmsee)
+on_home(GtkWidget *widget, ChmSee *self)
 {
-  if (chmsee_ichmfile_get_home(chmsee->book) != NULL) {
-    open_homepage(chmsee);
+  if (chmsee_ichmfile_get_home(selfp->book) != NULL) {
+    open_homepage(self);
   }
 }
 
@@ -732,37 +788,37 @@ hpanes_toggled_cb(GtkToggleToolButton *widget, ChmSee *self)
 }
 
 static void
-on_open_new_tab(GtkWidget *widget, ChmSee *chmsee)
+on_open_new_tab(GtkWidget *widget, ChmSee *self)
 {
         ChmseeIhtml *html;
         const gchar *location;
 
         g_message("Open new tab");
 
-        g_return_if_fail(GTK_IS_NOTEBOOK (chmsee->html_notebook));
+        g_return_if_fail(GTK_IS_NOTEBOOK (selfp->html_notebook));
 
-        html = get_active_html(chmsee);
+        html = get_active_html(self);
         location = chmsee_ihtml_get_location(html);
 
         if (location != NULL) {
-          new_tab(chmsee, location);
+          new_tab(self, location);
         }
 }
 
 static void
-on_close_current_tab(GtkWidget *widget, ChmSee *chmsee)
+on_close_current_tab(GtkWidget *widget, ChmSee *self)
 {
-        g_return_if_fail(GTK_IS_NOTEBOOK (chmsee->html_notebook));
+        g_return_if_fail(GTK_IS_NOTEBOOK (selfp->html_notebook));
 
-        if (gtk_notebook_get_n_pages(GTK_NOTEBOOK (chmsee->html_notebook)) == 1)
-                return chmsee_quit(chmsee);
+        if (gtk_notebook_get_n_pages(GTK_NOTEBOOK (selfp->html_notebook)) == 1)
+                return chmsee_quit(self);
 
         gint page_num;
 
-        page_num = gtk_notebook_get_current_page(GTK_NOTEBOOK (chmsee->html_notebook));
+        page_num = gtk_notebook_get_current_page(GTK_NOTEBOOK (selfp->html_notebook));
 
         if (page_num >= 0)
-                gtk_notebook_remove_page(GTK_NOTEBOOK (chmsee->html_notebook), page_num);
+                gtk_notebook_remove_page(GTK_NOTEBOOK (selfp->html_notebook), page_num);
 }
 
 static void
@@ -791,27 +847,21 @@ on_context_copy_link(GtkWidget *widget, ChmSee *chmsee)
 /* internal functions */
 
 static void
-chmsee_quit(ChmSee *chmsee)
+chmsee_quit(ChmSee *self)
 {
-  if (chmsee->book) {
-    close_current_book(chmsee);
+  if (selfp->book) {
+    close_current_book(self);
   }
 
-  save_chmsee_config(chmsee);
+  chmsee_save_config(self);
 
-  g_free(chmsee->home);
-  g_free(chmsee->cache_dir);
-  g_free(chmsee->last_dir);
   g_free(context_menu_link);
 
-  if(get_active_html(chmsee)) {
-    chmsee_ihtml_shutdown(get_active_html(chmsee));
+  if(get_active_html(self)) {
+    chmsee_ihtml_shutdown(get_active_html(self));
   }
 
   gtk_main_quit();
-  exit(0);
-
-  g_message("chmsee quit");
 }
 
 static GtkWidget *
@@ -1078,8 +1128,8 @@ populate_window(ChmSee *self)
         gtk_widget_hide(control_vbox);
 
         /* status bar */
-        self->statusbar = glade_xml_get_widget(glade, "statusbar");
-        self->scid_default = gtk_statusbar_get_context_id(GTK_STATUSBAR (self->statusbar),
+        selfp->statusbar = glade_xml_get_widget(glade, "statusbar");
+        selfp->scid_default = gtk_statusbar_get_context_id(GTK_STATUSBAR (selfp->statusbar),
                                                             "default");
         update_status_bar(self, _("Ready!"));
 }
@@ -1096,29 +1146,29 @@ display_book(ChmSee* self, ChmseeIchmfile *book)
 	g_message("display book");
 
 	/* Close currently opened book */
-	if (self->book)
+	if (selfp->book)
 		close_current_book(self);
 
-	self->book = book;
+	selfp->book = book;
 
 	control_vbox = get_widget(self, "control_vbox");
 
 	/* Book contents TreeView widget */
-	self->control_notebook = gtk_notebook_new();
+	selfp->control_notebook = gtk_notebook_new();
 
 	gtk_box_pack_start(GTK_BOX (control_vbox),
-			GTK_WIDGET (self->control_notebook),
+			GTK_WIDGET (selfp->control_notebook),
 			TRUE,
 			TRUE,
 			2);
-	g_signal_connect(G_OBJECT (self->control_notebook),
+	g_signal_connect(G_OBJECT (selfp->control_notebook),
 			"switch-page",
 			G_CALLBACK (control_switch_page_cb),
 			self);
 
 	/* TOC */
-	if (chmsee_ichmfile_get_link_tree(self->book) != NULL) {
-		link_tree = chmsee_ichmfile_get_link_tree(self->book);
+	if (chmsee_ichmfile_get_link_tree(selfp->book) != NULL) {
+		link_tree = chmsee_ichmfile_get_link_tree(selfp->book);
 
 		booktree_sw = gtk_scrolled_window_new(NULL, NULL);
 		gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW (booktree_sw),
@@ -1128,31 +1178,31 @@ display_book(ChmSee* self, ChmseeIchmfile *book)
 				GTK_SHADOW_IN);
 		gtk_container_set_border_width(GTK_CONTAINER (booktree_sw), 2);
 
-		self->booktree = GTK_WIDGET (booktree_new(link_tree));
+		selfp->booktree = GTK_WIDGET (booktree_new(link_tree));
 
-		gtk_container_add(GTK_CONTAINER (booktree_sw), self->booktree);
-		gtk_notebook_append_page(GTK_NOTEBOOK (self->control_notebook),
+		gtk_container_add(GTK_CONTAINER (booktree_sw), selfp->booktree);
+		gtk_notebook_append_page(GTK_NOTEBOOK (selfp->control_notebook),
 				booktree_sw,
 				gtk_label_new(_("Topics")));
 
-		g_signal_connect(G_OBJECT (self->booktree),
+		g_signal_connect(G_OBJECT (selfp->booktree),
 				"link-selected",
 				G_CALLBACK (booktree_link_selected_cb),
 				self);
 
 		g_message("chmsee has toc");
-		self->has_toc = TRUE;
+		selfp->has_toc = TRUE;
 	}
 
 	/* Bookmarks */
-	bookmarks_list = chmsee_ichmfile_get_bookmarks_list(self->book);
-	self->bookmark_tree = GTK_WIDGET (ui_bookmarks_new(bookmarks_list));
+	bookmarks_list = chmsee_ichmfile_get_bookmarks_list(selfp->book);
+	selfp->bookmark_tree = GTK_WIDGET (ui_bookmarks_new(bookmarks_list));
 
-	gtk_notebook_append_page(GTK_NOTEBOOK (self->control_notebook),
-			self->bookmark_tree,
+	gtk_notebook_append_page(GTK_NOTEBOOK (selfp->control_notebook),
+			selfp->bookmark_tree,
 			gtk_label_new (_("Bookmarks")));
 
-	g_signal_connect(G_OBJECT (self->bookmark_tree),
+	g_signal_connect(G_OBJECT (selfp->bookmark_tree),
 			"link-selected",
 			G_CALLBACK (bookmarks_link_selected_cb),
 			self);
@@ -1162,10 +1212,10 @@ display_book(ChmSee* self, ChmseeIchmfile *book)
 	hpaned = get_widget(self, "hpaned1");
 
 	/* HTML tabs notebook */
-	self->html_notebook = gtk_notebook_new();
-	gtk_paned_add2 (GTK_PANED (hpaned), self->html_notebook);
+	selfp->html_notebook = gtk_notebook_new();
+	gtk_paned_add2 (GTK_PANED (hpaned), selfp->html_notebook);
 
-	g_signal_connect(G_OBJECT (self->html_notebook),
+	g_signal_connect(G_OBJECT (selfp->html_notebook),
 			"switch-page",
 			G_CALLBACK (html_switch_page_cb),
 			self);
@@ -1173,8 +1223,8 @@ display_book(ChmSee* self, ChmseeIchmfile *book)
 	gtk_widget_show_all(hpaned);
 	new_tab(self, NULL);
 
-	gtk_notebook_set_current_page(GTK_NOTEBOOK (self->control_notebook),
-			g_list_length(bookmarks_list) && self->has_toc ? 1 : 0);
+	gtk_notebook_set_current_page(GTK_NOTEBOOK (selfp->control_notebook),
+			g_list_length(bookmarks_list) && selfp->has_toc ? 1 : 0);
 
 	/* Toolbar buttons state */
 	GtkWidget *toolbar_button;
@@ -1190,7 +1240,7 @@ display_book(ChmSee* self, ChmseeIchmfile *book)
 	toolbar_button = get_widget(self, "toolbar_zoom_out");
 	gtk_widget_set_sensitive(toolbar_button, TRUE);
 
-	if (chmsee_ichmfile_get_home(self->book)) {
+	if (chmsee_ichmfile_get_home(selfp->book)) {
 		GtkWidget *menu_item;
 
 		open_homepage(self);
@@ -1213,9 +1263,9 @@ display_book(ChmSee* self, ChmseeIchmfile *book)
 	/* Window title */
 	gchar *window_title;
 
-	if (chmsee_ichmfile_get_title(self->book) != NULL
-			&& g_ascii_strcasecmp(chmsee_ichmfile_get_title(self->book), "(null)") != 0 ) {
-		window_title = g_strdup_printf("%s - ChmSee", chmsee_ichmfile_get_title(self->book));
+	if (chmsee_ichmfile_get_title(selfp->book) != NULL
+			&& g_ascii_strcasecmp(chmsee_ichmfile_get_title(selfp->book), "(null)") != 0 ) {
+		window_title = g_strdup_printf("%s - ChmSee", chmsee_ichmfile_get_title(selfp->book));
 	} else {
 		window_title = g_strdup("ChmSee");
 	}
@@ -1224,28 +1274,28 @@ display_book(ChmSee* self, ChmseeIchmfile *book)
 	g_free(window_title);
 
 	chmsee_ihtml_set_variable_font(get_active_html(self),
-			chmsee_ichmfile_get_variable_font(self->book));
+			chmsee_ichmfile_get_variable_font(selfp->book));
 	chmsee_ihtml_set_fixed_font(get_active_html(self),
-			chmsee_ichmfile_get_fixed_font(self->book));
+			chmsee_ichmfile_get_fixed_font(selfp->book));
 
-	if(self->has_toc) {
-		gtk_widget_grab_focus(self->booktree);
+	if(selfp->has_toc) {
+		gtk_widget_grab_focus(selfp->booktree);
 	}
 }
 
 static void
-close_current_book(ChmSee *chmsee)
+close_current_book(ChmSee *self)
 {
-  gchar* bookmark_fname = g_build_filename(chmsee_ichmfile_get_dir(chmsee->book), CHMSEE_BOOKMARK_FILE, NULL);
-  bookmarks_save(ui_bookmarks_get_list(UIBOOKMARKS (chmsee->bookmark_tree)), bookmark_fname);
+  gchar* bookmark_fname = g_build_filename(chmsee_ichmfile_get_dir(selfp->book), CHMSEE_BOOKMARK_FILE, NULL);
+  bookmarks_save(ui_bookmarks_get_list(UIBOOKMARKS (selfp->bookmark_tree)), bookmark_fname);
   g_free(bookmark_fname);
-  g_object_unref(chmsee->book);
-  gtk_widget_destroy(GTK_WIDGET (chmsee->control_notebook));
-  gtk_widget_destroy(GTK_WIDGET (chmsee->html_notebook));
+  g_object_unref(selfp->book);
+  gtk_widget_destroy(GTK_WIDGET (selfp->control_notebook));
+  gtk_widget_destroy(GTK_WIDGET (selfp->html_notebook));
 
-  chmsee->book = NULL;
-  chmsee->control_notebook = NULL;
-  chmsee->html_notebook = NULL;
+  selfp->book = NULL;
+  selfp->control_notebook = NULL;
+  selfp->html_notebook = NULL;
 }
 
 static GtkWidget*
@@ -1283,7 +1333,7 @@ new_tab_content(ChmSee *chmsee, const gchar *str)
 }
 
 static void
-new_tab(ChmSee *chmsee, const gchar *location)
+new_tab(ChmSee *self, const gchar *location)
 {
         ChmseeIhtml  *html;
         GtkWidget    *frame;
@@ -1312,41 +1362,41 @@ new_tab(ChmSee *chmsee, const gchar *location)
         g_object_set_data(G_OBJECT (frame), "html", html);
 
         /* Custom label widget, with a close button */
-        tab_content = new_tab_content(chmsee, _("No Title"));
+        tab_content = new_tab_content(self, _("No Title"));
 
         g_signal_connect(G_OBJECT (html),
                          "title-changed",
                          G_CALLBACK (html_title_changed_cb),
-                         chmsee);
+                         self);
         g_signal_connect(G_OBJECT (html),
                          "open-uri",
                          G_CALLBACK (html_open_uri_cb),
-                         chmsee);
+                         self);
         g_signal_connect(G_OBJECT (html),
                          "location-changed",
                          G_CALLBACK (html_location_changed_cb),
-                         chmsee);
+                         self);
         g_signal_connect(G_OBJECT (html),
                          "context-normal",
                          G_CALLBACK (html_context_normal_cb),
-                         chmsee);
+                         self);
         g_signal_connect(G_OBJECT (html),
                          "context-link",
                          G_CALLBACK (html_context_link_cb),
-                         chmsee);
+                         self);
         g_signal_connect(G_OBJECT (html),
                          "open-new-tab",
                          G_CALLBACK (html_open_new_tab_cb),
-                         chmsee);
+                         self);
         g_signal_connect(G_OBJECT (html),
                          "link-message",
                          G_CALLBACK (html_link_message_cb),
-                         chmsee);
+                         self);
 
-        num = gtk_notebook_append_page(GTK_NOTEBOOK (chmsee->html_notebook),
+        num = gtk_notebook_append_page(GTK_NOTEBOOK (selfp->html_notebook),
                                        frame, tab_content);
 
-        gtk_notebook_set_tab_label_packing(GTK_NOTEBOOK (chmsee->html_notebook),
+        gtk_notebook_set_tab_label_packing(GTK_NOTEBOOK (selfp->html_notebook),
                                            frame,
                                            TRUE, TRUE,
                                            GTK_PACK_START);
@@ -1356,48 +1406,48 @@ new_tab(ChmSee *chmsee, const gchar *location)
         if (location != NULL) {
                 chmsee_ihtml_open_uri(html, location);
 
-                if (chmsee->has_toc)
-                        booktree_select_uri(BOOKTREE (chmsee->booktree), location);
+                if (selfp->has_toc)
+                        booktree_select_uri(BOOKTREE (selfp->booktree), location);
         } else {
                 chmsee_ihtml_clear(html);
         }
 
-        gtk_notebook_set_current_page(GTK_NOTEBOOK (chmsee->html_notebook), num);
+        gtk_notebook_set_current_page(GTK_NOTEBOOK (selfp->html_notebook), num);
 }
 
 static void
-open_homepage(ChmSee *chmsee)
+open_homepage(ChmSee *self)
 {
         ChmseeIhtml *html;
 
-        html = get_active_html(chmsee);
+        html = get_active_html(self);
 
-        g_signal_handlers_block_by_func(html, html_open_uri_cb, chmsee);
+        g_signal_handlers_block_by_func(html, html_open_uri_cb, self);
 
-        chmsee_ihtml_open_uri(html, g_build_filename(chmsee_ichmfile_get_dir(chmsee->book),
-                                             chmsee_ichmfile_get_home(chmsee->book), NULL));
+        chmsee_ihtml_open_uri(html, g_build_filename(chmsee_ichmfile_get_dir(selfp->book),
+                                             chmsee_ichmfile_get_home(selfp->book), NULL));
 
-        g_signal_handlers_unblock_by_func(html, html_open_uri_cb, chmsee);
+        g_signal_handlers_unblock_by_func(html, html_open_uri_cb, self);
 
-        if (chmsee->has_toc) {
-          booktree_select_uri(BOOKTREE (chmsee->booktree),
-                              chmsee_ichmfile_get_home(chmsee->book));
+        if (selfp->has_toc) {
+          booktree_select_uri(BOOKTREE (selfp->booktree),
+                              chmsee_ichmfile_get_home(selfp->book));
         }
 
-        check_history(chmsee, html);
+        check_history(self, html);
 }
 
 static void
-reload_current_page(ChmSee *chmsee)
+reload_current_page(ChmSee *self)
 {
         ChmseeIhtml*html;
         const gchar *location;
 
         g_message("Reload current page");
 
-        g_return_if_fail(GTK_IS_NOTEBOOK (chmsee->html_notebook));
+        g_return_if_fail(GTK_IS_NOTEBOOK (selfp->html_notebook));
 
-        html = get_active_html(chmsee);
+        html = get_active_html(self);
         location = chmsee_ihtml_get_location(html);
 
         if (location != NULL) {
@@ -1406,20 +1456,20 @@ reload_current_page(ChmSee *chmsee)
 }
 
 static ChmseeIhtml *
-get_active_html(ChmSee *chmsee)
+get_active_html(ChmSee *self)
 {
         GtkWidget *frame;
         gint page_num;
 
-        if(!chmsee->html_notebook) {
+        if(!selfp->html_notebook) {
           return NULL;
         }
-        page_num = gtk_notebook_get_current_page(GTK_NOTEBOOK (chmsee->html_notebook));
+        page_num = gtk_notebook_get_current_page(GTK_NOTEBOOK (selfp->html_notebook));
 
         if (page_num == -1)
                 return NULL;
 
-        frame = gtk_notebook_get_nth_page(GTK_NOTEBOOK (chmsee->html_notebook), page_num);
+        frame = gtk_notebook_get_nth_page(GTK_NOTEBOOK (selfp->html_notebook), page_num);
 
         return g_object_get_data(G_OBJECT (frame), "html");
 }
@@ -1445,7 +1495,7 @@ check_history(ChmSee *chmsee, ChmseeIhtml *html)
 }
 
 static void
-update_tab_title(ChmSee *chmsee, ChmseeIhtml *html)
+update_tab_title(ChmSee *self, ChmseeIhtml *html)
 {
   const gchar* html_title;
   const gchar* tab_title;
@@ -1453,8 +1503,8 @@ update_tab_title(ChmSee *chmsee, ChmseeIhtml *html)
 
         html_title = chmsee_ihtml_get_title(html);
 
-        if (chmsee->has_toc)
-                book_title = booktree_get_selected_book_title(BOOKTREE (chmsee->booktree));
+        if (selfp->has_toc)
+                book_title = booktree_get_selected_book_title(BOOKTREE (selfp->booktree));
         else
                 book_title = "";
 
@@ -1469,11 +1519,11 @@ update_tab_title(ChmSee *chmsee, ChmseeIhtml *html)
         else
                 tab_title = g_strdup("");
 
-        tab_set_title(chmsee, html, tab_title);
+        tab_set_title(self, html, tab_title);
 }
 
 static void
-tab_set_title(ChmSee *chmsee, ChmseeIhtml *html, const gchar *title)
+tab_set_title(ChmSee *self, ChmseeIhtml *html, const gchar *title)
 {
         GtkWidget *view;
         GtkWidget *page;
@@ -1485,13 +1535,13 @@ tab_set_title(ChmSee *chmsee, ChmseeIhtml *html, const gchar *title)
         if (title == NULL || title[0] == '\0')
                 title = _("No Title");
 
-        num_pages = gtk_notebook_get_n_pages(GTK_NOTEBOOK (chmsee->html_notebook));
+        num_pages = gtk_notebook_get_n_pages(GTK_NOTEBOOK (selfp->html_notebook));
 
         for (i = 0; i < num_pages; i++) {
-                page = gtk_notebook_get_nth_page(GTK_NOTEBOOK (chmsee->html_notebook), i);
+                page = gtk_notebook_get_nth_page(GTK_NOTEBOOK (selfp->html_notebook), i);
 
                 if (gtk_bin_get_child(GTK_BIN (page)) == view) {
-                        widget = gtk_notebook_get_tab_label(GTK_NOTEBOOK (chmsee->html_notebook), page);
+                        widget = gtk_notebook_get_tab_label(GTK_NOTEBOOK (selfp->html_notebook), page);
 
                         label = g_object_get_data(G_OBJECT (widget), "label");
 
@@ -1504,14 +1554,14 @@ tab_set_title(ChmSee *chmsee, ChmseeIhtml *html, const gchar *title)
 }
 
 static void
-update_status_bar(ChmSee *chmsee, const gchar *message)
+update_status_bar(ChmSee *self, const gchar *message)
 {
         gchar *status;
 
         status = g_strdup_printf(" %s", message);
 
-        gtk_statusbar_pop(GTK_STATUSBAR(chmsee->statusbar), chmsee->scid_default);
-        gtk_statusbar_push(GTK_STATUSBAR(chmsee->statusbar), chmsee->scid_default, status);
+        gtk_statusbar_pop(GTK_STATUSBAR(selfp->statusbar), selfp->scid_default);
+        gtk_statusbar_push(GTK_STATUSBAR(selfp->statusbar), selfp->scid_default, status);
 
         g_free(status);
 }
@@ -1521,69 +1571,69 @@ update_status_bar(ChmSee *chmsee, const gchar *message)
 ChmSee *
 chmsee_new(const gchar* filename)
 {
-        ChmSee *chmsee;
+        ChmSee *self;
 
-        chmsee = g_object_new(TYPE_CHMSEE, NULL);
+        self = g_object_new(TYPE_CHMSEE, NULL);
 
         /* Quit event handle */
-        g_signal_connect(G_OBJECT (chmsee),
+        g_signal_connect(G_OBJECT (self),
                          "delete_event",
                          G_CALLBACK (delete_cb),
-                         chmsee);
-        g_signal_connect(G_OBJECT (chmsee),
+                         self);
+        g_signal_connect(G_OBJECT (self),
                          "destroy",
                          G_CALLBACK (destroy_cb),
-                         chmsee);
+                         self);
 
         /* Widget size changed event handle */
-        g_signal_connect(G_OBJECT (chmsee),
+        g_signal_connect(G_OBJECT (self),
                          "configure-event",
-                         G_CALLBACK (configure_event_cb),
-                         chmsee);
+                         G_CALLBACK (on_configure_event),
+                         self);
 
         /* Init gecko */
         chmsee_html_init_system();
-        chmsee_html_set_default_lang(chmsee->lang);
+        chmsee_html_set_default_lang(selfp->lang);
 
-        populate_window(chmsee);
-        load_chmsee_config(chmsee);
-        if (chmsee->pos_x >= 0 && chmsee->pos_y >= 0)
-                gtk_window_move(GTK_WINDOW (chmsee), chmsee->pos_x, chmsee->pos_y);
+        populate_window(self);
+        chmsee_load_config(self);
+        if (selfp->pos_x >= 0 && selfp->pos_y >= 0)
+                gtk_window_move(GTK_WINDOW (self), selfp->pos_x, selfp->pos_y);
 
-        if (chmsee->width > 0 && chmsee->height > 0)
-                gtk_window_resize(GTK_WINDOW (chmsee), chmsee->width, chmsee->height);
+        if (selfp->width > 0 && selfp->height > 0)
+                gtk_window_resize(GTK_WINDOW (self), selfp->width, selfp->height);
         else
-                gtk_window_resize(GTK_WINDOW (chmsee), 800, 600);
+                gtk_window_resize(GTK_WINDOW (self), 800, 600);
 
-        gtk_window_set_title(GTK_WINDOW (chmsee), "ChmSee");
-        gtk_window_set_icon_from_file(GTK_WINDOW (chmsee), get_resource_path("chmsee-icon.png"), NULL);
+        gtk_window_set_title(GTK_WINDOW (self), "ChmSee");
+        gtk_window_set_icon_from_file(GTK_WINDOW (self), get_resource_path("chmsee-icon.png"), NULL);
 
         if(filename != NULL) {
-        	chmsee_open_file(chmsee, filename);
+        	chmsee_open_file(self, filename);
         }
 
-        return chmsee;
+        return self;
 }
 
 void
-chmsee_open_file(ChmSee *chmsee, const gchar *filename)
+chmsee_open_file(ChmSee *self, const gchar *filename)
 {
         ChmseeIchmfile* book;
 
-        g_return_if_fail(IS_CHMSEE (chmsee));
+        g_return_if_fail(IS_CHMSEE (self));
 
         /* Extract chm and get file infomation */
         book = chmsee_chmfile_new(filename);
 
         if (book) {
-                display_book(chmsee, book);
+                display_book(self, book);
 
-                chmsee->last_dir = g_strdup_printf("%s", g_path_get_dirname(filename));
+                selfp->last_dir = g_strdup_printf("%s", g_path_get_dirname(filename));
         } else {
                 /* Popup an error message dialog */
                 GtkWidget *msg_dialog;
 
-                msg_dialog = gtk_message_dialog_new(GTK_WINDOW (chmsee),
+                msg_dialog = gtk_message_dialog_new(GTK_WINDOW (self),
                                                     GTK_DIALOG_DESTROY_WITH_PARENT,
                                                     GTK_MESSAGE_ERROR,
                                                     GTK_BUTTONS_CLOSE,
@@ -1647,7 +1697,7 @@ int chmsee_get_hpaned_position(ChmSee* self) {
 }
 
 void chmsee_set_hpaned_position(ChmSee* self, int hpaned_position) {
-	self->hpaned_position = hpaned_position;
+	selfp->hpaned_position = hpaned_position;
 	/*
 	g_object_set(G_OBJECT(get_widget(self, "hpaned1")),
 			"position", hpaned_position,
@@ -1724,9 +1774,9 @@ void hide_sidepane(ChmSee* self) {
 
 
 void on_map(ChmSee* self) {
-	if(self->hpaned_position >= 0) {
+	if(selfp->hpaned_position >= 0) {
 	g_object_set(G_OBJECT(get_widget(self, "hpaned1")),
-			"position", self->hpaned_position,
+			"position", selfp->hpaned_position,
 			NULL
 			);
 	}
@@ -1737,14 +1787,14 @@ static void on_fullscreen(ChmSee* self) {
 	gtk_widget_hide(get_widget(self, "handlebox_menu"));
 	gtk_widget_hide(get_widget(self, "handlebox_toolbar"));
 	gtk_widget_hide(get_widget(self, "statusbar"));
-	self->fullscreen = TRUE;
+	selfp->fullscreen = TRUE;
 }
 
 static void on_unfullscreen(ChmSee* self) {
 	gtk_widget_show(get_widget(self, "handlebox_menu"));
 	gtk_widget_show(get_widget(self, "handlebox_toolbar"));
 	gtk_widget_show(get_widget(self, "statusbar"));
-	self->fullscreen = FALSE;
+	selfp->fullscreen = FALSE;
 }
 
 gboolean on_window_state_event(ChmSee* self, GdkEventWindowState* event) {
@@ -1776,3 +1826,122 @@ static gboolean on_scroll_event(ChmSee* self, GdkEventScroll* event) {
 
 	return FALSE;
 }
+
+const gchar* chmsee_get_cache_dir(ChmSee* self) {
+	return selfp->cache_dir;
+}
+
+const gchar* chmsee_get_variable_font(ChmSee* self) {
+	g_return_val_if_fail(selfp->book, NULL);
+	return chmsee_ichmfile_get_variable_font(selfp->book);
+}
+
+void chmsee_set_variable_font(ChmSee* self, const gchar* font_name) {
+	g_return_if_fail(selfp->book);
+    chmsee_ichmfile_set_variable_font(selfp->book, font_name);
+}
+
+const gchar* chmsee_get_fixed_font(ChmSee* self) {
+	g_return_val_if_fail(selfp->book, NULL);
+	return chmsee_ichmfile_get_fixed_font(selfp->book);
+}
+
+void chmsee_set_fixed_font(ChmSee* self, const gchar* font_name) {
+	g_return_if_fail(selfp->book);
+    chmsee_ichmfile_set_fixed_font(selfp->book, font_name);
+}
+
+int chmsee_get_lang(ChmSee* self) {
+	return selfp->lang;
+}
+void chmsee_set_lang(ChmSee* self, int lang) {
+	selfp->lang = lang;
+}
+
+gboolean chmsee_has_book(ChmSee* self) {
+	return selfp->book != NULL;
+}
+
+void
+chmsee_load_config(ChmSee *self)
+{
+	GList *pairs, *list;
+	gchar *path;
+
+	path = g_build_filename(selfp->home, "config", NULL);
+
+	g_debug("config path = %s", path);
+
+	pairs = parse_config_file("config", path);
+
+	for (list = pairs; list; list = list->next) {
+		Item *item;
+
+		item = list->data;
+
+		/* Get user prefered language */
+		if (strstr(item->id, "LANG")) {
+			selfp->lang = atoi(item->value);
+			continue;
+		}
+
+		/* Get last directory */
+		if (strstr(item->id, "LAST_DIR")) {
+			selfp->last_dir = g_strdup(item->value);
+			continue;
+		}
+
+		/* Get window position */
+		if (strstr(item->id, "POS_X")) {
+			selfp->pos_x = atoi(item->value);
+			continue;
+		}
+		if (strstr(item->id, "POS_Y")) {
+			selfp->pos_y = atoi(item->value);
+			continue;
+		}
+		if (strstr(item->id, "WIDTH")) {
+			selfp->width = atoi(item->value);
+			continue;
+		}
+		if (strstr(item->id, "HEIGHT")) {
+			selfp->height = atoi(item->value);
+			continue;
+		}
+		if(strstr(item->id, "HPANED_POSTION")) {
+			chmsee_set_hpaned_position(self, atoi(item->value));
+			continue;
+		}
+	}
+
+	free_config_list(pairs);
+	g_free(path);
+}
+
+void
+chmsee_save_config(ChmSee *self)
+{
+        FILE *file;
+        gchar *path;
+
+        path = g_build_filename(selfp->home, "config", NULL);
+
+        file = fopen(path, "w");
+
+        if (!file) {
+                g_print("Faild to open chmsee config: %s", path);
+                return;
+        }
+
+        save_option(file, "LANG", g_strdup_printf("%d", selfp->lang));
+        save_option(file, "LAST_DIR", selfp->last_dir);
+        save_option(file, "POS_X", g_strdup_printf("%d", selfp->pos_x));
+        save_option(file, "POS_Y", g_strdup_printf("%d", selfp->pos_y));
+        save_option(file, "WIDTH", g_strdup_printf("%d", selfp->width));
+        save_option(file, "HEIGHT", g_strdup_printf("%d", selfp->height));
+        save_option(file, "HPANED_POSTION", g_strdup_printf("%d", chmsee_get_hpaned_position(self)));
+
+        fclose(file);
+        g_free(path);
+}
+

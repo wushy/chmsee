@@ -36,7 +36,7 @@
 
 #include "chmsee.h"
 #include "startup.h"
-#include "utils.h"
+#include "utils/utils.h"
 
 static void dummy_log_handler (const gchar *log_domain,
                                GLogLevelFlags log_level,
@@ -113,7 +113,8 @@ main(int argc, char** argv)
                          ,
                          options,
                          g_strdup(GETTEXT_PACKAGE),
-                         &error)) {
+                         &error))
+  {
     g_printerr("%s\n", error->message);
     return 1;
   }

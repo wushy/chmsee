@@ -49,7 +49,7 @@ gchar *convert_string_to_utf8(const gchar *, const gchar *);
 gint ncase_compare_utf8_string(const gchar *, const gchar *);
 gchar *file_exist_ncase(const gchar *);
 char *url_decode(const char*);
-void command_delete_tmpdir(char *);
+void command_delete_tmpdir(const gchar *);
 gchar *get_real_uri(const gchar *);
 
 /**

@@ -25,9 +25,9 @@ link_directories(
 
 set(CHMSEE_SRCS
   booktree.c chmsee.c gecko_utils.cpp html.c
-  setup.c startup.c ui_bookmarks.c utils.c booktree.h chmsee.h
+  setup.c startup.c ui_bookmarks.c booktree.h chmsee.h
   gecko_utils.h html.h setup.h startup.h ui_bookmarks.h
-  utils.h marshal.h marshal.c
+  marshal.h marshal.c
   ihtml.h ihtml.c
   html-factory.h html-factory.c
   )

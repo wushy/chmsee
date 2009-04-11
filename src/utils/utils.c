@@ -184,7 +184,7 @@ url_decode(const char *encoded)
 }
 
 void
-command_delete_tmpdir(char *s_path)
+command_delete_tmpdir(const gchar *s_path)
 {
   char *argv[4];
 
