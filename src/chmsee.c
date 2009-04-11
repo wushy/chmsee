@@ -53,9 +53,16 @@
 
 #include "models/chmfile-factory.h"
 
+struct _ChmSeePrivate {
+};
+
+#define selfp (self->priv)
+#define CHMSEE_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), TYPE_CHMSEE, ChmSeePrivate))
+
 static void chmsee_class_init(ChmSeeClass *);
 static void chmsee_init(ChmSee *);
 static void chmsee_finalize(GObject *);
+static void chmsee_dispose(GObject* self);
 
 static gboolean delete_cb(GtkWidget *, GdkEvent *, ChmSee *);
 static void destroy_cb(GtkWidget *, ChmSee *);
@@ -136,15 +143,16 @@ G_DEFINE_TYPE (ChmSee, chmsee, G_TYPE_OBJECT);
 static void
 chmsee_class_init(ChmSeeClass *klass)
 {
-        GObjectClass *object_class = G_OBJECT_CLASS(klass);
-        GtkWidgetClass *widget_class = GTK_WIDGET_CLASS(klass);
-        object_class->finalize = chmsee_finalize;
-        widget_class->drag_data_received = chmsee_drag_data_received;
+	g_type_class_add_private(klass, sizeof(ChmSeePrivate));
+	G_OBJECT_CLASS(klass)->finalize = chmsee_finalize;
+	G_OBJECT_CLASS(klass)->dispose = chmsee_dispose;
+	GTK_WIDGET_CLASS(klass)->drag_data_received = chmsee_drag_data_received;
 }
 
 static void
 chmsee_init(ChmSee* self)
 {
+	self->priv = CHMSEE_GET_PRIVATE(self);
 	self->home = g_build_filename(g_get_home_dir(), ".chmsee", NULL);
 
 	g_debug("chmsee home = %s", self->home);
@@ -203,6 +211,12 @@ chmsee_finalize(GObject *object)
 {
 	G_OBJECT_CLASS (chmsee_parent_class)->finalize (object);
 }
+
+static void chmsee_dispose(GObject* self)
+{
+	G_OBJECT_CLASS(chmsee_parent_class)->dispose(self);
+}
+
 
 /* callbacks */
 

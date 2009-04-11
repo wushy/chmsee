@@ -43,6 +43,7 @@
 G_BEGIN_DECLS
 
 typedef struct _ChmSee      ChmSee;
+typedef struct _ChmSeePrivate ChmSeePrivate;
 typedef struct _ChmSeeClass ChmSeeClass;
 
 #define TYPE_CHMSEE \
@@ -87,6 +88,7 @@ struct _ChmSee {
         gchar           *home;
         gchar           *cache_dir;
         gchar           *last_dir;
+        ChmSeePrivate*  priv;
 };
 
 struct _ChmSeeClass {
