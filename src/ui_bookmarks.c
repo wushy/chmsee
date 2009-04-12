@@ -16,13 +16,13 @@
  *  the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
  *  Boston, MA 02110-1301, USA.
  */
- 
+
 #include "ui_bookmarks.h"
 
 #include <stdio.h>
 #include <string.h>
 
-#include "utils.h"
+#include "utils/utils.h"
 
 static void bookmarks_init(UiBookmarks *);
 static void bookmarks_class_init(UiBookmarksClass *);
@@ -72,12 +72,12 @@ ui_bookmarks_get_type(void)
                                 0,
                                 (GInstanceInitFunc)bookmarks_init,
                         };
-                
+
                 type = g_type_register_static(GTK_TYPE_VBOX,
-                                              "Bookmarks", 
+                                              "Bookmarks",
                                               &info, 0);
         }
-        
+
         return type;
 }
 
@@ -85,22 +85,22 @@ static void
 bookmarks_class_init(UiBookmarksClass *klass)
 {
         GObjectClass *object_class;
-        
+
         object_class = (GObjectClass *)klass;
         parent_class = g_type_class_peek_parent(klass);
-        
+
         object_class->finalize = bookmarks_finalize;
-        
+
         signals[LINK_SELECTED] =
                 g_signal_new("link_selected",
                              G_TYPE_FROM_CLASS (klass),
                              G_SIGNAL_RUN_LAST,
                              G_STRUCT_OFFSET (UiBookmarksClass, link_selected),
-                             NULL, 
+                             NULL,
                              NULL,
                              g_cclosure_marshal_VOID__POINTER,
                              G_TYPE_NONE,
-                             1, 
+                             1,
                              G_TYPE_POINTER);
 }
 
@@ -111,8 +111,8 @@ bookmarks_init(UiBookmarks *bookmarks)
         bookmarks->links = NULL;
 
         bookmarks->list = gtk_tree_view_new();
-        bookmarks->store = gtk_list_store_new(N_COLUMNS, 
-                                              G_TYPE_STRING, 
+        bookmarks->store = gtk_list_store_new(N_COLUMNS,
+                                              G_TYPE_STRING,
                                               G_TYPE_STRING);
 
         gtk_tree_view_set_model(GTK_TREE_VIEW (bookmarks->list),
@@ -143,10 +143,10 @@ row_activated_cb(GtkTreeView *tree_view, GtkTreePath *path,
         Link *link;
 
         gtk_tree_model_get_iter(model, &iter, path);
-        gtk_tree_model_get(model, 
-                           &iter, 
-                           COL_TITLE, &title, 
-                           COL_URI, &uri, 
+        gtk_tree_model_get(model,
+                           &iter,
+                           COL_TITLE, &title,
+                           COL_URI, &uri,
                            -1);
 
         find_link = g_list_find_custom(bookmarks->links, uri, link_uri_compare);
@@ -167,14 +167,14 @@ selection_changed_cb(GtkTreeSelection *selection, UiBookmarks *bookmarks)
 }
 
 static void
-entry_changed_cb(GtkEntry *entry, UiBookmarks *bookmarks) 
+entry_changed_cb(GtkEntry *entry, UiBookmarks *bookmarks)
 {
         const gchar *name;
         gint length;
 
         name = gtk_entry_get_text(entry);
         length = strlen(name);
-        
+
         if (length >= 2)
                 gtk_widget_set_sensitive(bookmarks->add_button, TRUE);
         else
@@ -201,12 +201,12 @@ on_bookmark_add(GtkWidget *widget, UiBookmarks *bookmarks)
                 link = LINK (find_link->data);
 
                 /* Update bookmark item name */
-                if (ncase_compare_utf8_string(link->name, name) != 0) { 
+                if (ncase_compare_utf8_string(link->name, name) != 0) {
                         g_free(link->name);
                         link->name = g_strdup(name);
                 }
         }
-        
+
         g_free(name);
         update_bookmarks_treeview(bookmarks, link->uri);
 }
@@ -234,7 +234,7 @@ on_bookmark_remove(GtkWidget *widget, UiBookmarks *bookmarks)
                 Link *link = (Link *)list->data;
                 bookmarks->links = g_list_remove(bookmarks->links, link);
                 link_free(link);
-                
+
                 update_bookmarks_treeview(bookmarks, NULL);
         }
 }
@@ -250,7 +250,7 @@ update_bookmarks_treeview(UiBookmarks *bookmarks, gchar *uri)
 
         selection = gtk_tree_view_get_selection(GTK_TREE_VIEW (bookmarks->list));
         gtk_list_store_clear(bookmarks->store);
-        
+
         for (l = bookmarks->links; l; l = l->next) {
                 Link *link = l->data;
 
@@ -287,20 +287,20 @@ ui_bookmarks_new(GList *links)
         GtkWidget        *hbox;
 
         GtkCellRenderer  *cell;
-                
+
         bookmarks = g_object_new(TYPE_UIBOOKMARKS, NULL);
 
         gtk_container_set_border_width(GTK_CONTAINER (bookmarks), 2);
-        
+
         bookmarks->links = links;
-        
+
         /* bookmarks list */
         frame = gtk_frame_new(NULL);
         gtk_frame_set_shadow_type(GTK_FRAME (frame), GTK_SHADOW_IN);
-        
+
         list_sw = gtk_scrolled_window_new(NULL, NULL);
         gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW (list_sw),
-                                       GTK_POLICY_NEVER, 
+                                       GTK_POLICY_NEVER,
                                        GTK_POLICY_AUTOMATIC);
 
         gtk_container_add(GTK_CONTAINER (frame), list_sw);
@@ -309,8 +309,8 @@ ui_bookmarks_new(GList *links)
         g_object_set(cell,
                      "ellipsize", PANGO_ELLIPSIZE_END,
                      NULL);
-        
-        gtk_tree_view_insert_column_with_attributes(GTK_TREE_VIEW (bookmarks->list), 
+
+        gtk_tree_view_insert_column_with_attributes(GTK_TREE_VIEW (bookmarks->list),
                                                     -1,
                                                     _("Bookmark"), cell,
                                                     "text", 0,
@@ -321,16 +321,16 @@ ui_bookmarks_new(GList *links)
 
         selection = gtk_tree_view_get_selection(GTK_TREE_VIEW (bookmarks->list));
 
-        g_signal_connect(selection, 
+        g_signal_connect(selection,
                          "changed",
                          G_CALLBACK (selection_changed_cb),
                          bookmarks);
-        
-        g_signal_connect(bookmarks->list, 
+
+        g_signal_connect(bookmarks->list,
                          "row_activated",
                          G_CALLBACK (row_activated_cb),
                          bookmarks);
-        
+
         gtk_container_add(GTK_CONTAINER (list_sw), bookmarks->list);
 
         gtk_box_pack_start(GTK_BOX (bookmarks), frame, TRUE, TRUE, 0);
@@ -338,8 +338,8 @@ ui_bookmarks_new(GList *links)
         /* bookmark title */
         bookmarks->entry = gtk_entry_new();
 
-        g_signal_connect(bookmarks->entry, 
-                         "changed", 
+        g_signal_connect(bookmarks->entry,
+                         "changed",
                          G_CALLBACK (entry_changed_cb),
                          bookmarks);
 
@@ -350,13 +350,13 @@ ui_bookmarks_new(GList *links)
 
         bookmarks->add_button = gtk_button_new_from_stock(GTK_STOCK_ADD);
 
-        g_signal_connect(G_OBJECT (bookmarks->add_button), 
+        g_signal_connect(G_OBJECT (bookmarks->add_button),
                          "clicked",
                          G_CALLBACK (on_bookmark_add),
                          bookmarks);
 
         bookmarks->remove_button = gtk_button_new_from_stock(GTK_STOCK_REMOVE);
-        g_signal_connect(G_OBJECT (bookmarks->remove_button), 
+        g_signal_connect(G_OBJECT (bookmarks->remove_button),
                          "clicked",
                          G_CALLBACK (on_bookmark_remove),
                          bookmarks);
@@ -378,11 +378,11 @@ ui_bookmarks_set_current_link(UiBookmarks *bookmarks, const gchar *name,
 {
         g_return_if_fail(IS_UIBOOKMARKS (bookmarks));
 
-        g_message("Call bookmarks_set_current_link");
+        g_debug("call bookmarks_set_current_link");
 
         g_debug("set entry text: %s", name);
         gtk_entry_set_text(GTK_ENTRY (bookmarks->entry), name);
-        
+
         gtk_editable_set_position(GTK_EDITABLE (bookmarks->entry), -1);
         gtk_editable_select_region(GTK_EDITABLE (bookmarks->entry), -1, -1);
 

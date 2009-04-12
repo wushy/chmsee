@@ -68,7 +68,7 @@
 #include <nsILocaleService.h>
 #include <nsStringAPI.h>
 
-#include "utils.h"
+#include "utils/utils.h"
 
 #define LANG_TYPES_NUM 	7
 

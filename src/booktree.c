@@ -19,7 +19,7 @@
 
 #include "config.h"
 #include "booktree.h"
-#include "utils.h"
+#include "utils/utils.h"
 
 static void booktree_class_init(BookTreeClass *);
 static void booktree_init(BookTree *);
@@ -322,7 +322,7 @@ booktree_select_uri(BookTree *tree, const gchar *uri)
                                &data);
 
         if (!data.found) {
-                g_message("booktree select uri: cannot found data");
+                g_debug("booktree select uri: cannot found data");
                 return;
         }
 

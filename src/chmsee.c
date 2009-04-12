@@ -1143,7 +1143,7 @@ display_book(ChmSee* self, ChmseeIchmfile *book)
 	GtkWidget *booktree_sw;
 	GtkWidget *control_vbox;
 
-	g_message("display book");
+	g_debug("display book");
 
 	/* Close currently opened book */
 	if (selfp->book)
@@ -1178,7 +1178,11 @@ display_book(ChmSee* self, ChmseeIchmfile *book)
 				GTK_SHADOW_IN);
 		gtk_container_set_border_width(GTK_CONTAINER (booktree_sw), 2);
 
-		selfp->booktree = GTK_WIDGET (booktree_new(link_tree));
+		selfp->booktree = GTK_WIDGET(g_object_ref_sink(booktree_new(link_tree)));
+		g_signal_connect_swapped(selfp->booktree,
+				"scroll-event",
+				G_CALLBACK(on_scroll_event),
+				self);
 
 		gtk_container_add(GTK_CONTAINER (booktree_sw), selfp->booktree);
 		gtk_notebook_append_page(GTK_NOTEBOOK (selfp->control_notebook),
@@ -1190,7 +1194,7 @@ display_book(ChmSee* self, ChmseeIchmfile *book)
 				G_CALLBACK (booktree_link_selected_cb),
 				self);
 
-		g_message("chmsee has toc");
+		g_debug("chmsee has toc");
 		selfp->has_toc = TRUE;
 	}
 
@@ -1348,6 +1352,10 @@ new_tab(ChmSee *self, const gchar *location)
                 return;
 
         html = chmsee_html_new();
+        g_signal_connect_swapped(chmsee_ihtml_get_widget(html),
+        		"dom-mouse-click",
+        		G_CALLBACK(on_scroll_event),
+        		self);
 
         view = chmsee_ihtml_get_widget(html);
         gtk_widget_show(view);
@@ -1392,6 +1400,10 @@ new_tab(ChmSee *self, const gchar *location)
                          "link-message",
                          G_CALLBACK (html_link_message_cb),
                          self);
+        g_signal_connect_swapped(chmsee_ihtml_get_widget(html),
+        		"scroll-event",
+        		G_CALLBACK(on_scroll_event),
+        		self);
 
         num = gtk_notebook_append_page(GTK_NOTEBOOK (selfp->html_notebook),
                                        frame, tab_content);
@@ -1817,8 +1829,10 @@ gboolean on_window_state_event(ChmSee* self, GdkEventWindowState* event) {
 static gboolean on_scroll_event(ChmSee* self, GdkEventScroll* event) {
 	if(event->direction == GDK_SCROLL_UP && (event->state & GDK_CONTROL_MASK)) {
 		on_zoom_in(NULL, self);
+		return TRUE;
 	} else if(event->direction == GDK_SCROLL_DOWN && (event->state & GDK_CONTROL_MASK)) {
 		on_zoom_out(NULL, self);
+		return TRUE;
 	} else {
 		g_debug("event->direction: %d", event->direction);
 		g_debug("event->state: %x", event->state);

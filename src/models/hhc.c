@@ -77,106 +77,114 @@ static xmlSAXHandler hhSAXHandlerStruct = {
 
 static xmlSAXHandlerPtr hhSAXHandler = &hhSAXHandlerStruct;
 
+static const gchar* get_attr(const gchar** attrs, const gchar* key) {
+	while(*attrs) {
+		if(g_ascii_strcasecmp(*attrs, key) == 0) {
+			return *(attrs+1);
+		}
+		attrs += 2;
+	}
+	return NULL;
+}
+
 static void
 startDocumentHH(void *ctx)
 {
-  g_message("SAX.startDocument()");
+  g_debug("SAX.startDocument()");
 }
 
 static void
 endDocumentHH(void *ctx)
 {
-  g_message("SAX.endDocument()");
+  g_debug("SAX.endDocument()");
 }
 
 static void
-startElementHH(void *ctx, const xmlChar *name, const xmlChar **atts)
+startElementHH(void *ctx, const xmlChar *name_, const xmlChar **atts_)
 {
-  g_debug("SAX.startElement(%s)", (char *)name);
-        
-  if (g_ascii_strcasecmp("ul", (char *)name) == 0) {
-    depth++;
-  } else if (g_ascii_strcasecmp("object", (char *)name) == 0) {
-    gchar *type;
+	const gchar* name = (const gchar*) name_;
+	const gchar** atts = (const gchar**) atts_;
 
-    type = g_strdup((gchar *)atts[1]);
+	g_debug("SAX.startElement(%s)", name);
 
-    g_debug("type = %s", type);
+	if (g_ascii_strcasecmp("ul", name) == 0) {
+		depth++;
+	} else if (g_ascii_strcasecmp("object", name) == 0) {
+		const gchar* type = get_attr(atts, "type");
+		if (type && g_ascii_strcasecmp("text/sitemap", type) == 0) {
+			tree_item = TRUE;
+		}
+	} else if (g_ascii_strcasecmp("param", name) == 0) {
+		const gchar *param_name = get_attr(atts, "name");
+		const gchar *param_value = get_attr(atts, "value");
 
-    if (g_ascii_strcasecmp("text/sitemap", type) == 0)
-      tree_item = TRUE;
+		if(param_name == NULL
+				|| param_value == NULL) {
+			return;
+		}
 
-    g_free(type);
-  } else if (g_ascii_strcasecmp("param", (char *)name) == 0) {
-    gchar *param_name;
-    gchar *param_value;
-
-    param_name = g_strdup((gchar *)atts[1]);
-    param_value = g_strdup((gchar *)atts[3]);
-
-    if (tree_item) {
-      if (g_ascii_strcasecmp("Name", param_name) == 0)
-        title = g_strdup(param_value);
-      else if (g_ascii_strcasecmp("Local", param_name) == 0)
-        local = g_strdup(param_value);
-    }
-         
-    g_free(param_name);
-    g_free(param_value);
-  }
+		if (tree_item) {
+			if (g_ascii_strcasecmp("Name", param_name) == 0)
+				title = g_strdup(param_value);
+			else if (g_ascii_strcasecmp("Local", param_name) == 0)
+				local = g_strdup(param_value);
+		}
+	}
 }
 
 static void
-endElementHH(void *ctx, const xmlChar *name)
+endElementHH(void *ctx, const xmlChar *name_)
 {
-  GNode *link_tree = (GNode *)ctx;
-  GNode *node;
-  Link *link;
+	const gchar* name = (const gchar*) name_;
 
-  g_debug("SAX.endElement(%s)", (char *) name);
+	GNode *link_tree = (GNode *)ctx;
+	GNode *node;
+	Link *link;
 
-  if (g_ascii_strcasecmp("ul", (char *)name) == 0) {
-    depth--;
-  } else if (g_ascii_strcasecmp("object", (char *)name) == 0) {
-    if (!tree_item) 
-      return;
+	g_debug("SAX.endElement(%s)", name);
 
-    if (local == NULL) {
-      local = g_strdup(CHMSEE_NO_LINK);
-    }
+	if (g_ascii_strcasecmp("ul", name) == 0) {
+		depth--;
+	} else if (g_ascii_strcasecmp("object", name) == 0) {
+		if (!tree_item)
+			return;
 
-    g_debug("prev_depth = %d", prev_depth);
-    g_debug("depth = %d", depth);
+		if (local == NULL) {
+			local = g_strdup(CHMSEE_NO_LINK);
+		}
 
-    g_debug("title = %s", title);
-    g_debug("local = %s", local);
+		g_debug("prev_depth = %d", prev_depth);
+		g_debug("depth = %d", depth);
 
-    link = link_new(LINK_TYPE_PAGE, 
-                    title ? title : "default title",
-                    local ? local : "default local");
-    node = g_node_new(link);
-                        
-    if (depth == 0) {
-      parent = link_tree;
-    } else {
-      if (depth > prev_depth)
-        parent = prev_node;
-      else
-        for (; depth < prev_depth; prev_depth--)
-          parent = parent->parent;
-    }
-                
-    g_node_append(parent, node);
-    prev_node = node;
+		g_debug("title = %s", title);
+		g_debug("local = %s", local);
 
-    prev_depth = depth;
-    tree_item = FALSE;
+		link = link_new(LINK_TYPE_PAGE,
+				title ? title : "default title",
+						local ? local : "default local");
+		node = g_node_new(link);
 
-    g_free(title);
-    g_free(local);
+		if (depth == 0) {
+			parent = link_tree;
+		} else {
+			if (depth > prev_depth)
+				parent = prev_node;
+			else
+				for (; depth < prev_depth; prev_depth--)
+					parent = parent->parent;
+		}
 
-    title = local = NULL;
-  }
+		g_node_append(parent, node);
+		prev_node = node;
+
+		prev_depth = depth;
+		tree_item = FALSE;
+
+		g_free(title);
+		g_free(local);
+
+		title = local = NULL;
+	}
 }
 
 Hhc *
@@ -190,17 +198,17 @@ hhc_load(const gchar *filename, const gchar *encoding)
   g_debug("parse encoding = %s", encoding);
   g_debug("filename = %s", filename);
 
-  doc = htmlSAXParseFile(filename, 
-                         encoding, 
-                         hhSAXHandler, 
+  doc = htmlSAXParseFile(filename,
+                         encoding,
+                         hhSAXHandler,
                          link_tree);
 
   if (doc != NULL) {
-    g_message("htmlSAXParseFile returned non-NULL");
+    g_warning("htmlSAXParseFile returned non-NULL");
     xmlFreeDoc(doc);
   }
 
-  g_message("Parsing hhc file finish.");
+  g_debug("Parsing hhc file finish.");
 
   return link_tree;
 }

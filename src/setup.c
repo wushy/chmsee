@@ -32,7 +32,7 @@
 
 #include <glade/glade.h>
 
-#include "utils.h"
+#include "utils/utils.h"
 #include "gecko_utils.h"
 
 static void on_cache_clear(GtkWidget *, ChmSee *);

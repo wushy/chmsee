@@ -23,7 +23,7 @@
 
 #include "ihtml.h"
 #include "marshal.h"
-#include "utils.h"
+#include "utils/utils.h"
 #include "gecko_utils.h"
 
 static void html_class_init(HtmlClass *);
