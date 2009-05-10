@@ -3,6 +3,7 @@
 *.cache
 *.desktop
 *.gmo
+*.mo
 *.m4
 *.o
 *.swp
@@ -49,3 +50,7 @@ stamp*
 tags
 CMakeCache.txt
 CMakeFiles
+data/default-prefs.js
+gtester.xml
+report.html
+test/test
