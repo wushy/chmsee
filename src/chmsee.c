@@ -90,6 +90,7 @@ static void chmsee_finalize(GObject *);
 static void chmsee_dispose(GObject* self);
 static void chmsee_load_config(ChmSee *self);
 static void chmsee_save_config(ChmSee *self);
+static void chmsee_set_fullscreen(ChmSee* self, gboolean fullscreen);
 
 static gboolean delete_cb(GtkWidget *, GdkEvent *, ChmSee *);
 static void destroy_cb(GtkWidget *, ChmSee *);
@@ -295,10 +296,12 @@ on_configure_event(GtkWidget *widget, GdkEventConfigure *event, ChmSee *self)
             && (event->width != selfp->width || event->height != selfp->height))
                 reload_current_page(self);
 
-        selfp->width = event->width;
-        selfp->height = event->height;
-        selfp->pos_x = event->x;
-        selfp->pos_y = event->y;
+        if(!selfp->fullscreen) {
+          selfp->width = event->width;
+          selfp->height = event->height;
+          selfp->pos_x = event->x;
+          selfp->pos_y = event->y;
+        }
 
         return FALSE;
 }
@@ -308,16 +311,14 @@ on_keypress_event(GtkWidget *widget, GdkEventKey *event, ChmSee *self)
 {
 	if (event->keyval == GDK_Escape) {
 		if(selfp->fullscreen) {
-			gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(get_widget(self, "menu_fullscreen")),
-					FALSE);
+                  chmsee_set_fullscreen(self, FALSE);
 		} else {
 			gtk_window_iconify(GTK_WINDOW (self));
 			return TRUE;
 		}
 	} else if(event->keyval == GDK_F11) {
 		if(selfp->fullscreen) {
-			gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(get_widget(self, "menu_fullscreen")),
-					FALSE);
+                  chmsee_set_fullscreen(self, FALSE);
 		}
 	} else if(event->keyval == GDK_F9) {
 		if(selfp->fullscreen) {
@@ -1724,11 +1725,7 @@ void on_fullscreen_toggled(ChmSee* self, GtkWidget* menu) {
 	g_object_get(G_OBJECT(menu),
 			"active", &active,
 			NULL);
-	if(active) {
-		gtk_window_fullscreen(GTK_WINDOW(self));
-	} else {
-		gtk_window_unfullscreen(GTK_WINDOW(self));
-	}
+        chmsee_set_fullscreen(self, active);
 }
 
 void on_sidepane_toggled(ChmSee* self, GtkWidget* menu) {
@@ -1799,6 +1796,8 @@ static void on_fullscreen(ChmSee* self) {
 	gtk_widget_hide(get_widget(self, "handlebox_menu"));
 	gtk_widget_hide(get_widget(self, "handlebox_toolbar"));
 	gtk_widget_hide(get_widget(self, "statusbar"));
+        gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(get_widget(self, "menu_fullscreen")),
+                                       TRUE);
 	selfp->fullscreen = TRUE;
 }
 
@@ -1806,6 +1805,8 @@ static void on_unfullscreen(ChmSee* self) {
 	gtk_widget_show(get_widget(self, "handlebox_menu"));
 	gtk_widget_show(get_widget(self, "handlebox_toolbar"));
 	gtk_widget_show(get_widget(self, "statusbar"));
+        gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(get_widget(self, "menu_fullscreen")),
+                                       FALSE);
 	selfp->fullscreen = FALSE;
 }
 
@@ -1926,6 +1927,15 @@ chmsee_load_config(ChmSee *self)
 			chmsee_set_hpaned_position(self, atoi(item->value));
 			continue;
 		}
+                if(strstr(item->id, "FULLSCREEN")) {
+                  if(strcmp(item->value, "true") == 0) {
+                    chmsee_set_fullscreen(self, TRUE);
+                  } else if(strcmp(item->value, "false") == 0) {
+                    chmsee_set_fullscreen(self, FALSE);
+                  } else {
+                    g_warning("%s:%d:unknown value of FULLSCREEN %s", __FILE__, __LINE__, item->value);
+                  }
+                }
 	}
 
 	free_config_list(pairs);
@@ -1954,8 +1964,20 @@ chmsee_save_config(ChmSee *self)
         save_option(file, "WIDTH", g_strdup_printf("%d", selfp->width));
         save_option(file, "HEIGHT", g_strdup_printf("%d", selfp->height));
         save_option(file, "HPANED_POSTION", g_strdup_printf("%d", chmsee_get_hpaned_position(self)));
+        save_option(file, "FULLSCREEN", selfp->fullscreen ? "true" : "false" );
 
         fclose(file);
         g_free(path);
 }
 
+void chmsee_set_fullscreen(ChmSee* self, gboolean fullscreen) {
+  if(fullscreen == selfp->fullscreen) {
+    return;
+  }
+
+  if(fullscreen) {
+    gtk_window_fullscreen(GTK_WINDOW(self));
+  } else {
+    gtk_window_unfullscreen(GTK_WINDOW(self));
+  }
+}
