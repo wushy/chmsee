@@ -1,0 +1,272 @@
+# Ukrainian translation for chmsee
+# Copyright (c) 2009 Rosetta Contributors and Canonical Ltd 2009
+# This file is distributed under the same license as the chmsee package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2009.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: chmsee\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2009-03-05 22:07+0800\n"
+"PO-Revision-Date: 2009-05-03 02:57+0000\n"
+"Last-Translator: svv <skrypnychuk@gmail.com>\n"
+"Language-Team: Ukrainian <uk@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2009-05-10 14:32+0000\n"
+"X-Generator: Launchpad (build Unknown)\n"
+
+#: ../data/chmsee.glade.h:3
+msgid "<b>Font</b>"
+msgstr "<b>Шрифт</b>"
+
+#: ../data/chmsee.glade.h:4
+msgid "About"
+msgstr "Про"
+
+#: ../data/chmsee.glade.h:5
+msgid "About..."
+msgstr "Про..."
+
+#: ../data/chmsee.glade.h:6
+msgid "Auto-Detect:"
+msgstr "Автовизначення"
+
+#: ../data/chmsee.glade.h:7
+msgid "Back"
+msgstr "Назад"
+
+#: ../data/chmsee.glade.h:11 ../data/chmsee.desktop.in.h:1
+msgid "ChmSee"
+msgstr "ChmSee"
+
+#: ../data/chmsee.glade.h:12
+msgid "Copy Page _Location"
+msgstr "Скопіювати _розташування сторінки"
+
+#: ../data/chmsee.glade.h:13
+msgid "Fixed Width:"
+msgstr "Фіксована ширина:"
+
+#: ../data/chmsee.glade.h:14
+msgid "Forward"
+msgstr "Вперед"
+
+#: ../data/chmsee.glade.h:17
+msgid "Open File"
+msgstr "Відкрити файл"
+
+#: ../data/chmsee.glade.h:18
+msgid "Open Link in New _Tab"
+msgstr "Відкрити посилання у новій вк_ладці"
+
+#: ../data/chmsee.glade.h:19
+msgid "Panel"
+msgstr "Панель"
+
+#: ../data/chmsee.glade.h:20
+msgid "Select _All"
+msgstr "Вибрати _все"
+
+#: ../data/chmsee.glade.h:21
+msgid "Setup"
+msgstr "Налаштування"
+
+#: ../data/chmsee.glade.h:22
+msgid "Show/Hide Panel"
+msgstr "Показати/сховати панель"
+
+#: ../data/chmsee.glade.h:31
+msgid "Variable Width:"
+msgstr "Змінна ширина:"
+
+#: ../data/chmsee.glade.h:32
+msgid "Zoom In"
+msgstr "Наблизити"
+
+#: ../data/chmsee.glade.h:33
+msgid "Zoom Out"
+msgstr "Віддалити"
+
+#: ../data/chmsee.glade.h:34
+msgid "_Back"
+msgstr "_Назад"
+
+#: ../data/chmsee.glade.h:35
+msgid "_Close Tab"
+msgstr "_Закрити вкладку"
+
+#: ../data/chmsee.glade.h:36
+msgid "_Copy"
+msgstr "С_копіювати"
+
+#: ../data/chmsee.glade.h:37
+msgid "_Copy Link Location"
+msgstr "_Скопіювати посилання"
+
+#: ../data/chmsee.glade.h:38
+msgid "_Edit"
+msgstr "_Редагувати"
+
+#: ../data/chmsee.glade.h:39
+msgid "_File"
+msgstr "_Файл"
+
+#: ../data/chmsee.glade.h:40
+msgid "_Forward"
+msgstr "В_перед"
+
+#: ../data/chmsee.glade.h:41
+msgid "_Help"
+msgstr "_Довідка"
+
+#: ../data/chmsee.glade.h:42
+msgid "_Home"
+msgstr "_Додому"
+
+#: ../data/chmsee.glade.h:43
+msgid "_New Tab"
+msgstr "_Нова вкладка"
+
+#: ../data/chmsee.glade.h:44
+msgid "_Setup"
+msgstr "_Налаштування"
+
+#: ../data/chmsee.glade.h:45
+msgid "_View"
+msgstr "_Вигляд"
+
+#: ../data/chmsee.glade.h:46
+msgid "http://code.google.com/p/chmsee"
+msgstr "http://code.google.com/p/chmsee"
+
+#: ../data/chmsee.desktop.in.h:2
+msgid "HTML Help(CHM) viewer"
+msgstr "Оглядач довідки HTML (CHM)"
+
+#: ../src/chmsee.c:523
+msgid "CHM Files"
+msgstr "Файли CHM"
+
+#: ../src/chmsee.c:528
+msgid "All Files"
+msgstr "Всі файли"
+
+#: ../src/chmsee.c:1055
+msgid "Ready!"
+msgstr "Готово!"
+
+#: ../src/chmsee.c:1107
+msgid "Topics"
+msgstr "Теми"
+
+#: ../src/chmsee.c:1124
+msgid "Bookmarks"
+msgstr "Закладки"
+
+#. Custom label widget, with a close button
+#: ../src/chmsee.c:1272 ../src/chmsee.c:1439
+msgid "No Title"
+msgstr "Без заголовка"
+
+#: ../src/chmsee.c:1541
+#, c-format
+msgid "Error loading file '%s'"
+msgstr "Сталася помилка при завантаженні файла '%s'"
+
+#: ../src/models/chmfile.c:492
+#, c-format
+msgid "Can not open chm file %s."
+msgstr "Не можу відкрити chm-файл %s."
+
+#: ../src/models/chmfile.c:750
+msgid "Can't found hhc file."
+msgstr "Не можу знайти файл hhc."
+
+#: ../src/ui_bookmarks.c:315
+msgid "Bookmark"
+msgstr "Закладка"
+
+#: ../src/main.c:88
+msgid "Display the version and exit"
+msgstr "Відобразити версію та вийти"
+
+#: ../data/chmsee.glade.h:1
+msgid "<b>Cache</b>"
+msgstr ""
+
+#: ../data/chmsee.glade.h:2
+msgid "<b>Charset</b>"
+msgstr ""
+
+#: ../data/chmsee.glade.h:8
+msgid ""
+"CHM files extracted in this cache folder, you can press Clear button to free "
+"disk space.\n"
+"\n"
+"NOTE: If you are viewing a CHM file, you need reopen it after cleaning."
+msgstr ""
+
+#: ../data/chmsee.glade.h:15
+msgid "Home"
+msgstr ""
+
+#: ../data/chmsee.glade.h:16
+msgid "Normal"
+msgstr ""
+
+#: ../data/chmsee.glade.h:23
+msgid "The HTML Help(CHM) viewer for Unix/Linux"
+msgstr "Переглядач HTML-довідки (CHM) для Юнікс/Лінукс"
+
+#: ../data/chmsee.glade.h:24
+msgid ""
+"Universal\n"
+"Simplified Chinese\n"
+"Tradtional Chinese\n"
+"Japanese\n"
+"Korean\n"
+"Russian\n"
+"Ukrainain"
+msgstr ""
+
+#. TRANSLATORS: Replace this string with your names, one name per line.
+#: ../data/chmsee.glade.h:48
+msgid "translator-credits"
+msgstr ""
+"Launchpad Contributions:\n"
+"  svv https://launchpad.net/~skrypnychuk"
+
+#: ../src/chmsee.c:362
+#, c-format
+msgid "URI redirect: \"%s\" -> \"%s\""
+msgstr ""
+
+#: ../src/models/chmfile.c:257
+#, c-format
+msgid "cannot open chmfile: %s"
+msgstr ""
+
+#: ../src/models/chmfile.c:264
+#, c-format
+msgid "Extract chmfile failed: %s"
+msgstr "Не вдалося видобути файл chm: %s"
+
+#: ../src/models/chmfile.c:290
+#, c-format
+msgid "open \"%s\" failed: %s"
+msgstr ""
+
+#: ../src/main.c:93
+msgid "be verbose, repeat 3 times to get all info"
+msgstr ""
+
+#: ../src/main.c:97
+msgid "be quiet, repeat 2 times to disable all info"
+msgstr ""
+
+#: ../src/main.c:120
+#, c-format
+msgid "more than 1 argument\n"
+msgstr ""

@@ -1,49 +1,58 @@
-# Swahili translation for chmsee
-# Copyright (c) 2008 Rosetta Contributors and Canonical Ltd 2008
+# Portuguese translation for chmsee
+# Copyright (c) 2009 Rosetta Contributors and Canonical Ltd 2009
 # This file is distributed under the same license as the chmsee package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2008.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2009.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: chmsee\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-03-05 22:07+0800\n"
-"PO-Revision-Date: 2009-04-07 16:48+0000\n"
-"Last-Translator: Emanuel Feruzi <emanuel.feruzi@gmail.com>\n"
-"Language-Team: Swahili <sw@li.org>\n"
+"PO-Revision-Date: 2009-04-30 11:03+0000\n"
+"Last-Translator: skkeeper <skkeeper@gmail.com>\n"
+"Language-Team: Portuguese <pt@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Launchpad-Export-Date: 2009-05-10 14:32+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
+#: ../data/chmsee.glade.h:16
+msgid "Normal"
+msgstr "Normal"
+
+#. Custom label widget, with a close button
+#: ../src/chmsee.c:1272 ../src/chmsee.c:1439
+msgid "No Title"
+msgstr "Sem Título"
+
 #: ../data/chmsee.glade.h:1
 msgid "<b>Cache</b>"
-msgstr "Kache"
+msgstr ""
 
 #: ../data/chmsee.glade.h:2
 msgid "<b>Charset</b>"
-msgstr "Seti Kiwambo"
+msgstr ""
 
 #: ../data/chmsee.glade.h:3
 msgid "<b>Font</b>"
-msgstr "Fonti"
+msgstr "<b>Tipo de letra</b>"
 
 #: ../data/chmsee.glade.h:4
 msgid "About"
-msgstr "Kuhusu"
+msgstr "Sobre"
 
 #: ../data/chmsee.glade.h:5
 msgid "About..."
-msgstr "Kuhusu..."
+msgstr "Sobre..."
 
 #: ../data/chmsee.glade.h:6
 msgid "Auto-Detect:"
-msgstr "Gundua Kiotomati"
+msgstr "Auto-detectar:"
 
 #: ../data/chmsee.glade.h:7
 msgid "Back"
-msgstr "Nyuma"
+msgstr "Voltar"
 
 #: ../data/chmsee.glade.h:8
 msgid ""
@@ -52,60 +61,54 @@ msgid ""
 "\n"
 "NOTE: If you are viewing a CHM file, you need reopen it after cleaning."
 msgstr ""
-"Faili la CHM limeng'olewa ndani ya folda hili la kache, unaweza bonyeza "
-"kitufe cha Safisha kutoa nafasi hii ya disk"
 
 #: ../data/chmsee.glade.h:11 ../data/chmsee.desktop.in.h:1
 msgid "ChmSee"
-msgstr "ChmSee"
+msgstr ""
 
 #: ../data/chmsee.glade.h:12
 msgid "Copy Page _Location"
-msgstr "Nakili _Mahali pa Ukurasa"
+msgstr ""
 
 #: ../data/chmsee.glade.h:13
 msgid "Fixed Width:"
-msgstr "Upana usibadilika"
+msgstr "Largura Fixa"
 
 #: ../data/chmsee.glade.h:14
 msgid "Forward"
-msgstr "Mbele"
+msgstr "Avançar"
 
 #: ../data/chmsee.glade.h:15
 msgid "Home"
-msgstr "Kaya"
-
-#: ../data/chmsee.glade.h:16
-msgid "Normal"
-msgstr "Kawaida"
+msgstr ""
 
 #: ../data/chmsee.glade.h:17
 msgid "Open File"
-msgstr "Fungua Faile"
+msgstr "Abrir Ficheiro"
 
 #: ../data/chmsee.glade.h:18
 msgid "Open Link in New _Tab"
-msgstr "Fungua Kiungo kweye Tabo Mpya"
+msgstr ""
 
 #: ../data/chmsee.glade.h:19
 msgid "Panel"
-msgstr "Paneli"
+msgstr "Painel"
 
 #: ../data/chmsee.glade.h:20
 msgid "Select _All"
-msgstr "Chagua Yote"
+msgstr "Seleccionar _Todos"
 
 #: ../data/chmsee.glade.h:21
 msgid "Setup"
-msgstr "Usanidi"
+msgstr ""
 
 #: ../data/chmsee.glade.h:22
 msgid "Show/Hide Panel"
-msgstr "Onyesha/Ficha Paneli"
+msgstr "Mostrar/Ocultar Painel"
 
 #: ../data/chmsee.glade.h:23
 msgid "The HTML Help(CHM) viewer for Unix/Linux"
-msgstr "Kiangalia cha Msaada HTML(CHM) kwa Unix/Linux"
+msgstr "O Visualizador HTML (CHM) para Unix/Linux"
 
 #: ../data/chmsee.glade.h:24
 msgid ""
@@ -117,171 +120,154 @@ msgid ""
 "Russian\n"
 "Ukrainain"
 msgstr ""
-"Kiuliwengu\n"
-"Mchina wa Sasa\n"
-"Mchina wa Kale\n"
-"Mjapani\n"
-"Mkorea\n"
-"Mrusi\n"
-"Myukrein"
 
 #: ../data/chmsee.glade.h:31
 msgid "Variable Width:"
-msgstr "Upana unaobadilika"
+msgstr ""
 
 #: ../data/chmsee.glade.h:32
 msgid "Zoom In"
-msgstr "Tutuza"
+msgstr ""
 
 #: ../data/chmsee.glade.h:33
 msgid "Zoom Out"
-msgstr "Fifiza"
+msgstr ""
 
 #: ../data/chmsee.glade.h:34
 msgid "_Back"
-msgstr "Nyuma"
+msgstr ""
 
 #: ../data/chmsee.glade.h:35
 msgid "_Close Tab"
-msgstr "Funga Tabo"
+msgstr ""
 
 #: ../data/chmsee.glade.h:36
 msgid "_Copy"
-msgstr "Nakili"
+msgstr "Copiar"
 
 #: ../data/chmsee.glade.h:37
 msgid "_Copy Link Location"
-msgstr "Nakili Mahali pa Kiungo"
+msgstr ""
 
 #: ../data/chmsee.glade.h:38
 msgid "_Edit"
-msgstr "Hariri"
+msgstr "_Editar"
 
 #: ../data/chmsee.glade.h:39
 msgid "_File"
-msgstr "Faili"
+msgstr "_Ficheiro"
 
 #: ../data/chmsee.glade.h:40
 msgid "_Forward"
-msgstr "Mbele"
+msgstr "_Avançar"
 
 #: ../data/chmsee.glade.h:41
 msgid "_Help"
-msgstr "Msaada"
+msgstr "_Ajuda"
 
 #: ../data/chmsee.glade.h:42
 msgid "_Home"
-msgstr "Nyumbani"
+msgstr ""
 
 #: ../data/chmsee.glade.h:43
 msgid "_New Tab"
-msgstr "Tabo Mpya"
+msgstr ""
 
 #: ../data/chmsee.glade.h:44
 msgid "_Setup"
-msgstr "Usanidi"
+msgstr ""
 
 #: ../data/chmsee.glade.h:45
 msgid "_View"
-msgstr "Angalia"
+msgstr "_Visualizar"
 
 #: ../data/chmsee.glade.h:46
 msgid "http://code.google.com/p/chmsee"
-msgstr "http://code.google.com/p/chmsee"
+msgstr ""
 
 #. TRANSLATORS: Replace this string with your names, one name per line.
 #: ../data/chmsee.glade.h:48
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
-"  Emanuel Feruzi https://launchpad.net/~emanuel-feruzi\n"
-"\n"
-"Launchpad Contributions:\n"
-"  Emanuel Feruzi https://launchpad.net/~emanuel-feruzi\n"
-"\n"
-"Launchpad Contributions:\n"
-"  Emanuel Feruzi https://launchpad.net/~emanuel-feruzi"
+"  Lebre https://launchpad.net/~tiagolebre\n"
+"  skkeeper https://launchpad.net/~skkeeper"
 
 #: ../data/chmsee.desktop.in.h:2
 msgid "HTML Help(CHM) viewer"
-msgstr "Kiangalia cha Msaada HTML(CHM)"
+msgstr ""
 
 #: ../src/chmsee.c:362
 #, c-format
 msgid "URI redirect: \"%s\" -> \"%s\""
-msgstr "Badili kwelekeo wa URI: \"%s\" -> \"%s\""
+msgstr ""
 
 #: ../src/chmsee.c:523
 msgid "CHM Files"
-msgstr "Mafaili ya CHM"
+msgstr ""
 
 #: ../src/chmsee.c:528
 msgid "All Files"
-msgstr "Mafaili yote"
+msgstr ""
 
 #: ../src/chmsee.c:1055
 msgid "Ready!"
-msgstr "Tayari!"
+msgstr ""
 
 #: ../src/chmsee.c:1107
 msgid "Topics"
-msgstr "Mada"
+msgstr ""
 
 #: ../src/chmsee.c:1124
 msgid "Bookmarks"
-msgstr "Maalamisho"
-
-#. Custom label widget, with a close button
-#: ../src/chmsee.c:1272 ../src/chmsee.c:1439
-msgid "No Title"
-msgstr "Hakuna Jina"
+msgstr ""
 
 #: ../src/chmsee.c:1541
 #, c-format
 msgid "Error loading file '%s'"
-msgstr "Hitilafu kwenye upakiaji was faili '%s'"
+msgstr ""
 
 #: ../src/models/chmfile.c:257
 #, c-format
 msgid "cannot open chmfile: %s"
-msgstr "haikuwezekana kufungua faili la chm: %s"
+msgstr ""
 
 #: ../src/models/chmfile.c:264
 #, c-format
 msgid "Extract chmfile failed: %s"
-msgstr "Ungoaji wa faili la chm %s umeshidikana"
+msgstr ""
 
 #: ../src/models/chmfile.c:290
 #, c-format
 msgid "open \"%s\" failed: %s"
-msgstr "kufungua \"%s\" kumeshindikana: %s"
+msgstr ""
 
 #: ../src/models/chmfile.c:492
 #, c-format
 msgid "Can not open chm file %s."
-msgstr "Faili %s la chm limeshishwa funguliwa."
+msgstr ""
 
 #: ../src/models/chmfile.c:750
 msgid "Can't found hhc file."
-msgstr "Faili la hhc halipatikani."
+msgstr ""
 
 #: ../src/ui_bookmarks.c:315
 msgid "Bookmark"
-msgstr "Alamisho"
+msgstr ""
 
 #: ../src/main.c:88
 msgid "Display the version and exit"
-msgstr "Onyesha toleo na utoke"
+msgstr ""
 
 #: ../src/main.c:93
 msgid "be verbose, repeat 3 times to get all info"
-msgstr "piga kelele, rudua mara 3 kupata taarifa zote"
+msgstr ""
 
 #: ../src/main.c:97
 msgid "be quiet, repeat 2 times to disable all info"
-msgstr "kuwa mkimya, rudua mara 3 kulemaza taarifa zote"
+msgstr ""
 
 #: ../src/main.c:120
 #, c-format
 msgid "more than 1 argument\n"
-msgstr "zaidi ya agyument 1\n"
+msgstr ""

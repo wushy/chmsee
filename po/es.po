@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: chmsee\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-03-05 22:07+0800\n"
-"PO-Revision-Date: 2009-01-24 17:17+0000\n"
+"PO-Revision-Date: 2009-04-10 22:56+0000\n"
 "Last-Translator: DiegoJ <diegojromerolopez@gmail.com>\n"
 "Language-Team: Spanish <es@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-03-05 12:04+0000\n"
+"X-Launchpad-Export-Date: 2009-05-10 14:32+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../data/chmsee.glade.h:1
@@ -194,6 +194,9 @@ msgstr "http://code.google.com/p/chmsee"
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
+"  DiegoJ https://launchpad.net/~diegojromerolopez\n"
+"\n"
+"Launchpad Contributions:\n"
 "  DiegoJ https://launchpad.net/~diegojromerolopez"
 
 #: ../data/chmsee.desktop.in.h:2
@@ -203,7 +206,7 @@ msgstr "Visor de Ayuda HTML (CHM)"
 #: ../src/chmsee.c:362
 #, c-format
 msgid "URI redirect: \"%s\" -> \"%s\""
-msgstr ""
+msgstr "Redirección de URI: \"%s\" -> \"%s\""
 
 #: ../src/chmsee.c:523
 msgid "CHM Files"
@@ -248,16 +251,16 @@ msgstr "Ha fallado la extracción del archivo CHM: %s"
 #: ../src/models/chmfile.c:290
 #, c-format
 msgid "open \"%s\" failed: %s"
-msgstr "la apertudra de \"%s\" ha fallado: %s"
+msgstr "la apertura de \"%s\" ha fallado: %s"
 
 #: ../src/models/chmfile.c:492
-#, fuzzy, c-format
+#, c-format
 msgid "Can not open chm file %s."
-msgstr "no se puede abrir el archivo CHM: %s"
+msgstr "No se puede abrir el archivo chm %s."
 
 #: ../src/models/chmfile.c:750
 msgid "Can't found hhc file."
-msgstr ""
+msgstr "No se encontró el archivo hhc"
 
 #: ../src/ui_bookmarks.c:315
 msgid "Bookmark"
@@ -269,11 +272,12 @@ msgstr "Mostrar la versión y salir"
 
 #: ../src/main.c:93
 msgid "be verbose, repeat 3 times to get all info"
-msgstr ""
+msgstr "ser más explícito, repítalo 3 veces para obtener toda la información"
 
 #: ../src/main.c:97
 msgid "be quiet, repeat 2 times to disable all info"
 msgstr ""
+"ser silencioso, repítalo 2 veces para deshabilitar toda la información"
 
 #: ../src/main.c:120
 #, c-format

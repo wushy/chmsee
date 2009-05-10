@@ -20,6 +20,12 @@ Bugs
 * issue 25: Double-click on topic title (in sidebar) to open its sub-topics 
 * a safer hcc parser.
 
+l10n
+~~~~
+
+* New: Brazilian Portuguese, Czech, Portuguese, Slovak, Ukrainian
+* Updated: French, Simplified Chinese, Spanish, Swahili
+
 
 ChmSee 1.0.4 2009-03-14
 -----------------------
