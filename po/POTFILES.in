@@ -8,4 +8,4 @@ src/models/bookmarks.c
 src/ui_bookmarks.c
 src/html.c
 src/setup.c
-src/main.c
+src/main.cpp
