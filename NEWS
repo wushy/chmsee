@@ -1,3 +1,26 @@
+ChmSee 1.0.5 XXXX-XX-XX
+-----------------------
+
+Meta
+~~~~
+
+* switch build system from autotools to cmake.
+
+Features
+~~~~~~~~
+
+* issue 18: fullscreen mode support. (from normal mode to fullscreen: F11,
+  from fullscreen mode to normal: F11 or Esc)
+* issue 21: save sidebar width.
+
+Bugs
+~~~~
+
+* issue 19: Arabic language support in sidebar.
+* issue 25: Double-click on topic title (in sidebar) to open its sub-topics 
+* a safer hcc parser.
+
+
 ChmSee 1.0.4 2009-03-14
 -----------------------
 
