@@ -1,4 +1,4 @@
-set(CATALOGS bn en_GB es fr he it nb ru sv sw zh_CN)
+set(CATALOGS bn cs en_GB es fr he it nb pt pt_BR ru sv sw uk zh_CN)
 set(UPDATE_PO_TARGETS )
 set(COMPILE_PO_TARGETS )
 add_custom_target(update-pot

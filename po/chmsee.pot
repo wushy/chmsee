@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-05-10 22:22+0800\n"
+"POT-Creation-Date: 2009-05-10 22:47+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -214,11 +214,11 @@ msgid "Bookmarks"
 msgstr ""
 
 #. Custom label widget, with a close button
-#: ../src/chmsee.c:1374 ../src/chmsee.c:1549
+#: ../src/chmsee.c:1370 ../src/chmsee.c:1545
 msgid "No Title"
 msgstr ""
 
-#: ../src/chmsee.c:1653
+#: ../src/chmsee.c:1649
 #, c-format
 msgid "Error loading file '%s'"
 msgstr ""
