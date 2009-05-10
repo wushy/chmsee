@@ -1282,10 +1282,6 @@ display_book(ChmSee* self, ChmseeIchmfile *book)
 			chmsee_ichmfile_get_variable_font(selfp->book));
 	chmsee_ihtml_set_fixed_font(get_active_html(self),
 			chmsee_ichmfile_get_fixed_font(selfp->book));
-
-	if(selfp->has_toc) {
-		gtk_widget_grab_focus(selfp->booktree);
-	}
 }
 
 static void
