@@ -1,16 +1,16 @@
-# Simplified Chinese translation of ChmSee
+# Greek translation for chmsee
+# Copyright (c) 2009 Rosetta Contributors and Canonical Ltd 2009
 # This file is distributed under the same license as the chmsee package.
-# Ji YongGang <jungle@soforge-studio.com>, 2008.
-# LI Daobing <lidaobing@gmail.com>, 2009.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2009.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ChmSee 1.0.2\n"
-"Report-Msgid-Bugs-To: \n"
+"Project-Id-Version: chmsee\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-05-10 22:47+0800\n"
-"PO-Revision-Date: 2009-05-16 16:37+0000\n"
-"Last-Translator: zhangmiao <mymzhang@gmail.com>\n"
-"Language-Team: szlug <szlug@googlegroups.com>\n"
+"PO-Revision-Date: 2009-05-16 00:23+0000\n"
+"Last-Translator: Μάριος Ζηντίλης <m.zindilis@dmajor.org>\n"
+"Language-Team: Greek <el@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -19,31 +19,31 @@ msgstr ""
 
 #: ../data/chmsee.glade.h:1
 msgid "<b>Cache</b>"
-msgstr "<b>缓冲区</b>"
+msgstr "<b>Προσωρινή μνήμη</b>"
 
 #: ../data/chmsee.glade.h:2
 msgid "<b>Charset</b>"
-msgstr "<b>字符集</b>"
+msgstr "<b>Κωδικοσελίδα</b>"
 
 #: ../data/chmsee.glade.h:3
 msgid "<b>Font</b>"
-msgstr "<b>字体</b>"
+msgstr "<b>Γραμματοσειρά</b>"
 
 #: ../data/chmsee.glade.h:4
 msgid "About"
-msgstr "关于"
+msgstr "Περί"
 
 #: ../data/chmsee.glade.h:5
 msgid "About..."
-msgstr "关于..."
+msgstr "Περί..."
 
 #: ../data/chmsee.glade.h:6
 msgid "Auto-Detect:"
-msgstr "自动检测："
+msgstr "Αυτόματος εντοπισμός:"
 
 #: ../data/chmsee.glade.h:7
 msgid "Back"
-msgstr "后退"
+msgstr "Πίσω"
 
 #: ../data/chmsee.glade.h:8
 msgid ""
@@ -52,9 +52,11 @@ msgid ""
 "\n"
 "NOTE: If you are viewing a CHM file, you need reopen it after cleaning."
 msgstr ""
-"CHM 解压后放在此目录，您可以清空该目录释放磁盘空间。\n"
+"Τα αρχεία CHM αποσυμπιέζονται σ' αυτόν τον προσωρινό φάκελο, και μπορείτε να "
+"πατήσετε Clear για να ελευθερώσετε χώρο στο δίσκο.\n"
 "\n"
-"注意：假如您正在浏览 CHM 文件，清空后需要重新打开该文件。"
+"ΣΗΜΕΙΩΣΗ: Αν βλέπετε ένα αρχείο CHM, θα πρέπει να το ξανανοίξετε μετά το "
+"καθάρισμα."
 
 #: ../data/chmsee.glade.h:11 ../data/chmsee.desktop.in.h:1
 msgid "ChmSee"
@@ -62,51 +64,55 @@ msgstr "ChmSee"
 
 #: ../data/chmsee.glade.h:12
 msgid "Copy Page _Location"
-msgstr "拷贝页面地址(_L)"
+msgstr "Αντιγραφή _τοποθεσίας σελίδας"
 
 #: ../data/chmsee.glade.h:13
 msgid "Fixed Width:"
-msgstr "固定宽度："
+msgstr "Σταθερού πλάτους:"
 
 #: ../data/chmsee.glade.h:14
 msgid "Forward"
-msgstr "前进"
+msgstr "Μπροστά"
 
 #: ../data/chmsee.glade.h:15
 msgid "Home"
-msgstr "首页"
+msgstr "Αρχή"
 
 #: ../data/chmsee.glade.h:16
 msgid "Normal"
-msgstr "原始大小"
+msgstr "Κανονικό"
 
 #: ../data/chmsee.glade.h:17
 msgid "Open File"
-msgstr "打开文件"
+msgstr "Άνοιγμα αρχείου"
 
 #: ../data/chmsee.glade.h:18
 msgid "Open Link in New _Tab"
-msgstr "在新标签页(_T)打开"
+msgstr "Άνοιγμα συνδέσμου σε νέα _καρτέλα"
 
 #: ../data/chmsee.glade.h:19
 msgid "Panel"
-msgstr "导航栏"
+msgstr "Πλευρική στήλη"
 
 #: ../data/chmsee.glade.h:20
 msgid "Select _All"
-msgstr "全部(_A)选择"
+msgstr "Επιλ_ογή όλων"
 
 #: ../data/chmsee.glade.h:21
 msgid "Setup"
-msgstr "设置"
+msgstr "Ρυθμίσεις"
 
 #: ../data/chmsee.glade.h:22
 msgid "Show/Hide Panel"
-msgstr "显示/隐藏导航栏"
+msgstr "Εμφάνιση/απόκρυψη πλευρικής στήλης"
+
+#: ../data/chmsee.glade.h:23
+msgid "Side _Pane"
+msgstr "Πλευρική _στήλη"
 
 #: ../data/chmsee.glade.h:24
 msgid "The HTML Help(CHM) viewer for Unix/Linux"
-msgstr "Unix/Linux 下的 HTML Help(CHM) 阅读工具"
+msgstr "Ο προβολέας βοήθειας HTML (CHM) για το Unix/Linux"
 
 #: ../data/chmsee.glade.h:25
 msgid ""
@@ -118,65 +124,69 @@ msgid ""
 "Russian\n"
 "Ukrainain"
 msgstr ""
-"自动选择\n"
-"简体中文\n"
-"繁体中文\n"
-"日语\n"
-"朝鲜语\n"
-"俄语\n"
-"乌克兰语"
+"Καθολική\n"
+"Απλά Κινέζικα\n"
+"Παραδοσιακά Κινέζικα\n"
+"Ιαπωνικά\n"
+"Κορεατικά\n"
+"Ρωσικά\n"
+"Ουκρανικά"
 
 #: ../data/chmsee.glade.h:32
 msgid "Variable Width:"
-msgstr "可变宽度："
+msgstr "Μεταβλητού πλάτους"
 
 #: ../data/chmsee.glade.h:33
 msgid "Zoom In"
-msgstr "放大"
+msgstr "Μεγέθυνση"
 
 #: ../data/chmsee.glade.h:34
 msgid "Zoom Out"
-msgstr "缩小"
+msgstr "Σμίκρυνση"
 
 #: ../data/chmsee.glade.h:35
 msgid "_Back"
-msgstr "后退(_B)"
+msgstr "_Πίσω"
 
 #: ../data/chmsee.glade.h:36
 msgid "_Close Tab"
-msgstr "关闭(_C) Tab"
+msgstr "_Κλείσιμο καρτέλας"
 
 #: ../data/chmsee.glade.h:37
 msgid "_Copy"
-msgstr "复制(_C)"
+msgstr "_Αντιγραφή"
 
 #: ../data/chmsee.glade.h:38
 msgid "_Copy Link Location"
-msgstr "复制(_C)链接地址"
+msgstr "_Αντιγραφή τοποθεσίας δεσμού"
 
 #: ../data/chmsee.glade.h:39
 msgid "_Edit"
-msgstr "编辑(_E)"
+msgstr "_Επεξεργασία"
 
 #: ../data/chmsee.glade.h:40
 msgid "_File"
-msgstr "文件(_F)"
+msgstr "_Αρχείο"
 
 #: ../data/chmsee.glade.h:41
 msgid "_Forward"
-msgstr "前进(_F)"
+msgstr "_Μπροστά"
+
+#: ../data/chmsee.glade.h:42
+msgid "_Full Screen"
+msgstr "Πλήρης _οθόνη"
 
 #: ../data/chmsee.glade.h:43
 msgid "_Help"
-msgstr "帮助(_H)"
+msgstr "_Βοήθεια"
 
 #: ../data/chmsee.glade.h:44
 msgid "_New Tab"
-msgstr "新建(_N)标签页"
+msgstr "_Νέα καρτέλα"
 
 #: ../data/chmsee.glade.h:45
 msgid "_View"
-msgstr "查看(_V)"
+msgstr "_Προβολή"
 
 #: ../data/chmsee.glade.h:46
 msgid "http://code.google.com/p/chmsee"
@@ -186,107 +196,90 @@ msgstr "http://code.google.com/p/chmsee"
 #: ../data/chmsee.glade.h:48
 msgid "translator-credits"
 msgstr ""
-"翻译人员\n"
-"\n"
 "Launchpad Contributions:\n"
-"  Ji YongGang https://launchpad.net/~jungle-soforge-studio\n"
-"  LI Daobing https://launchpad.net/~lidaobing\n"
-"  zhangmiao https://launchpad.net/~mymzhang"
+"  Μάριος Ζηντίλης https://launchpad.net/~m-zindilis"
 
 #: ../data/chmsee.desktop.in.h:2
 msgid "HTML Help(CHM) viewer"
-msgstr "HTML Help(CHM) 文件阅读工具"
+msgstr "Προβολέας βοήθειας HTML (CHM)"
 
 #: ../src/chmsee.c:449
 #, c-format
 msgid "URI redirect: \"%s\" -> \"%s\""
-msgstr "URI 重定向: \"%s\" -> \"%s\""
+msgstr "Αναδρομολόγηση URI: \"%s\" -> \"%s\""
 
 #: ../src/chmsee.c:610
 msgid "CHM Files"
-msgstr "CHM 文件"
+msgstr "Αρχεία CHM"
 
 #: ../src/chmsee.c:615
 msgid "All Files"
-msgstr "所有文件"
+msgstr "Όλα τα αρχεία"
 
 #: ../src/chmsee.c:1135
 msgid "Ready!"
-msgstr "就绪！"
+msgstr "Έτοιμο!"
 
 #: ../src/chmsee.c:1191
 msgid "Topics"
-msgstr "目录"
+msgstr "Θέματα"
 
 #: ../src/chmsee.c:1208
 msgid "Bookmarks"
-msgstr "书签"
+msgstr "Σελιδοδείκτες"
 
 #. Custom label widget, with a close button
 #: ../src/chmsee.c:1370 ../src/chmsee.c:1545
 msgid "No Title"
-msgstr "无标题"
+msgstr "Χωρίς τίτλο"
 
 #: ../src/chmsee.c:1649
 #, c-format
 msgid "Error loading file '%s'"
-msgstr "打开文件错误 '%s'"
+msgstr "Σφάλμα κατα τη φόρτωση του αρχείου: '%s'"
 
 #: ../src/models/chmfile.c:239
 #, c-format
 msgid "cannot open chmfile: %s"
-msgstr "无法打开 chmfile: %s"
+msgstr "αδύνατο το άνοιγμα του αρχείου chm: %s"
 
 #: ../src/models/chmfile.c:246
 #, c-format
 msgid "Extract chmfile failed: %s"
-msgstr "解包 chmfile 失败: %s"
+msgstr "Αποτυχία αποσυμπίεσης αρχείου chm: %s"
 
 #: ../src/models/chmfile.c:272
 #, c-format
 msgid "open \"%s\" failed: %s"
-msgstr "打开 \"%s\" 失败: %s"
+msgstr "το άνοιγμα του \"%s\" απέτυχε: %s"
 
 #: ../src/models/chmfile.c:322
 #, c-format
 msgid "Can not open chm file %s."
-msgstr "无法打开 chm 文件 %s。"
+msgstr "Αδύνατο το άνοιγμα του chm αρχείου %s."
 
 #: ../src/models/chmfile.c:580
 msgid "Can't found hhc file."
-msgstr "无法找到 hhc 文件。"
+msgstr "Δε βρέθηκε το αρχείο hhc."
 
 #: ../src/ui_bookmarks.c:315
 msgid "Bookmark"
-msgstr "书签"
+msgstr "Σελιδοδείκτης"
 
 #: ../src/main.cpp:88
 msgid "Display the version and exit"
-msgstr "显示版本并退出"
-
-#: ../src/main.cpp:135
-#, c-format
-msgid "more than 1 argument\n"
-msgstr "超过 1 个参数\n"
-
-#~ msgid "_Home"
-#~ msgstr "首页(_H)"
-
-#~ msgid "_Setup"
-#~ msgstr "设置(_S)"
-
-#: ../data/chmsee.glade.h:23
-msgid "Side _Pane"
-msgstr ""
-
-#: ../data/chmsee.glade.h:42
-msgid "_Full Screen"
-msgstr "全屏(_F)"
+msgstr "Εμφάνιση της έκδοσης και έξοδος"
 
 #: ../src/main.cpp:93
 msgid "be verbose, repeat 3 times to get all info"
-msgstr ""
+msgstr "να είναι αναλυτικό, επανάληψη 3 φορές για λήψη όλων των πληροφοριών"
 
 #: ../src/main.cpp:98
 msgid "be quiet, repeat 2 times to disable all info"
 msgstr ""
+"να είναι σιωπηλό, επανάληψη 2 φορές για απενεργοποίηση όλων των πληροφοριών"
+
+#: ../src/main.cpp:135
+#, c-format
+msgid "more than 1 argument\n"
+msgstr "περισσότερα από 1 ορίσματα\n"
