@@ -34,6 +34,12 @@
 #include <getopt.h>
 #include <libintl.h>
 
+#if defined(__linux__)
+#include <errno.h>
+#include <pthread.h>
+#include <gcrypt.h>
+#endif
+
 #include "chmsee.h"
 #include "startup.h"
 #include "utils/utils.h"
@@ -69,6 +75,10 @@ static gboolean callback_quiet(const gchar *option_name,
   return TRUE;
 }
 
+#if defined(__linux__)
+GCRY_THREAD_OPTION_PTHREAD_IMPL;
+#endif
+
 int
 main(int argc, char** argv)
 {
@@ -77,6 +87,15 @@ main(int argc, char** argv)
   const gchar* datadir = NULL;
   GError* error = NULL;
   gboolean option_version = FALSE;
+
+#if defined(__linux__)
+  if (!gcry_check_version(NULL)) {
+    fprintf(stderr, "failed to initialize gcrypt\n");
+    exit(1);
+  }
+  gcry_control (GCRYCTL_SET_THREAD_CBS,&gcry_threads_pthread);
+  gcry_control (GCRYCTL_DISABLE_SECMEM, 0);
+#endif
 
   if (!g_thread_supported())
     g_thread_init(NULL);
