@@ -1393,6 +1393,8 @@ new_tab_content(ChmSee *chmsee, const gchar *str)
 
         close_button = gtk_button_new();
 	gtk_button_set_relief(GTK_BUTTON(close_button), GTK_RELIEF_NONE);
+	gtk_widget_set_name(close_button, "tab-close-button");
+	gtk_button_set_focus_on_click(GTK_BUTTON(close_button), FALSE);
 	close_image = gtk_image_new_from_stock(GTK_STOCK_CLOSE, GTK_ICON_SIZE_MENU);
 	gtk_widget_show(close_image);
 	gtk_container_add(GTK_CONTAINER (close_button), close_image);
