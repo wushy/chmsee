@@ -654,12 +654,13 @@ Ukrainain</property>
     <property name="window_position">center</property>
     <property name="type_hint">normal</property>
     <property name="comments" translatable="yes">The HTML Help(CHM) viewer for Unix/Linux</property>
-    <property name="website">http://code.google.com/p/chmsee</property>
-    <property name="website_label" translatable="yes">http://code.google.com/p/chmsee</property>
+    <property name="website">https://github.com/Xianguang-Zhou/chmsee</property>
+    <property name="website_label" translatable="yes">https://github.com/Xianguang-Zhou/chmsee</property>
     <property name="authors">zhong &lt;iam_zhong@yahoo.com.cn&gt;
 Ji YongGang &lt;jungle@soforge-studio.com&gt;
 LI Daobing &lt;lidaobing@gmail.com&gt;
-rae l &lt;crquan@gmail.com&gt;</property>
+rae l &lt;crquan@gmail.com&gt;
+Xianguang Zhou &lt;624146104@qq.com&gt;</property>
     <property name="translator_credits" translatable="yes" comments="TRANSLATORS: Replace this string with your names, one name per line.">translator-credits</property>
     <property name="logo">chmsee-icon.png</property>
     <child internal-child="vbox">

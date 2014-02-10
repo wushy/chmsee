@@ -60,7 +60,7 @@ variable_font_set_cb(GtkFontButton *button, ChmSee *chmsee)
 
 	g_debug("variable font set: %s", font_name);
 
-	gecko_utils_set_font(GECKO_PREF_FONT_VARIABLE, font_name);
+//	gecko_utils_set_font(GECKO_PREF_FONT_VARIABLE, font_name);
 
 	chmsee_set_variable_font(chmsee, font_name);
 }
@@ -74,7 +74,7 @@ fixed_font_set_cb(GtkFontButton *button, ChmSee *chmsee)
 
 	g_debug("fixed font set: %s", font_name);
 
-	gecko_utils_set_font(GECKO_PREF_FONT_FIXED, font_name);
+//	gecko_utils_set_font(GECKO_PREF_FONT_FIXED, font_name);
 
 	chmsee_set_fixed_font(chmsee, font_name);
 }
@@ -90,7 +90,7 @@ cmb_lang_changed_cb(GtkWidget *widget, ChmSee *chmsee)
 
 	if (index >= 0) {
 		g_debug("select lang: %d", index);
-		gecko_utils_set_default_lang(index);
+//		gecko_utils_set_default_lang(index);
 		chmsee_set_lang(chmsee, index);
 	}
 }
