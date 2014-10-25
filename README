@@ -9,8 +9,9 @@ Homepage: http://code.google.com/p/chmsee
 Dependencies
 ============
 
-Compile ChmSee from source you need following packages:
+To compile ChmSee from source you need following packages:
  * cmake >= 2.6
+ * intltool
  * libgtk2.0-dev >= 2.8
  * libglade2-dev >= 2.4
  * libwebkitgtk-dev >= 1.8.1
