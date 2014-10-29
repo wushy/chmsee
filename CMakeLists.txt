@@ -28,6 +28,18 @@ if(${LIBGCRYPT} STREQUAL "LIBGCRYPT-NOTFOUND")
   message(FATAL_ERROR "libgcrypt not found, you can find one in ftp://ftp.gnupg.org/gcrypt/libgcrypt/")
 endif()
 
+find_library(LIBXAPIAN xapian)
+if(${LIBXAPIAN} STREQUAL "LIBXAPIAN-NOTFOUND")
+  message(FATAL_ERROR "libxapian not found, you can find one in http://xapian.org/download")
+endif()
+
+find_package(Boost COMPONENTS system filesystem REQUIRED)
+
+find_library(LIBHTMLCXX htmlcxx)
+if(${LIBHTMLCXX} STREQUAL "LIBHTMLCXX-NOTFOUND")
+  message(FATAL_ERROR "libhtmlcxx not found, you can find one in http://sourceforge.net/projects/htmlcxx/files/htmlcxx/")
+endif()
+
 add_subdirectory(src)
 add_subdirectory(data)
 add_subdirectory(po)
