@@ -52,6 +52,7 @@
 #include "setup.h"
 #include "link.h"
 #include "utils/utils.h"
+#include "search_list.h"
 
 #include "models/chmfile-factory.h"
 
@@ -62,6 +63,7 @@ struct _ChmSeePrivate {
     GtkWidget       *booktree;
     GtkWidget       *bookmark_tree;
     GtkWidget       *index_tree;
+    GtkWidget       *search_list;
 
     GtkWidget       *statusbar;
     guint            scid_default;
@@ -103,6 +105,7 @@ static void open_response_cb(GtkWidget *, gint, ChmSee *);
 static void about_response_cb(GtkDialog *, gint, gpointer);
 static void booktree_link_selected_cb(GObject *, Link *, ChmSee *);
 static void bookmarks_link_selected_cb(GObject *, Link *, ChmSee *);
+static void searchlist_open_searched_page_cb(GObject *, const gchar *, ChmSee *);
 static void control_switch_page_cb(GtkNotebook *, GtkNotebookPage *, guint , ChmSee *);
 static void html_switch_page_cb(GtkNotebook *, GtkNotebookPage *, guint , ChmSee *);
 static void html_location_changed_cb(ChmseeIhtml *, const gchar *, ChmSee *);
@@ -377,6 +380,13 @@ bookmarks_link_selected_cb(GObject *ignored, Link *link, ChmSee *chmsee)
 {
   chmsee_ihtml_open_uri(get_active_html(chmsee), link->uri);
   check_history(chmsee, get_active_html(chmsee));
+}
+
+static void
+searchlist_open_searched_page_cb(GObject *ignored, const gchar * uri, ChmSee *self)
+{
+	chmsee_ihtml_open_uri(get_active_html(self), uri);
+	check_history(self, get_active_html(self));
 }
 
 static void
@@ -1286,6 +1296,14 @@ display_book(ChmSee* self, ChmseeIchmfile *book)
 			"link-selected",
 			G_CALLBACK (bookmarks_link_selected_cb),
 			self);
+
+	/* SearchList */
+	selfp->search_list = searchlist_new(chmsee_ichmfile_get_dir(selfp->book), selfp->home);
+	gtk_notebook_append_page(GTK_NOTEBOOK (selfp->control_notebook),
+				selfp->search_list,
+				gtk_label_new (_("Search")));
+	g_signal_connect(G_OBJECT (selfp->search_list), "open-searched-page",
+			G_CALLBACK (searchlist_open_searched_page_cb), self);
 
 	GtkWidget *hpaned;
 

@@ -17,6 +17,9 @@ To compile ChmSee from source you need following packages:
  * libwebkitgtk-dev >= 1.8.1
  * libchm-dev
  * libgcrypt-dev
+ * libxapian-dev >= 1.2.12
+ * libboost-filesystem-dev >= 1.49.0
+ * libhtmlcxx-dev >= 0.85
 
 Installation
 ============
