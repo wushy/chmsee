@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) 2014 Xianguang Zhou <624146104@qq.com>
+ *  Copyright (c) 2014 Xianguang Zhou <xianguang.zhou@outlook.com>
  *
  *  ChmSee is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
