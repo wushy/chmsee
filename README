@@ -19,7 +19,6 @@ To compile ChmSee from source you need following packages:
  * libgcrypt-dev
  * libxapian-dev >= 1.2.12
  * libboost-filesystem-dev >= 1.49.0
- * libhtmlcxx-dev >= 0.85
 
 Installation
 ============

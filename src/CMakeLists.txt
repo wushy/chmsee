@@ -53,7 +53,6 @@ target_link_libraries(chmseelib
   xapian
   ${Boost_FILESYSTEM_LIBRARY}
   ${Boost_SYSTEM_LIBRARY}
-  htmlcxx
   )
 
 add_executable(chmsee main.cpp)

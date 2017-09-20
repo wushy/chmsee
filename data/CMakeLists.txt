@@ -1,3 +1,5 @@
+add_custom_target(chmsee.desktop.in)
+
 add_custom_command(
 	OUTPUT chmsee.desktop
 	COMMAND intltool-merge -d ${CMAKE_SOURCE_DIR}/po ${CMAKE_CURRENT_SOURCE_DIR}/chmsee.desktop.in chmsee.desktop

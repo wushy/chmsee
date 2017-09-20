@@ -26,7 +26,7 @@
 #include <boost/property_tree/json_parser.hpp>
 #include <boost/filesystem.hpp>
 #include <xapian.h>
-#include <htmlcxx/html/ParserDom.h>
+// #include <htmlcxx/html/ParserDom.h>
 #include "marshal.h"
 #include "search_list.h"
 
@@ -236,70 +236,70 @@ static void searchlist_index(SearchList * self) {
 	Xapian::TermGenerator term_generator;
 	term_generator.set_stemmer(Xapian::Stem("en"));
 
-	htmlcxx::HTML::ParserDom parser_dom;
-
-	boost::filesystem::path book_dir_path(std::string(selfp->book_dir));
-	boost::filesystem::recursive_directory_iterator end_iter;
-	for (boost::filesystem::recursive_directory_iterator iter(book_dir_path);
-			iter != end_iter; ++iter) {
-		const boost::filesystem::path& path = iter->path();
-		std::string extension_name = boost::filesystem::extension(path);
-		if (extension_name == ".htm" || extension_name == ".html") {
-			std::ifstream html_input_file_stream(path.string().c_str());
-			std::string html(
-					(std::istreambuf_iterator<char>(html_input_file_stream)),
-					std::istreambuf_iterator<char>());
-			tree<htmlcxx::HTML::Node> node_tree = parser_dom.parseTree(html);
-			tree<htmlcxx::HTML::Node>::iterator node_tree_iter =
-					node_tree.begin();
-			tree<htmlcxx::HTML::Node>::iterator node_tree_end = node_tree.end();
-			std::ostringstream text_output_string_stream;
-			std::ostringstream title_output_string_stream;
-			bool hasTitle = false;
-			for (; node_tree_iter != node_tree_end; ++node_tree_iter) {
-				if ((!node_tree_iter->isTag())
-						&& (!node_tree_iter->isComment())) {
-					text_output_string_stream << node_tree_iter->text();
-				}
-				if (!hasTitle && node_tree_iter->tagName() == "title") {
-					for (tree<htmlcxx::HTML::Node>::sibling_iterator title_child_node_iter =
-							node_tree_iter.begin();
-							title_child_node_iter != node_tree_iter.end();
-							++title_child_node_iter) {
-						if ((!title_child_node_iter->isTag())
-								&& (!title_child_node_iter->isComment())) {
-							title_output_string_stream
-									<< title_child_node_iter->text();
-						}
-					}
-
-					hasTitle = true;
-				}
-			}
-			std::string text = text_output_string_stream.str();
-			std::string title = title_output_string_stream.str();
-
-			std::string relative_path_string = path.string().substr(
-					book_dir_path.string().length() + 1);
-
-			Xapian::Document document;
-			term_generator.set_document(document);
-
-			term_generator.index_text(text);
-
-			boost::property_tree::ptree json_tree;
-			json_tree.put<std::string>("path", relative_path_string);
-			json_tree.put<std::string>("title", title);
-			std::ostringstream json_output_string_stream;
-			boost::property_tree::json_parser::write_json(
-					json_output_string_stream, json_tree);
-			document.set_data(json_output_string_stream.str());
-
-			document.add_boolean_term(relative_path_string);
-
-			writeable_database.replace_document(relative_path_string, document);
-		}
-	}
+// 	htmlcxx::HTML::ParserDom parser_dom;
+// 
+// 	boost::filesystem::path book_dir_path(std::string(selfp->book_dir));
+// 	boost::filesystem::recursive_directory_iterator end_iter;
+// 	for (boost::filesystem::recursive_directory_iterator iter(book_dir_path);
+// 			iter != end_iter; ++iter) {
+// 		const boost::filesystem::path& path = iter->path();
+// 		std::string extension_name = boost::filesystem::extension(path);
+// 		if (extension_name == ".htm" || extension_name == ".html") {
+// 			std::ifstream html_input_file_stream(path.string().c_str());
+// 			std::string html(
+// 					(std::istreambuf_iterator<char>(html_input_file_stream)),
+// 					std::istreambuf_iterator<char>());
+// 			tree<htmlcxx::HTML::Node> node_tree = parser_dom.parseTree(html);
+// 			tree<htmlcxx::HTML::Node>::iterator node_tree_iter =
+// 					node_tree.begin();
+// 			tree<htmlcxx::HTML::Node>::iterator node_tree_end = node_tree.end();
+// 			std::ostringstream text_output_string_stream;
+// 			std::ostringstream title_output_string_stream;
+// 			bool hasTitle = false;
+// 			for (; node_tree_iter != node_tree_end; ++node_tree_iter) {
+// 				if ((!node_tree_iter->isTag())
+// 						&& (!node_tree_iter->isComment())) {
+// 					text_output_string_stream << node_tree_iter->text();
+// 				}
+// 				if (!hasTitle && node_tree_iter->tagName() == "title") {
+// 					for (tree<htmlcxx::HTML::Node>::sibling_iterator title_child_node_iter =
+// 							node_tree_iter.begin();
+// 							title_child_node_iter != node_tree_iter.end();
+// 							++title_child_node_iter) {
+// 						if ((!title_child_node_iter->isTag())
+// 								&& (!title_child_node_iter->isComment())) {
+// 							title_output_string_stream
+// 									<< title_child_node_iter->text();
+// 						}
+// 					}
+// 
+// 					hasTitle = true;
+// 				}
+// 			}
+// 			std::string text = text_output_string_stream.str();
+// 			std::string title = title_output_string_stream.str();
+// 
+// 			std::string relative_path_string = path.string().substr(
+// 					book_dir_path.string().length() + 1);
+// 
+// 			Xapian::Document document;
+// 			term_generator.set_document(document);
+// 
+// 			term_generator.index_text(text);
+// 
+// 			boost::property_tree::ptree json_tree;
+// 			json_tree.put<std::string>("path", relative_path_string);
+// 			json_tree.put<std::string>("title", title);
+// 			std::ostringstream json_output_string_stream;
+// 			boost::property_tree::json_parser::write_json(
+// 					json_output_string_stream, json_tree);
+// 			document.set_data(json_output_string_stream.str());
+// 
+// 			document.add_boolean_term(relative_path_string);
+// 
+// 			writeable_database.replace_document(relative_path_string, document);
+// 		}
+// 	}
 
 	writeable_database.close();
 }
