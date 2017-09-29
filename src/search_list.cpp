@@ -37,6 +37,9 @@ struct _SearchListPrivate {
 	GtkWidget * list;
 	GtkListStore *store;
 
+	GtkWidget * index_button;
+	GtkWidget * clear_button;
+
 	GtkWidget * path_label;
 	GtkWidget * cancel_button;
 
@@ -56,6 +59,10 @@ class TitleAndContent {
 public:
 	std::string title;
 	std::string content;
+};
+
+enum TreeViewColumnNumber {
+	TREE_VIEW_TITLE_COLUMN, TREE_VIEW_PATH_COLUMN, TREE_VIEW_COLUMNS_NUMBER
 };
 
 static void searchlist_class_init(SearchListClass *);
@@ -120,9 +127,27 @@ static void searchlist_init(SearchList* self) {
 			GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
 	gtk_box_pack_start(GTK_BOX(self), list_sw, TRUE, TRUE, 4);
 
-	selfp->store = gtk_list_store_new(1, G_TYPE_STRING);
+	selfp->store = gtk_list_store_new(TREE_VIEW_COLUMNS_NUMBER, G_TYPE_STRING,
+	G_TYPE_STRING);
 	selfp->list = gtk_tree_view_new_with_model(GTK_TREE_MODEL(selfp->store));
 	gtk_container_add(GTK_CONTAINER(list_sw), selfp->list);
+
+	GtkCellRenderer * title_cell_renderer = gtk_cell_renderer_text_new();
+	GtkTreeViewColumn * title_tree_view_column =
+			gtk_tree_view_column_new_with_attributes("Title",
+					title_cell_renderer, "text", TREE_VIEW_TITLE_COLUMN,
+					NULL);
+	gtk_tree_view_append_column(GTK_TREE_VIEW(selfp->list),
+			title_tree_view_column);
+
+	GtkCellRenderer * path_cell_renderer = gtk_cell_renderer_text_new();
+	GtkTreeViewColumn * path_tree_view_column =
+			gtk_tree_view_column_new_with_attributes("Path", path_cell_renderer,
+					"text", TREE_VIEW_PATH_COLUMN,
+					NULL);
+	gtk_tree_view_append_column(GTK_TREE_VIEW(selfp->list),
+			path_tree_view_column);
+
 	GtkTreeSelection *tree_selection = gtk_tree_view_get_selection(
 			GTK_TREE_VIEW(selfp->list));
 	gtk_tree_selection_set_mode(tree_selection, GTK_SELECTION_SINGLE);
@@ -132,14 +157,16 @@ static void searchlist_init(SearchList* self) {
 	GtkWidget * bottom_box = gtk_hbox_new(TRUE, 4);
 	gtk_box_pack_start(GTK_BOX(self), bottom_box, FALSE, TRUE, 4);
 
-	GtkWidget * index_button = gtk_button_new_with_label("Index");
-	gtk_box_pack_start(GTK_BOX(bottom_box), index_button, FALSE, TRUE, 0);
-	g_signal_connect(G_OBJECT(index_button), "clicked",
+	selfp->index_button = gtk_button_new_with_label("Index");
+	gtk_box_pack_start(GTK_BOX(bottom_box), selfp->index_button, FALSE, TRUE,
+			0);
+	g_signal_connect(G_OBJECT(selfp->index_button), "clicked",
 			G_CALLBACK(searchlist_index_button_clicked_cb), self);
 
-	GtkWidget * clear_button = gtk_button_new_with_label("Clear");
-	gtk_box_pack_start(GTK_BOX(bottom_box), clear_button, FALSE, TRUE, 0);
-	g_signal_connect(G_OBJECT(clear_button), "clicked",
+	selfp->clear_button = gtk_button_new_with_label("Clear");
+	gtk_box_pack_start(GTK_BOX(bottom_box), selfp->clear_button, FALSE, TRUE,
+			0);
+	g_signal_connect(G_OBJECT(selfp->clear_button), "clicked",
 			G_CALLBACK(searchlist_clear_button_clicked_cb), self);
 }
 
@@ -202,15 +229,20 @@ static void searchlist_clear_button_clicked_cb(GtkButton * button,
 static void searchlist_list_selection_changed_cb(
 		GtkTreeSelection * tree_selection, SearchList * self) {
 	GtkTreeIter tree_iter;
-
-	if (gtk_tree_selection_get_selected(tree_selection, NULL, &tree_iter)) {
-		std::string unescaped_uri_string = std::string("file://")
-				+ std::string(selfp->book_dir) + std::string("/")
-				+ (*((std::string *) (tree_iter.user_data)));
-		char * uri = g_uri_escape_string(unescaped_uri_string.c_str(), NULL,
-		FALSE);
+	GtkTreeModel * tree_model;
+	if (gtk_tree_selection_get_selected(tree_selection, &tree_model,
+			&tree_iter)) {
+		gchar * display_path;
+		gtk_tree_model_get(tree_model, &tree_iter, TREE_VIEW_PATH_COLUMN,
+				&display_path, -1);
+		GString * uri_string = g_string_new("file://");
+		g_string_append_uri_escaped(uri_string, selfp->book_dir, "/", FALSE);
+		g_string_append(uri_string, "/");
+		g_string_append_uri_escaped(uri_string, display_path, "/", FALSE);
+		gchar * uri = g_string_free(uri_string, FALSE);
 		g_signal_emit(self, signals[OPEN_SEARCHED_PAGE], 0, uri);
 		g_free(uri);
+		g_free(display_path);
 	}
 }
 
@@ -247,9 +279,14 @@ static void searchlist_clear_list_store(SearchList * self) {
 }
 
 static void searchlist_show_path_label(SearchList * self) {
+	gtk_widget_set_sensitive(selfp->index_button, FALSE);
+	gtk_widget_set_sensitive(selfp->clear_button, FALSE);
+	gtk_widget_set_sensitive(selfp->entry, FALSE);
+
 	if (selfp->path_label == NULL) {
 		selfp->path_label = gtk_label_new("");
-		gtk_label_set_ellipsize(GTK_LABEL(selfp->path_label), PANGO_ELLIPSIZE_START);
+		gtk_label_set_ellipsize(GTK_LABEL(selfp->path_label),
+				PANGO_ELLIPSIZE_START);
 		gtk_box_pack_start(GTK_BOX(self), selfp->path_label, FALSE,
 		TRUE, 4);
 
@@ -268,8 +305,14 @@ static void searchlist_show_path_label(SearchList * self) {
 
 static gboolean searchlist_hide_path_label(gpointer data) {
 	SearchList * self = (SearchList *) data;
-	gtk_widget_hide(selfp->path_label);
+
 	gtk_widget_hide(selfp->cancel_button);
+	gtk_widget_hide(selfp->path_label);
+
+	gtk_widget_set_sensitive(selfp->entry, TRUE);
+	gtk_widget_set_sensitive(selfp->clear_button, TRUE);
+	gtk_widget_set_sensitive(selfp->index_button, TRUE);
+
 	return FALSE;
 }
 
@@ -437,51 +480,61 @@ static gpointer searchlist_index(gpointer data) {
 }
 
 static void searchlist_search(SearchList * self) {
-// 	searchlist_clear_list_store(self);
-// 
-// 	if (!selfp->database) {
-// 		boost::filesystem::path book_index_dir_path(
-// 				std::string(selfp->home_dir) + std::string("/index/")
-// 						+ boost::filesystem::path(selfp->book_dir).filename().string());
-// 		if (!boost::filesystem::is_directory(book_index_dir_path)) {
-// 			searchlist_index(self);
-// 		}
-// 		selfp->database = new Xapian::Database(book_index_dir_path.string());
-// 	}
-// 
-// 	const gchar * text = gtk_entry_get_text(GTK_ENTRY(selfp->entry));
-// 	guint16 text_len = gtk_entry_get_text_length(GTK_ENTRY(selfp->entry));
-// 	std::string query_string(text, text_len);
-// 
-// 	Xapian::QueryParser query_parser;
-// 	query_parser.set_stemmer(Xapian::Stem("en"));
-// 	query_parser.set_stemming_strategy(Xapian::QueryParser::STEM_SOME);
-// 	Xapian::Query query = query_parser.parse_query(query_string);
-// 
-// 	Xapian::Enquire enquire(*selfp->database);
-// 	enquire.set_query(query);
-// 
-// 	Xapian::MSet match_set = enquire.get_mset(0,
-// 	selfp->database->get_doccount());
-// 	std::cout<<match_set.size()<<std::endl;
-// 	for (Xapian::MSetIterator match_set_iter = match_set.begin();
-// 			match_set_iter != match_set.end(); ++match_set_iter) {
-// 		Xapian::Document document = match_set_iter.get_document();
-// 		std::string json_data = document.get_data();
-// 		std::istringstream json_data_input_string_stream(json_data);
-// 		boost::property_tree::ptree json_tree;
-// 		boost::property_tree::json_parser::read_json(
-// 				json_data_input_string_stream, json_tree);
-// 		std::string relative_path_string = json_tree.get<std::string>("path");
-// 		std::string title = json_tree.get<std::string>("title");
-// 
-// 		GtkTreeIter tree_iter;
-// 		tree_iter.user_data = (gpointer) new std::string(relative_path_string);
-// 		gtk_list_store_append(GTK_LIST_STORE(selfp->store), &tree_iter);
-// 		gchar * display_title = (gchar *) g_malloc0(title.length() + 1);
-// 		std::strcpy(display_title, title.c_str());
-// 		gtk_list_store_set(GTK_LIST_STORE(selfp->store), &tree_iter, 0,
-// 				display_title, -1);
-// 		g_free(display_title);
-// 	}
+	searchlist_clear_list_store(self);
+
+	if (!selfp->database) {
+		boost::filesystem::path book_index_dir_path(
+				std::string(selfp->home_dir) + std::string("/index/")
+						+ boost::filesystem::path(selfp->book_dir).filename().string());
+		if (!boost::filesystem::is_directory(book_index_dir_path)) {
+			GtkWidget * message_dialog =
+					gtk_message_dialog_new(NULL, GTK_DIALOG_MODAL,
+							GTK_MESSAGE_INFO, GTK_BUTTONS_OK,
+							"The index of this book does not exist, please create the index of this book first.");
+			gtk_window_set_title(GTK_WINDOW(message_dialog), "Infomation");
+			gtk_dialog_run(GTK_DIALOG(message_dialog));
+			gtk_widget_destroy(message_dialog);
+			return;
+		}
+		selfp->database = new Xapian::Database(book_index_dir_path.string());
+	}
+
+	const gchar * text = gtk_entry_get_text(GTK_ENTRY(selfp->entry));
+	guint16 text_len = gtk_entry_get_text_length(GTK_ENTRY(selfp->entry));
+	std::string query_string(text, text_len);
+
+	Xapian::QueryParser query_parser;
+	query_parser.set_stemmer(Xapian::Stem());
+	query_parser.set_stemming_strategy(Xapian::QueryParser::STEM_SOME);
+	Xapian::Query query = query_parser.parse_query(query_string);
+
+	Xapian::Enquire enquire(*selfp->database);
+	enquire.set_query(query);
+
+	Xapian::MSet match_set = enquire.get_mset(0,
+	selfp->database->get_doccount());
+	for (Xapian::MSetIterator match_set_iter = match_set.begin();
+			match_set_iter != match_set.end(); ++match_set_iter) {
+		Xapian::Document document = match_set_iter.get_document();
+		std::string json_data = document.get_data();
+		std::istringstream json_data_input_string_stream(json_data);
+		boost::property_tree::ptree json_tree;
+		boost::property_tree::json_parser::read_json(
+				json_data_input_string_stream, json_tree);
+		std::string relative_path_string = json_tree.get<std::string>("path");
+		std::string title = json_tree.get<std::string>("title");
+
+		GtkTreeIter tree_iter;
+		gtk_list_store_append(GTK_LIST_STORE(selfp->store), &tree_iter);
+		gchar * display_title = (gchar *) g_malloc0(title.length() + 1);
+		std::strcpy(display_title, title.c_str());
+		gchar * display_path = (gchar *) g_malloc0(
+				relative_path_string.length() + 1);
+		std::strcpy(display_path, relative_path_string.c_str());
+		gtk_list_store_set(GTK_LIST_STORE(selfp->store), &tree_iter,
+				TREE_VIEW_TITLE_COLUMN, display_title, TREE_VIEW_PATH_COLUMN,
+				display_path, -1);
+		g_free(display_title);
+		g_free(display_path);
+	}
 }
