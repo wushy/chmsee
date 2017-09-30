@@ -3,7 +3,7 @@ and use GTK+ as frontend toolkit. Because of using webkit as HTML
 rendering engine, ChmSee can support rich features of modern HTML
 page, such as CSS and JavaScript.
 
-Homepage: http://code.google.com/p/chmsee
+Homepage: https://github.com/wushy/chmsee
 
 
 Dependencies

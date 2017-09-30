@@ -654,8 +654,8 @@ Ukrainain</property>
     <property name="window_position">center</property>
     <property name="type_hint">normal</property>
     <property name="comments" translatable="yes">The HTML Help(CHM) viewer for Unix/Linux</property>
-    <property name="website">https://github.com/Xianguang-Zhou/chmsee</property>
-    <property name="website_label" translatable="yes">https://github.com/Xianguang-Zhou/chmsee</property>
+    <property name="website">https://github.com/wushy/chmsee</property>
+    <property name="website_label" translatable="yes">https://github.com/wushy/chmsee</property>
     <property name="authors">zhong &lt;iam_zhong@yahoo.com.cn&gt;
 Ji YongGang &lt;jungle@soforge-studio.com&gt;
 LI Daobing &lt;lidaobing@gmail.com&gt;
