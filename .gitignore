@@ -54,3 +54,5 @@ data/default-prefs.js
 gtester.xml
 report.html
 test/test
+/.kdev4/
+*.kdev4

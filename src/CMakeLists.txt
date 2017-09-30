@@ -30,6 +30,7 @@ set(CHMSEE_SRCS
   marshal.h marshal.c
   ihtml.h ihtml.c
   html-factory.h html-factory.c
+  search_list.h search_list.cpp
   )
 set(CHMSEE_SRCS
   ${CHMSEE_SRCS}
@@ -49,6 +50,9 @@ target_link_libraries(chmseelib
   ${CHMSEE_LIBRARIES}
   chm
   gcrypt
+  xapian
+  ${Boost_FILESYSTEM_LIBRARY}
+  ${Boost_SYSTEM_LIBRARY}
   )
 
 add_executable(chmsee main.cpp)

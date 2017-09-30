@@ -1,14 +1,16 @@
 project(chmsee)
 cmake_minimum_required(VERSION 2.6 FATAL_ERROR)
-set(PACKAGE_VERSION "1.0.5" )
+set(PACKAGE_VERSION "1.0.6" )
 find_package(PkgConfig)
-pkg_check_modules (CHMSEE REQUIRED gthread-2.0 glib-2.0 libxml-2.0 gtk+-2.0 libglade-2.0 libxul-embedding-unstable)
+# pkg_check_modules (CHMSEE REQUIRED gthread-2.0 glib-2.0 libxml-2.0 gtk+-2.0 libglade-2.0 libxul-embedding-unstable)
+pkg_check_modules (CHMSEE REQUIRED gthread-2.0 glib-2.0 libxml-2.0 gtk+-2.0 libglade-2.0 webkit-1.0)
 
 set(CHMSEE_BOOKMARK_FILE "chmsee_bookmarks")
 set(CHMSEE_BOOKINFO_FILE "chmsee_bookinfo")
 set(CHMSEE_NO_LINK "chmsee_no_link")
 set(CHMSEE_DATA_DIR "${CMAKE_INSTALL_PREFIX}/share/chmsee")
-set(GECKO_FLAVOUR "libxul")
+# set(GECKO_FLAVOUR "libxul")
+set(GECKO_FLAVOUR "common")
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/src/config.h.in ${CMAKE_CURRENT_BINARY_DIR}/src/config.h)
 
 find_program(GLIB_GENMARSHAL glib-genmarshal)
@@ -25,6 +27,13 @@ find_library(LIBGCRYPT gcrypt)
 if(${LIBGCRYPT} STREQUAL "LIBGCRYPT-NOTFOUND")
   message(FATAL_ERROR "libgcrypt not found, you can find one in ftp://ftp.gnupg.org/gcrypt/libgcrypt/")
 endif()
+
+find_library(LIBXAPIAN xapian)
+if(${LIBXAPIAN} STREQUAL "LIBXAPIAN-NOTFOUND")
+  message(FATAL_ERROR "libxapian not found, you can find one in https://xapian.org/download")
+endif()
+
+find_package(Boost COMPONENTS system filesystem REQUIRED)
 
 add_subdirectory(src)
 add_subdirectory(data)

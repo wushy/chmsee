@@ -1,6 +1,7 @@
 /*
  *  Copyright (c) 2006           Ji YongGang <jungle@soforge-studio.com>
  *  Copyright (C) 2009 LI Daobing <lidaobing@gmail.com>
+ *  Copyright (c) 2014 Xianguang Zhou <xianguang.zhou@outlook.com>
  *
  *  ChmSee is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -154,6 +155,14 @@ main(int argc, char** argv)
     g_printerr(_("more than 1 argument\n"));
     return 1;
   }
+
+  gtk_rc_parse_string("style \"tab-close-button-style\" {\n"
+    			"GtkWidget::focus-padding = 0\n"
+    			"GtkWidget::focus-line-width = 0\n"
+    			"xthickness = 0\n"
+    			"ythickness = 0\n"
+    			"}\n"
+    			"widget \"*.tab-close-button\" style \"tab-close-button-style\"");
 
   /* i18n */
   bindtextdomain(GETTEXT_PACKAGE, PACKAGE_LOCALE_DIR);
