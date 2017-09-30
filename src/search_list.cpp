@@ -45,7 +45,9 @@ struct _SearchListPrivate {
 
 	const gchar * book_dir;
 	const gchar * home_dir;
+
 	std::string index_path;
+	gboolean index_thread_running;
 
 	GThread * index_thread;
 
@@ -217,6 +219,7 @@ static gboolean searchlist_entry_key_press_cb(GtkEntry *entry, GdkEvent *event,
 
 static void searchlist_index_button_clicked_cb(GtkButton * button,
 		SearchList * self) {
+	selfp->index_thread_running = TRUE;
 	searchlist_show_path_label(self);
 	selfp->index_thread = g_thread_new("index", searchlist_index, self);
 }
@@ -248,6 +251,9 @@ static void searchlist_list_selection_changed_cb(
 
 static void searchlist_cancel_button_clicked_cb(GtkButton * button,
 		SearchList * self) {
+	gtk_widget_set_sensitive(selfp->cancel_button, FALSE);
+	gtk_button_set_label(GTK_BUTTON(selfp->cancel_button), "Cancelling...");
+	selfp->index_thread_running = FALSE;
 }
 
 static void searchlist_clear(SearchList * self) {
@@ -282,6 +288,7 @@ static void searchlist_show_path_label(SearchList * self) {
 	gtk_widget_set_sensitive(selfp->index_button, FALSE);
 	gtk_widget_set_sensitive(selfp->clear_button, FALSE);
 	gtk_widget_set_sensitive(selfp->entry, FALSE);
+	gtk_button_set_label(GTK_BUTTON(selfp->index_button), "Indexing...");
 
 	if (selfp->path_label == NULL) {
 		selfp->path_label = gtk_label_new("");
@@ -297,6 +304,8 @@ static void searchlist_show_path_label(SearchList * self) {
 				G_CALLBACK(searchlist_cancel_button_clicked_cb), self);
 	} else {
 		gtk_label_set_text(GTK_LABEL(selfp->path_label), "");
+		gtk_button_set_label(GTK_BUTTON(selfp->cancel_button), "Cancel");
+		gtk_widget_set_sensitive(selfp->cancel_button, TRUE);
 	}
 
 	gtk_widget_show(selfp->path_label);
@@ -309,6 +318,7 @@ static gboolean searchlist_hide_path_label(gpointer data) {
 	gtk_widget_hide(selfp->cancel_button);
 	gtk_widget_hide(selfp->path_label);
 
+	gtk_button_set_label(GTK_BUTTON(selfp->index_button), "Index");
 	gtk_widget_set_sensitive(selfp->entry, TRUE);
 	gtk_widget_set_sensitive(selfp->clear_button, TRUE);
 	gtk_widget_set_sensitive(selfp->index_button, TRUE);
@@ -433,7 +443,7 @@ static gpointer searchlist_index(gpointer data) {
 
 	boost::filesystem::path book_dir_path(selfp->book_dir);
 	for (boost::filesystem::recursive_directory_iterator file_iter(
-			book_dir_path), end_file_iter; file_iter != end_file_iter;
+			book_dir_path), end_file_iter; selfp->index_thread_running && file_iter != end_file_iter;
 			file_iter++) {
 		if (file_iter->status().type() == boost::filesystem::regular_file) {
 			const boost::filesystem::path& file_path = file_iter->path();
