@@ -392,7 +392,8 @@ static void html_node_to_text(xmlNodePtr root_xml_node_ptr,
 
 static boost::shared_ptr<TitleAndContent> html_to_text(
 		const std::string& fileName) {
-	htmlDocPtr html_doc_ptr = htmlParseFile(fileName.c_str(), NULL);
+	htmlDocPtr html_doc_ptr = htmlReadFile(fileName.c_str(), NULL,
+			HTML_PARSE_NOERROR | HTML_PARSE_NOWARNING);
 	xmlNodePtr xml_node_ptr = html_doc_ptr->last;
 	std::ostringstream content_output;
 	std::ostringstream title_output;
